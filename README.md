@@ -11,6 +11,20 @@ that creates accounts:
 | `privacy/index.html` | `https://railbuzz.in/privacy` | Play listing + Data safety form |
 | `delete-account/index.html` | `https://railbuzz.in/delete-account` | Data safety → account deletion |
 
+## This folder lives in two repositories
+
+It is tracked in the private RailBuzz repository (its canonical home, alongside
+the app) **and** pushed to the public `railbuzz-site` repository, which is what
+GitHub Pages actually serves.
+
+That means a change here needs two pushes, and forgetting the second one leaves
+the live site silently out of date:
+
+```bash
+git -C .. add site && git -C .. commit -m "..." && git -C .. push   # private repo
+git add -A && git commit -m "..." && git push                       # published
+```
+
 ## Why this is a separate repository
 
 The app repository is private, and GitHub Pages does not serve private
