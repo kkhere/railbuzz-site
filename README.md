@@ -59,6 +59,13 @@ these. IPv6 (AAAA) records are optional; GitHub publishes those addresses too
 if you want them. Verify the current addresses against GitHub's own docs before
 relying on them — they have changed before.
 
+## A note on file names
+
+`.nojekyll` disables GitHub Pages' Jekyll build. These are plain static files
+with nothing to compile, and Jekyll silently drops anything whose name starts
+with an underscore -- which is how `_style.css` came to 404 and the pages
+rendered unstyled. Keep the file, and avoid leading underscores here.
+
 ## Before submitting to Play
 
 - **`support@railbuzz.in` must actually exist and be monitored.** It is the
