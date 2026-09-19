@@ -132,8 +132,35 @@
     <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and an anonymous account identifier</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Hosts the database holding your profile, messages, reports and blocks</td></tr>
     <tr><td><strong>RailRadar</strong></td><td>Train numbers and station codes only. No personal data is sent.</td></tr>
-    <tr><td><strong>Google Gemini</strong></td><td>Only what you type to the RailBuzz AI assistant. Ordinary passenger chat is never sent to it.</td></tr>
+    <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below.</td></tr>
   </table>
+
+  <h2>Automated safety checks on chat rooms</h2>
+  <p>
+    Chat rooms are monitored automatically for signs that a conversation has
+    turned abusive &mdash; a spike in reports and blocks, several people turning
+    on one person, or language associated with threats, sexual harassment,
+    hate, scams or someone&rsquo;s private details being posted.
+  </p>
+  <p>
+    Most of this happens inside our own database and nothing leaves it. When
+    those signals suggest a room may have turned abusive, a recent extract of
+    that room&rsquo;s messages is sent to Google Gemini for a second opinion,
+    because words alone cannot tell an argument from a threat. Before it is
+    sent:
+  </p>
+  <ul>
+    <li>passenger names are replaced with placeholders (P1, P2, and so on)</li>
+    <li>phone numbers and email addresses are removed</li>
+    <li>no account identifier, train number or travel date is included</li>
+  </ul>
+  <p>
+    The result is only ever shown to our moderators. <strong>It never
+    automatically removes a message, restricts an account or closes a
+    room</strong> &mdash; a person decides that. We deliberately do not let an
+    automated system silence a chat room, because a room may be the fastest way
+    passengers have to warn each other about a real emergency.
+  </p>
 
   <h2>Your choices</h2>
   <ul>
