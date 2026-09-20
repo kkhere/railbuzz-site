@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a RailBuzz chat room</title>
+<link rel="stylesheet" href="../style.css">
+<meta name="robots" content="noindex">
+<!--
+  Where a "Share this chat room" link lands.
+
+  Deliberately a real page rather than a custom scheme: a railbuzz:// link is a
+  dead string in WhatsApp for everyone who does not already have the app, which
+  is exactly backwards for something being shared to bring people in.
+
+  Once /.well-known/assetlinks.json exists (blocked on the Play app-signing
+  SHA-256), Android opens the app on this URL instead and this page is only
+  seen by people who do not have it. The URL does not change, so links already
+  shared keep working.
+-->
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">🚆</div>
+    <div class="brand">Rail<span>Buzz</span></div>
+  </header>
+
+  <h1 id="title">Join this chat room</h1>
+  <p id="sub">Someone shared a RailBuzz chat room with you.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">What this is</h3>
+    <p>
+      A chat room for the passengers on one train, on one day. Delays, platform
+      changes, which coach is where, and whether the pantry has come round yet
+      &mdash; from the people actually on board.
+    </p>
+    <p>
+      Rooms close shortly after the train completes its run. Everyone is
+      verified by mobile number and appears under a generated alias, never
+      their real name.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Opening it</h3>
+    <p>
+      Open RailBuzz, find <strong id="train">this train</strong>, and tap
+      <strong>Join Chat</strong>.
+    </p>
+    <p style="opacity:.75">
+      Tapping this link will open the room directly in a future release.
+    </p>
+  </div>
+
+  <footer>
+    <a href="../">RailBuzz</a> &middot;
+    <a href="../privacy/">Privacy</a> &middot;
+    <a href="mailto:support@railbuzz.in">support@railbuzz.in</a>
+  </footer>
+</div>
+
+<script>
+  // The train number comes from the query string, so it is displayed as TEXT
+  // and never as markup -- textContent, not innerHTML. It arrives from a URL a
+  // stranger may have written.
+  var q = new URLSearchParams(location.search);
+  var t = (q.get('t') || '').replace(/[^0-9A-Za-z-]/g, '').slice(0, 12);
+  var d = (q.get('d') || '').replace(/[^0-9-]/g, '').slice(0, 10);
+  if (t) {
+    document.getElementById('train').textContent = 'train ' + t;
+    document.getElementById('title').textContent = 'Join the chat for train ' + t;
+    if (d) {
+      document.getElementById('sub').textContent =
+        'Someone shared the RailBuzz chat room for train ' + t + ' on ' + d + '.';
+    }
+  }
+</script>
+</body>
+</html>
