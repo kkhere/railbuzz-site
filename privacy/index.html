@@ -21,7 +21,7 @@
 
   <h1>Privacy Policy</h1>
   <p class="updated">
-    Last updated 22 September 2026 · App: <code>com.railbuzz.app</code> · Beta release
+    Last updated 3 October 2026 · App: <code>com.railbuzz.app</code> · Beta release
   </p>
 
   <p>
@@ -37,14 +37,26 @@
     <tr><th>Data</th><th>Why</th><th>Kept</th></tr>
     <tr>
       <td><strong>Mobile number</strong></td>
-      <td>Verifying you are a real person. Chat is the core of RailBuzz, and a
-      verified number is what keeps passengers accountable for what they post.</td>
+      <td>Verifying you are a real person. You can sign in with Google instead, but
+      live chat always asks you to verify a mobile number once: a verified number is
+      what keeps passengers accountable for what they post.</td>
       <td>Until you delete your account, then a three-day safety hold — <a href="../delete-account/#what-is-kept-and-why">why</a></td>
     </tr>
     <tr>
-      <td><strong>Name</strong>, and <strong>email</strong> if you give one</td>
-      <td>Greeting you in the app. Both are private and never shown to other passengers.</td>
-      <td>Until you delete your account, then a three-day safety hold — <a href="../delete-account/#what-is-kept-and-why">why</a></td>
+      <td><strong>Name</strong> and <strong>email address</strong></td>
+      <td>If you sign in with Google, Google gives us your Google account&rsquo;s name
+      and email address; otherwise you type your name, and an email address is
+      optional. We use them to greet you and to write to you about your account.
+      Neither is ever shown to other passengers.</td>
+      <td>Until you delete your account; erased the moment you do</td>
+    </tr>
+    <tr>
+      <td><strong>Email verification</strong></td>
+      <td>To confirm an address is yours we email it a six-digit code, and once it
+      is confirmed, one welcome email. Neither is marketing. We keep only a
+      scrambled form of the code.</td>
+      <td>The code stops working after ten minutes or one use. A scrambled form of
+      the address, used to limit how many codes can be sent: one day</td>
     </tr>
     <tr>
       <td><strong>Passenger alias</strong> (e.g. <code>Traveller-392</code>)</td>
@@ -52,9 +64,18 @@
       <td>Until you delete your account, then a three-day safety hold — <a href="../delete-account/#what-is-kept-and-why">why</a></td>
     </tr>
     <tr>
-      <td><strong>Chat messages</strong></td>
-      <td>Delivering them to the other passengers in that train's room.</td>
+      <td><strong>Chat messages</strong> and <strong>help requests</strong></td>
+      <td>Delivering them to the other passengers in that train&rsquo;s room. A help
+      request holds the kind of help you asked for and, if you add them, a short
+      note, your coach and your seat.</td>
       <td>See <a href="#chat-retention">below</a></td>
+    </tr>
+    <tr>
+      <td><strong>Likes and dislikes</strong></td>
+      <td>One per message. Everyone in the room sees how many a message has, never
+      who gave them. They also count towards
+      <a href="#contribution-scores">contribution scores</a>.</td>
+      <td>Deleted with the message, or at once if you delete your account</td>
     </tr>
     <tr>
       <td><strong>Reports and blocks</strong></td>
@@ -62,14 +83,59 @@
       <td>See <a href="../delete-account/">deletion</a></td>
     </tr>
     <tr>
+      <td><strong>Trains you follow</strong></td>
+      <td>If you subscribe to a train: the train, the travel date and the two stations
+      you chose, so we can send you updates about that journey and nothing else.</td>
+      <td>Seven days after the journey, or at once if you delete your account</td>
+    </tr>
+    <tr>
+      <td><strong>Notification token</strong></td>
+      <td>A code from your phone that lets us send it notifications. It is registered
+      when you join a chat room or follow a train.</td>
+      <td>Removed when you sign out or delete your account</td>
+    </tr>
+    <tr>
       <td><strong>Approximate location</strong></td>
-      <td>Finding your nearest station, and working out whether you are travelling on
-      the train whose room you have opened.</td>
-      <td>Not stored — see below</td>
+      <td>Finding your nearest station, working out whether you are travelling on
+      the train whose room you have opened, and choosing local railway news.</td>
+      <td>Not stored — see <a href="#location">below</a></td>
+    </tr>
+    <tr>
+      <td><strong>Contribution score</strong></td>
+      <td>Worked out each night from what other passengers did with your messages.
+      Seen only by our moderators — see <a href="#contribution-scores">below</a>.</td>
+      <td>Daily figures 180 days; the score until 30 days after it was last worked
+      out; all of it at once if you delete your account</td>
+    </tr>
+    <tr>
+      <td><strong>Usage limits</strong></td>
+      <td>The time of each question to the RailBuzz AI assistant and of each live
+      train lookup, to enforce the daily limits. Never the question itself, and
+      never a PNR number.</td>
+      <td>Until you delete your account</td>
+    </tr>
+    <tr>
+      <td><strong>Railway news you have been shown</strong></td>
+      <td>So the assistant does not show you the same story twice.</td>
+      <td>Three days</td>
+    </tr>
+    <tr>
+      <td><strong>Support requests</strong></td>
+      <td>What you write to Contact Support, an email address for the reply if you
+      give one, and the app version, so we can answer you and keep the record the
+      law requires.</td>
+      <td>Kept as a record. Three days after you delete your account, your words and
+      email address are removed; what remains says only that a request of that kind
+      was made and how it was handled</td>
+    </tr>
+    <tr>
+      <td><strong>Feedback</strong></td>
+      <td>Ratings and comments you send from the app, to improve it.</td>
+      <td>Deleted three days after you delete your account</td>
     </tr>
     <tr>
       <td><strong>Usage events</strong> (screens opened, messages sent)</td>
-      <td>Understanding which features are used during the beta.</td>
+      <td>Understanding which features are used, so we know what to improve.</td>
       <td>Unlinked from you on deletion</td>
     </tr>
     <tr>
@@ -86,18 +152,27 @@
       <tr><td>Passengers in the room</td><td>Until 15 minutes after the train completes its run</td></tr>
       <tr><td>RailBuzz, for safety review</td><td>3 days, then deleted</td></tr>
       <tr><td>Messages that were reported</td><td>Up to 90 days</td></tr>
+      <tr><td>Messages other passengers reacted to, reported or blocked over, with the three before and after them</td><td>14 days, our moderators only</td></tr>
     </table>
   </div>
   <p>
-    A train's chat room exists for that journey only. Once the train arrives the
-    room closes for passengers, and the messages are deleted within three days.
+    A train&rsquo;s chat room exists for that journey only. Once the train arrives the
+    room closes for passengers, and its messages and help requests are deleted
+    within three days.
   </p>
   <p>
     Where a message has been <strong>reported</strong>, we keep a copy of it and
     of the surrounding conversation for up to 90 days, so the report can be
     reviewed properly and so we can respond to a lawful request from the police
-    or a government authority. This is the only chat that outlives the three
-    days, and it is deleted automatically once that period ends.
+    or a government authority.
+  </p>
+  <p>
+    Where other passengers <strong>liked, disliked, reported or blocked</strong>
+    someone over a message, we keep a copy of that message and of the three
+    messages before and after it for 14 days, so our moderators can see what a
+    <a href="#contribution-scores">contribution score</a> rests on. These two
+    kinds of copy are the only chat that outlives the three days, and both are
+    deleted automatically when their period ends.
   </p>
   <p>
     <strong>Deleting your account does not shorten the three days.</strong> Your
@@ -106,21 +181,31 @@
     days that already apply to everyone else, and then erased. Otherwise deleting
     an account would be the quickest way to destroy the evidence of harassing
     somebody. The same number also cannot register again during those three days.
+    Your help requests, likes and dislikes, the trains you follow and your
+    contribution score are deleted at once.
     <a href="../delete-account/">Full detail on the deletion page</a>.
   </p>
 
-  <h2>Location, specifically</h2>
+  <h2 id="location">Location, specifically</h2>
   <div class="card">
     <p style="margin-top:0">
       <strong>We do not store your location, and we never send your coordinates to
       our servers.</strong>
     </p>
+    <p>
+      Your position is used on your device to work out three things: the nearest
+      railway station, how far you are from the track of the train whose chat room
+      you have opened, and which town and state you are in. Only results leave the
+      device: the distance as a coarse range such as &ldquo;2&ndash;10 km&rdquo;,
+      and, when you ask the assistant for railway news, the town and state, such as
+      &ldquo;Secunderabad, Telangana&rdquo;, so it can choose news for your area.
+      Never a latitude and longitude.
+    </p>
     <p style="margin-bottom:0">
-      Your position is used on your device to work out two things: the nearest
-      railway station, and how far you are from the track of the train whose chat
-      room you have opened. Only the <em>result</em> leaves the device, as a coarse
-      range such as "2–10 km", never a latitude and longitude. There is no location
-      history, and your city, village or address is never shown to other passengers.
+      Turning a position into a town name is done by Android&rsquo;s built-in
+      geocoder, which on most phones asks Google&rsquo;s location service; RailBuzz
+      does not receive the coordinates. There is no location history, and where you
+      are is never shown to other passengers.
     </p>
   </div>
   <p>
@@ -130,9 +215,11 @@
 
   <h2>What other passengers can see</h2>
   <p>
-    Only your <strong>passenger alias</strong> and the <strong>messages you
-    post</strong>. Your mobile number, name, email and location are never shown to
-    anyone else using the app.
+    Only your <strong>passenger alias</strong>, the <strong>messages and help
+    requests you post</strong>, and how many likes and dislikes each message has.
+    Your mobile number, name, email, location and contribution score are never
+    shown to anyone else using the app, and nobody can see which messages you
+    liked or disliked.
   </p>
   <p>
     Chat rooms are public to the passengers in them. Please do not post anything in
@@ -143,15 +230,17 @@
   <p>We do not sell your data and we do not use it for advertising. We use these providers:</p>
   <table>
     <tr><th>Provider</th><th>What reaches them</th></tr>
-    <tr><td><strong>Google Firebase</strong> (Authentication)</td><td>Your mobile number, to send and check the verification code</td></tr>
-    <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and an anonymous account identifier</td></tr>
-    <tr><td><strong>Supabase</strong></td><td>Hosts the database holding your profile, messages, reports and blocks</td></tr>
-    <tr><td><strong>RailRadar</strong></td><td>Train numbers and station codes only. No personal data is sent.</td></tr>
-    <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below.</td></tr>
-    <tr><td><strong>Resend</strong></td><td>Delivers safety alert emails to our support address. These name the account identifier of a reported passenger and say why the alert was raised. They never contain your messages, your mobile number or your alias.</td></tr>
+    <tr><td><strong>Google Firebase</strong> (Authentication)</td><td>Your mobile number, to send and check the verification code. If you sign in with Google, your Google account&rsquo;s name and email address</td></tr>
+    <tr><td><strong>Google Firebase</strong> (Cloud Messaging)</td><td>Your phone&rsquo;s notification token, and the text of each notification: in chat, the sender&rsquo;s alias and the start of the message, with long numbers hidden; for a train you follow, its running status</td></tr>
+    <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and your account identifier, a random code that is not your number or name</td></tr>
+    <tr><td><strong>Supabase</strong></td><td>Hosts the database and the server functions that hold your account and everything listed above</td></tr>
+    <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
+    <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below</td></tr>
+    <tr><td><strong>OpenAI</strong></td><td>Messages other passengers liked, disliked, reported or blocked over, with the messages around them, when we check whether that reaction was fair &mdash; see <a href="#contribution-scores">below</a>. OpenAI does not train its models on what it is sent through its API, and keeps it for up to 30 days to detect abuse of its service</td></tr>
+    <tr><td><strong>Resend</strong></td><td>Sends the verification code and the welcome email to the address you give us. Also delivers safety alert emails to our support address; these name the account identifier of a reported passenger and say why the alert was raised. They never contain your messages, your mobile number or your alias</td></tr>
   </table>
   <p>
-    Resend receives these alerts only when our automated checks escalate
+    Resend receives safety alerts only when our automated checks escalate
     something &mdash; a passenger collecting repeated reports, or a chat room
     flagged for review. Most accounts never appear in one.
   </p>
@@ -183,11 +272,45 @@
     passengers have to warn each other about a real emergency.
   </p>
 
+  <h2 id="contribution-scores">Contribution scores</h2>
+  <p>
+    Each night we work out a contribution score for passengers who chatted, from
+    what <em>other</em> passengers did: how many different people liked or
+    disliked their messages, replied to them or found a reply helpful, and any
+    reports, blocks or posting blocks. How much someone writes earns nothing.
+    Praise counts for less as it ages, and so, more slowly, does misconduct.
+  </p>
+  <p>
+    The score is seen only by our moderators. We use it to find the passengers who
+    help others most &mdash; in future, for badges and a Trusted Contributor
+    status &mdash; and those who cause problems. <strong>It never restricts an
+    account by itself</strong>; a person decides any action.
+  </p>
+  <p>
+    To check whether a reaction was fair, a message other passengers liked,
+    disliked, reported or blocked over may be sent to OpenAI with the three
+    messages before and after it. Before it is sent:
+  </p>
+  <ul>
+    <li>passenger names are replaced with placeholders (P1, P2, and so on)</li>
+    <li>phone numbers and email addresses are removed</li>
+    <li>no account identifier, train number or travel date is included</li>
+  </ul>
+  <p>
+    OpenAI answers only whether each reaction fits what was said. It never gives a
+    score: our own fixed rules turn its answers into points, and a moderator&rsquo;s
+    decision on a report always overrides it.
+  </p>
+
   <h2>Your choices</h2>
   <ul>
     <li><strong>Delete your account and data</strong> at any time, from the app menu.
       See <a href="../delete-account/">Deleting your RailBuzz account</a>.</li>
     <li><strong>Turn off location</strong> in Android settings. The app keeps working.</li>
+    <li><strong>Turn off notifications</strong> in Android settings, or mute a chat
+      room from its menu.</li>
+    <li><strong>Stop following a train</strong> at any time.</li>
+    <li><strong>Take back a like or dislike</strong> by tapping it again.</li>
     <li><strong>Reshuffle your alias</strong> from the profile screen.</li>
     <li><strong>Ask for a copy of your data</strong> by emailing us.</li>
   </ul>
