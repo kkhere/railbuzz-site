@@ -21,7 +21,7 @@
 
   <h1>Privacy Policy</h1>
   <p class="updated">
-    Last updated 3 October 2026 · App: <code>com.railbuzz.app</code> · Beta release
+    Last updated 6 October 2026 · App: <code>com.railbuzz.app</code> · Beta release
   </p>
 
   <p>
@@ -38,9 +38,19 @@
     <tr>
       <td><strong>Mobile number</strong></td>
       <td>Verifying you are a real person. You can sign in with Google instead, but
-      live chat always asks you to verify a mobile number once: a verified number is
-      what keeps passengers accountable for what they post.</td>
+      live chat needs your mobile number verified with the code from the SMS on the
+      phone you chat from: a verified number is what keeps passengers accountable for
+      what they post.</td>
       <td>Until you delete your account, then a three-day safety hold — <a href="../delete-account/#what-is-kept-and-why">why</a></td>
+    </tr>
+    <tr>
+      <td><strong>Live chat phone check</strong></td>
+      <td>When and how your number was verified with the code from the SMS on the
+      phone you chat from, a scrambled form of the number, and a random ID the app
+      makes for itself, so we know when to ask again &mdash; see
+      <a href="#phone-check">below</a>.</td>
+      <td>Until 30 days after its 180 days end; at once if you delete your
+      account</td>
     </tr>
     <tr>
       <td><strong>Name</strong> and <strong>email address</strong></td>
@@ -134,7 +144,8 @@
       <td>Deleted three days after you delete your account</td>
     </tr>
     <tr>
-      <td><strong>Usage events</strong> (screens opened, messages sent)</td>
+      <td><strong>Usage events</strong> (screens opened, messages sent, whether a
+      sign-in code was filled in from the SMS or typed)</td>
       <td>Understanding which features are used, so we know what to improve.</td>
       <td>Unlinked from you on deletion</td>
     </tr>
@@ -181,9 +192,33 @@
     days that already apply to everyone else, and then erased. Otherwise deleting
     an account would be the quickest way to destroy the evidence of harassing
     somebody. The same number also cannot register again during those three days.
-    Your help requests, likes and dislikes, the trains you follow and your
-    contribution score are deleted at once.
+    Your help requests, likes and dislikes, the trains you follow, your live chat
+    phone checks and your contribution score are deleted at once.
     <a href="../delete-account/">Full detail on the deletion page</a>.
+  </p>
+
+  <h2 id="phone-check">The live chat phone check</h2>
+  <p>
+    Live chat opens once your mobile number has been verified on the phone you are
+    using, with the code from the SMS: when you sign in with your number, when you
+    verify it in your profile, or when Join Chat asks. When the code arrives,
+    Android asks whether RailBuzz may read that one message; if you tap Allow, the
+    code is filled in from it. RailBuzz has no permission to read your SMS and never
+    sees any other message. A code you type yourself still signs you in or verifies
+    the number, but live chat then asks you to verify it from the SMS.
+  </p>
+  <p>
+    We record when the number was verified and how, with a scrambled form of the
+    number and a random ID that the app makes for itself and sends with its
+    requests to our server, so we know which phone verified it. Live chat then stays
+    open on that phone for 180 days, also after you sign out. It asks again after
+    that, when the SIM is changed or removed, when your number changes, and on a new
+    phone or after reinstalling the app.
+  </p>
+  <p>
+    To notice a SIM being changed or removed, the app keeps a scrambled summary of
+    which SIM slots hold a SIM and, when there is only one, which network it is on.
+    It needs no permission for this, and the summary never leaves your phone.
   </p>
 
   <h2 id="location">Location, specifically</h2>
