@@ -53,6 +53,13 @@
       account</td>
     </tr>
     <tr>
+      <td><strong>Changes of mobile number</strong></td>
+      <td>If you move your account to a new number: when, from which phone, and the
+      old and new numbers in scrambled form, so that changing number can&rsquo;t be
+      used to get round a chat block &mdash; see <a href="#changing-number">below</a>.</td>
+      <td>A year after each change, also if you delete your account</td>
+    </tr>
+    <tr>
       <td><strong>Name</strong> and <strong>email address</strong></td>
       <td>If you sign in with Google, Google gives us your Google account&rsquo;s name
       and email address; otherwise you type your name, and an email address is
@@ -221,6 +228,27 @@
     It needs no permission for this, and the summary never leaves your phone.
   </p>
 
+  <h2 id="changing-number">Changing your mobile number</h2>
+  <p>
+    You can move your account to a new number from your profile or Settings. Your
+    Google account must be linked to RailBuzz first &mdash; if you signed up with your
+    number, the app asks you to link it: your Gmail stays with your account, so you
+    can always sign back in, even without your old SIM. The new number is then
+    verified with the code from the SMS on this phone, as for live chat; a code you
+    type yourself doesn&rsquo;t count here. Live chat stays open on this phone with
+    the new number. Your alias, reputation and followed trains
+    stay with your account. You can change your number once every 30 days.
+  </p>
+  <p>
+    We record each change: when it happened, which phone made it (the random ID
+    above), and the old and new numbers in scrambled form. The record is kept for a
+    year, also if you delete your account in the meantime. For three days the old
+    number can&rsquo;t start or join another RailBuzz account, and a chat block that
+    is running carries on with your new number and stays with the old one until it
+    ends. We email your Google address to tell you the number changed, with only the
+    last four digits of the new one.
+  </p>
+
   <h2 id="location">Location, specifically</h2>
   <div class="card">
     <p style="margin-top:0">
@@ -272,7 +300,7 @@
     <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
     <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below</td></tr>
     <tr><td><strong>OpenAI</strong></td><td>Messages other passengers liked, disliked, reported or blocked over, with the messages around them, when we check whether that reaction was fair &mdash; see <a href="#contribution-scores">below</a>. OpenAI does not train its models on what it is sent through its API, and keeps it for up to 30 days to detect abuse of its service</td></tr>
-    <tr><td><strong>Resend</strong></td><td>Sends the verification code and the welcome email to the address you give us. Also delivers safety alert emails to our support address; these name the account identifier of a reported passenger and say why the alert was raised. They never contain your messages, your mobile number or your alias</td></tr>
+    <tr><td><strong>Resend</strong></td><td>Sends the verification code and the welcome email to the address you give us, and the email telling your Google address that your mobile number changed. Also delivers safety alert emails to our support address; these name the account identifier of a reported passenger and say why the alert was raised. They never contain your messages, your mobile number or your alias</td></tr>
   </table>
   <p>
     Resend receives safety alerts only when our automated checks escalate
