@@ -1,0 +1,114 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+/* RailBuzz: night-train navy with signal orange. Dark by design. */
+:root {
+  --radius: 0.875rem;
+  --background: oklch(0.2 0.04 255);
+  --foreground: oklch(0.95 0.01 245);
+  --card: oklch(0.25 0.045 255);
+  --card-foreground: oklch(0.95 0.01 245);
+  --popover: oklch(0.25 0.045 255);
+  --popover-foreground: oklch(0.95 0.01 245);
+  --primary: oklch(0.72 0.18 50);
+  --primary-glow: oklch(0.8 0.14 62);
+  --primary-foreground: oklch(0.18 0.04 255);
+  --secondary: oklch(0.29 0.05 255);
+  --secondary-foreground: oklch(0.95 0.01 245);
+  --muted: oklch(0.29 0.05 255);
+  --muted-foreground: oklch(0.74 0.035 245);
+  --accent: oklch(0.32 0.06 255);
+  --accent-foreground: oklch(0.95 0.01 245);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.34 0.05 255);
+  --input: oklch(0.34 0.05 255);
+  --ring: oklch(0.72 0.18 50);
+  --chart-1: oklch(0.72 0.18 50);
+  --chart-2: oklch(0.78 0.12 200);
+  --chart-3: oklch(0.82 0.14 90);
+  --chart-4: oklch(0.65 0.15 300);
+  --chart-5: oklch(0.7 0.14 150);
+  --gradient-primary: linear-gradient(150deg, var(--primary-glow), var(--primary));
+  --gradient-hero: linear-gradient(90deg, oklch(0.17 0.04 255 / 0.95) 0%, oklch(0.17 0.04 255 / 0.7) 45%, oklch(0.17 0.04 255 / 0.1) 100%);
+  --shadow-glow: 0 18px 40px -16px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+}
+
+@utility bg-gradient-primary { background-image: var(--gradient-primary); }
+@utility bg-gradient-hero { background-image: var(--gradient-hero); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+
+/* Policy text, carried over word for word from the original pages. */
+@utility legal {
+  color: var(--muted-foreground);
+  line-height: 1.75;
+  & h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; color: var(--primary); scroll-margin-top: 6rem; }
+  & h3 { font-size: 1.05rem; margin: 1.5rem 0 0.4rem; color: var(--foreground); }
+  & p { margin: 0.75rem 0; }
+  & ul, & ol { margin: 0.75rem 0; padding-left: 1.4rem; }
+  & ul { list-style: disc; }
+  & ol { list-style: decimal; }
+  & li { margin: 0.4rem 0; }
+  & strong { color: var(--foreground); }
+  & a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+  & code { background: var(--secondary); padding: 0.1rem 0.4rem; border-radius: 0.35rem; font-size: 0.875em; }
+  & .updated { font-size: 0.875rem; margin-top: 0; }
+  & .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+  & .table-scroll { overflow-x: auto; margin: 1rem 0; }
+  & table { width: 100%; border-collapse: collapse; min-width: 32rem; }
+  & th, & td { text-align: left; vertical-align: top; padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--border); font-size: 0.925rem; }
+  & th { color: var(--foreground); }
+  & [id] { scroll-margin-top: 6rem; }
+}

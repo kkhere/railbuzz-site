@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /room
+
+Sitemap: https://railbuzz.in/sitemap.xml
