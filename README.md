@@ -127,10 +127,14 @@ button from a site builder rewrites records here. Read what it changes first.
   email it.
 - Re-read the retention claims in both pages if the data model changes.
 
-## Not here yet
+## Android App Links
 
-`/.well-known/assetlinks.json` (it would go in `public/.well-known/`), for
-Android App Links — the thing that lets a shared chat-room link open the app
-instead of a browser. It needs the SHA-256 fingerprint of the certificate Play
-signs with, which is **not** the upload certificate, so it can only be written
-after the first upload to Play Console (Release → Setup → App signing).
+`public/.well-known/assetlinks.json` (published at
+<https://railbuzz.in/.well-known/assetlinks.json>, 18 October 2026) lets a
+shared chat-room link open the app instead of a browser. It names two
+certificates by SHA-256: the one **Play signs with** (`B6:17:D8:ED:…:6F:08`,
+Play Console → App integrity → App signing → App signing key), which every
+install from Play carries, and our upload key (`09:AA:7D:70:…:1C:8D`), for a
+release APK installed outside Play. The app claims `https://railbuzz.in/room…`
+in its manifest from 1.0 (12). Keep the file's name, path and JSON exactly as
+they are: Android fetches it as is, with no redirect.
