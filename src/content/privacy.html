@@ -1,5 +1,5 @@
 <p class="updated">
-    Last updated 18 October 2026 · App: <code>com.railbuzz.app</code> · Beta release
+    Last updated 3 November 2026 · App: <code>com.railbuzz.app</code>
   </p>
 
   <p>
@@ -86,8 +86,39 @@
     <tr>
       <td><strong>Notification token</strong></td>
       <td>A code from your phone that lets us send it notifications. It is registered
-      when you join a chat room or follow a train.</td>
+      when you sign in, each time you open the app, when you join a chat room and
+      when you follow a train, with the app&rsquo;s random ID for that phone (see
+      <a href="#phone-check">below</a>), so an alert about your account is not
+      sent to the phone it happened on.</td>
       <td>Removed when you sign out or delete your account</td>
+    </tr>
+    <tr>
+      <td><strong>Phones your account is used on</strong></td>
+      <td>The app&rsquo;s random ID for each phone your account is used on, and when
+      it was first and last used there, so your other phones can be told when your
+      account is signed in on a new one. Nothing else about the phone.</td>
+      <td>Forgotten a year after the phone was last used, or at once if you delete
+      your account</td>
+    </tr>
+    <tr>
+      <td><strong>Account alerts</strong></td>
+      <td>When your account is signed in, or a code is checked, on another phone, or
+      your number is verified for live chat on another phone, your other phones get a
+      notification and see a notice in the app, with a button to log out of all
+      phones. It says when it happened, and nothing about the other phone.</td>
+      <td>30 days, or at once if you delete your account</td>
+    </tr>
+    <tr>
+      <td><strong>Sign-in and device log</strong></td>
+      <td>Each sign-in and code check, live chat verification, change of number and
+      &ldquo;log out of all phones&rdquo;: when, on which phone (the app&rsquo;s random
+      ID), how the code arrived (read from the SMS or typed), and the result of Google
+      Play&rsquo;s integrity check &mdash; whether the app is the one from Google Play
+      and the phone a genuine Android device. We use it to spot unusual patterns, such
+      as many phone changes or one phone switching between accounts, and look into
+      them. It cannot tell us who holds a SIM, and nothing happens to your account
+      automatically because of it.</td>
+      <td>90 days, or at once if you delete your account</td>
     </tr>
     <tr>
       <td><strong>Approximate location</strong></td>
@@ -206,7 +237,9 @@
     requests to our server, so we know which phone verified it. Live chat then stays
     open on that phone for 180 days, also after you sign out. It asks again after
     that, when the SIM is changed or removed, when your number changes, and on a new
-    phone or after reinstalling the app.
+    phone or after reinstalling the app. A number is verified for live chat on one
+    phone at a time: verifying it on another phone ends live chat on this one, and
+    this phone is told.
   </p>
   <p>
     To notice a SIM being changed or removed, the app keeps a scrambled summary of
@@ -280,7 +313,8 @@
   <div class="table-scroll"><table>
     <tr><th>Provider</th><th>What reaches them</th></tr>
     <tr><td><strong>Google Firebase</strong> (Authentication)</td><td>Your mobile number, to send and check the verification code. If you sign in with Google, your Google account&rsquo;s name and email address</td></tr>
-    <tr><td><strong>Google Firebase</strong> (Cloud Messaging)</td><td>Your phone&rsquo;s notification token, and the text of each notification: in chat, the sender&rsquo;s alias and the start of the message, with long numbers hidden; for a train you follow, its running status</td></tr>
+    <tr><td><strong>Google Firebase</strong> (Cloud Messaging)</td><td>Your phone&rsquo;s notification token, and the text of each notification: in chat, the sender&rsquo;s alias and the start of the message, with long numbers hidden; for a train you follow, its running status; for an account alert, what happened and when</td></tr>
+    <tr><td><strong>Google Play</strong> (Integrity API)</td><td>When a code is checked, Google Play checks that the app came from Google Play and runs on a genuine Android device, and tells our server the result. The request is tied to that one check; it carries no name, number or message</td></tr>
     <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and your account identifier, a random code that is not your number or name</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Hosts the database and the server functions that hold your account and everything listed above</td></tr>
     <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
@@ -377,8 +411,8 @@
   <p>
     Traffic between the app and our servers uses HTTPS. Access to your data is
     enforced at the database level, so one passenger cannot read another's profile,
-    private details or reports. This is a beta release, and while we take security
-    seriously, no system can be guaranteed perfectly secure.
+    private details or reports. We take security seriously, but no system can be
+    guaranteed perfectly secure.
   </p>
 
   <h2>Children</h2>
