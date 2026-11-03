@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import html from "@/content/community-guidelines.html?raw";
 import { LegalPage } from "@/components/site-layout";
+import { RoomFactsGlance } from "@/components/at-a-glance";
 import { pageHead } from "@/lib/legal-page";
 
 export const Route = createFileRoute("/community-guidelines")({
@@ -9,5 +10,5 @@ export const Route = createFileRoute("/community-guidelines")({
 });
 
 function CommunityGuidelinesPage() {
-  return <LegalPage title="Community Guidelines" html={html} />;
+  return <LegalPage title="Community Guidelines" html={html} glance={<RoomFactsGlance />} />;
 }

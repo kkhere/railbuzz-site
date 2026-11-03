@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import html from "@/content/privacy.html?raw";
 import { LegalPage } from "@/components/site-layout";
+import { RetentionGlance } from "@/components/at-a-glance";
 import { pageHead } from "@/lib/legal-page";
 
 export const Route = createFileRoute("/privacy")({
@@ -9,5 +10,5 @@ export const Route = createFileRoute("/privacy")({
 });
 
 function PrivacyPage() {
-  return <LegalPage title="Privacy Policy" html={html} />;
+  return <LegalPage title="Privacy Policy" html={html} glance={<RetentionGlance />} />;
 }

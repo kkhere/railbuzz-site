@@ -1,5 +1,8 @@
 export const SITE_URL = "https://railbuzz.in";
 
+/** RailBuzz on Google Play. */
+export const PLAY_URL = "https://play.google.com/store/apps/details?id=com.railbuzz.app";
+
 /** A page's address as GitHub Pages serves it: /privacy/, not /privacy. */
 export const pageUrl = (path: string) => SITE_URL + (path.endsWith("/") ? path : path + "/");
 

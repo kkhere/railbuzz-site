@@ -1,4 +1,7 @@
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Clock, ShieldCheck, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 // Every figure below is taken from the published Privacy Policy and Grievance pages.
 const retention = [
@@ -64,5 +67,60 @@ export function GrievanceChart() {
         </BarChart>
       </ResponsiveContainer>
     </div>
+  );
+}
+
+/** The card each policy page's "at a glance" summary sits in. */
+function GlanceCard({ icon: Icon, title, note, children }: { icon: LucideIcon; title: string; note: string; children: ReactNode }) {
+  return (
+    <section className="rounded-2xl border border-border bg-card p-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">At a glance</p>
+      <h2 className="mt-2 flex items-center gap-2 text-lg font-semibold"><Icon className="size-4 text-primary" /> {title}</h2>
+      <p className="mb-4 mt-1 text-sm text-muted-foreground">{note}</p>
+      {children}
+    </section>
+  );
+}
+
+/** /privacy: how long chat is kept. */
+export function RetentionGlance() {
+  return (
+    <GlanceCard icon={Clock} title="How long chat messages are kept" note="Log scale — most chat is gone within days.">
+      <RetentionChart />
+      <a href="#chat-retention" className="text-sm text-primary">Read the details →</a>
+    </GlanceCard>
+  );
+}
+
+/** /grievance: the complaint timelines. */
+export function GrievanceGlance() {
+  return (
+    <GlanceCard icon={ShieldCheck} title="Complaint timelines (days)" note="The longest we take to acknowledge, respond and resolve.">
+      <GrievanceChart />
+    </GlanceCard>
+  );
+}
+
+// From the Community Guidelines, Privacy Policy, Grievance and Terms pages.
+const roomFacts = [
+  { value: "15 min", label: "after the run, a room closes" },
+  { value: "7", label: "community rules, in seven languages" },
+  { value: "24 h", label: "to acknowledge a content complaint" },
+  { value: "18+", label: "minimum age to use RailBuzz" },
+];
+
+/** /community-guidelines: four numbers about chat rooms. */
+export function RoomFactsGlance() {
+  return (
+    <GlanceCard icon={Users} title="Chat rooms in four numbers" note="Taken from our published policies.">
+      <div className="grid grid-cols-2 gap-3">
+        {roomFacts.map((s) => (
+          <div key={s.label} className="rounded-xl border border-border bg-background p-4">
+            <div className="font-display text-2xl font-bold text-primary">{s.value}</div>
+            <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </GlanceCard>
   );
 }

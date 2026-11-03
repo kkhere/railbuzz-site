@@ -18,7 +18,7 @@ here, on GitHub Pages; the domain is not connected to Lovable.
 | `src/content/grievance.html` | `/grievance/` | Rule 3(2) officer + DPDP Rule 14(3) timelines |
 | `src/content/delete-account.html` | `/delete-account/` | Data safety → account deletion |
 | `src/routes/room.tsx` | `/room/?t=<train>&d=<date>` | Landing page for a shared chat-room link |
-| `src/routes/index.tsx` | `/` | Home page, with the "at a glance" charts |
+| `src/routes/index.tsx` | `/` | Home page: what the app does, how it works, FAQ |
 
 The app links to `/privacy/`, `/terms/`, `/grievance/` and
 `/room/?t=…&d=…` with these exact spellings. Keep them working.
@@ -32,10 +32,12 @@ commitments, and copies of them exist in the app.
 Change "Last updated" at the top of a page whenever its meaning changes, using
 the date the change is **published**.
 
-The home page charts (`src/components/at-a-glance.tsx`) and number cards
-(`src/routes/index.tsx`) only show figures already published in these pages.
-A retention or complaint-timeline change means updating them too. Never put an
-invented statistic there.
+The "At a glance" summaries in `src/components/at-a-glance.tsx` (the chat
+retention chart on `/privacy/`, the complaint timelines on `/grievance/`, the
+four chat-room numbers on `/community-guidelines/`) and the home page's FAQ and
+safety cards (`src/routes/index.tsx`) only show figures already published in
+these pages. A retention or complaint-timeline change means updating them too.
+Never put an invented statistic there.
 
 ## Two things here are copies, and copies drift
 

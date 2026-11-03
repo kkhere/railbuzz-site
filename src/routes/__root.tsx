@@ -61,6 +61,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Live train information and chat with fellow passengers on Indian Railways." },
       { name: "theme-color", content: "#051532" },
       { property: "og:site_name", content: "RailBuzz" },
+      { property: "og:locale", content: "en_IN" },
+      // The picture a shared railbuzz.in link shows (WhatsApp, X, Facebook).
+      { property: "og:image", content: "https://railbuzz.in/og-image.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "RailBuzz: live train status, and a chat room for your train." },
+      { name: "twitter:image", content: "https://railbuzz.in/og-image.jpg" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import html from "@/content/grievance.html?raw";
 import { LegalPage } from "@/components/site-layout";
+import { GrievanceGlance } from "@/components/at-a-glance";
 import { pageHead } from "@/lib/legal-page";
 
 export const Route = createFileRoute("/grievance")({
@@ -9,5 +10,5 @@ export const Route = createFileRoute("/grievance")({
 });
 
 function GrievancePage() {
-  return <LegalPage title="Grievance Redressal" html={html} />;
+  return <LegalPage title="Grievance Redressal" html={html} glance={<GrievanceGlance />} />;
 }

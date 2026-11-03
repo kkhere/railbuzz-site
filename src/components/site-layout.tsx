@@ -71,13 +71,30 @@ export function SiteFooter() {
   );
 }
 
-export function LegalPage({ title, html }: { title: string; html: string }) {
+/**
+ * A policy page. `glance` is an optional visual summary, shown just below the
+ * "Last updated" line (each page's first paragraph) and above the text itself.
+ */
+export function LegalPage({ title, html, glance }: { title: string; html: string; glance?: ReactNode }) {
+  const end = html.indexOf("</p>") + "</p>".length;
+  const split = Boolean(glance) && html.trimStart().startsWith('<p class="updated">') && end > 4;
   return (
     <main className="mx-auto max-w-3xl px-5 pt-14">
       <Link to="/" className="text-sm text-muted-foreground hover:text-primary">← RailBuzz</Link>
       <h1 className="mt-4 text-4xl font-bold md:text-5xl">{title}</h1>
       {/* Static, trusted policy text bundled with the site. */}
-      <article className="legal mt-4" dangerouslySetInnerHTML={{ __html: html }} />
+      {split ? (
+        <>
+          <div className="legal mt-4" dangerouslySetInnerHTML={{ __html: html.slice(0, end) }} />
+          <div className="mt-6">{glance}</div>
+          <article className="legal" dangerouslySetInnerHTML={{ __html: html.slice(end) }} />
+        </>
+      ) : (
+        <>
+          <article className="legal mt-4" dangerouslySetInnerHTML={{ __html: html }} />
+          {glance && <div className="mt-10">{glance}</div>}
+        </>
+      )}
     </main>
   );
 }

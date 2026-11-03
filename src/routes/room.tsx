@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { pageHead } from "@/lib/legal-page";
-
-const PLAY = "https://play.google.com/store/apps/details?id=com.railbuzz.app";
+import { PLAY_URL as PLAY, pageHead } from "@/lib/legal-page";
 
 // The same link as an Android intent for RailBuzz itself: the app opens on the
 // room when it is installed, whether or not Android has verified railbuzz.in
