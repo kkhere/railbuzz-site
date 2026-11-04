@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { TrainFront } from "lucide-react";
 import type { ReactNode } from "react";
+import logo from "@/assets/railbuzz-logo.webp";
 
 const nav = [
   { to: "/terms", label: "Terms" },
@@ -12,9 +12,8 @@ const nav = [
 export function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2.5 font-display text-xl font-bold">
-      <span className="grid size-9 place-items-center rounded-lg bg-gradient-primary text-primary-foreground shadow-glow" aria-hidden>
-        <TrainFront className="size-5" />
-      </span>
+      {/* The app's own emblem: the train in a speech bubble (ic_logo_emblem). */}
+      <img src={logo} alt="" width={40} height={40} className="size-10" />
       <span>
         Rail<span className="text-primary">Buzz</span>
       </span>
