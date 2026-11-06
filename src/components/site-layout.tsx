@@ -48,7 +48,7 @@ export function SiteFooter() {
         <div className="space-y-3">
           <Logo />
           <p>Live train information and chat with fellow passengers on Indian Railways.</p>
-          <p>RailBuzz · India · On · Track</p>
+          <p>RailBuzz · Track and Chat</p>
         </div>
         <div>
           <h3 className="mb-3 font-semibold text-foreground">Policies</h3>
