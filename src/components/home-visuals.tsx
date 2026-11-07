@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BellRing, Moon } from "lucide-react";
 
 // Illustrations for the home page, drawn in HTML so they stay sharp and light.
 // They show what each screen is for, not real trains, times or passengers, and
@@ -58,6 +59,60 @@ export function StatusVisual() {
           </li>
         ))}
       </ol>
+    </Screen>
+  );
+}
+
+type Push = { at: string; label: string; text: string };
+
+// One journey of Subscribe to a Train, as the phone shows it. The words follow
+// the app's own (util/notification/TrainPush.kt, delayText's "12min"), and the
+// times match StatusVisual's run: due out 10:00, left 10:12, 12 min late.
+export const destinationPush: Push = {
+  at: "15:45",
+  label: "Destination alert",
+  text: "Secunderabad Jn in about 20 min. Expected 16:05, 12min late. Platform 5. Get ready to get down.",
+};
+
+const journey: Push[] = [
+  { at: "09:30", label: "Boarding alert", text: "Leaves Vijayawada Jn at 10:00. In about 30 min, by the timetable. Platform 1." },
+  { at: "11:59", label: "Hourly update", text: "Left Khammam 11:58. Running 12min late. Next: Warangal, about 13:21." },
+  destinationPush,
+];
+
+/** A notification, drawn the way Android shows one: the app, the time, then the words. */
+export function PushCard({ push, className = "" }: { push: Push; className?: string }) {
+  return (
+    <div aria-hidden className={"rounded-2xl border border-border bg-card p-3 text-left shadow-lg shadow-black/25 " + className}>
+      <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+        <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-primary text-primary-foreground">
+          <BellRing className="size-2.5" />
+        </span>
+        <span className="font-semibold text-foreground">RailBuzz</span>
+        <span>· {push.at}</span>
+        <span className="ml-auto shrink-0 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-primary">{push.label}</span>
+      </div>
+      <div className="mt-1.5 text-[13px] leading-snug">{push.text}</div>
+    </div>
+  );
+}
+
+export function SubscribeVisual() {
+  return (
+    <Screen title="Subscribe to a Train" sub="Vijayawada Jn → Secunderabad Jn · Today">
+      <ol className="space-y-2.5">
+        {journey.map((p, i) => (
+          <li key={p.at}>
+            <PushCard push={p} />
+            {i === 1 && (
+              <div className="py-1.5 text-center text-[11px] text-muted-foreground">· · · about every hour, until your stop · · ·</div>
+            )}
+          </li>
+        ))}
+      </ol>
+      <div className="flex items-center gap-2 border-t border-border pt-3 text-[11px] text-muted-foreground">
+        <Moon className="size-3.5 shrink-0 text-primary" /> Hourly updates arrive silently from 23:00 to 06:00. Alerts always ring.
+      </div>
     </Screen>
   );
 }

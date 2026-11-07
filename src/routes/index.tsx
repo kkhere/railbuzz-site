@@ -3,7 +3,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
   BadgeCheck,
-  Bell,
+  BellRing,
   Bot,
   ChevronDown,
   CircleCheck,
@@ -16,6 +16,7 @@ import {
   MessageCircle,
   Newspaper,
   PhoneCall,
+  Pin,
   Route as RouteIcon,
   Share2,
   ShieldCheck,
@@ -30,7 +31,7 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import hero from "@/assets/hero-train.jpg";
-import { AiVisual, ChatVisual, StatusVisual } from "@/components/home-visuals";
+import { AiVisual, ChatVisual, PushCard, StatusVisual, SubscribeVisual, destinationPush } from "@/components/home-visuals";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
 
 // Every claim on this page is something the app does today (1.0 (13)), and
@@ -39,7 +40,7 @@ import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
 
 const TITLE = "RailBuzz: Live Train Status, PNR & Chat for Indian Railways";
 const DESCRIPTION =
-  "Live train running status, PNR status, station departures and a chat room with the passengers on your train. RailBuzz is the Android app for Indian Railways journeys.";
+  "Live train running status, updates and alerts on your phone until your stop, PNR status and a chat room with the passengers on your train. The Android app for Indian Railways journeys.";
 
 const faqs: { q: string; a: ReactNode; text: string }[] = [
   {
@@ -63,6 +64,21 @@ const faqs: { q: string; a: ReactNode; text: string }[] = [
     q: "Is RailBuzz free?",
     text: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use.",
     a: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use.",
+  },
+  {
+    q: "How do train updates and alerts on my phone work?",
+    text:
+      "Tap Subscribe to a Train on the home screen, then choose your train, the day you travel and the stations where you get on and get down. RailBuzz then sends a notification about every hour with where the train is and how late it is running, an alert about 30 minutes before it reaches your boarding station and again just before, and an alert about 20 minutes before your destination. You are also told if departure is delayed or the train is cancelled. Hourly updates arrive silently between 23:00 and 06:00; the alerts always ring. Tap any update to open the train's Running Status. You need to be signed in and to allow notifications from RailBuzz.",
+    a: (
+      <>
+        Tap <strong className="text-foreground">Subscribe to a Train</strong> on the home screen, then choose your train, the
+        day you travel and the stations where you get on and get down. RailBuzz then sends a notification about every hour
+        with where the train is and how late it is running, an alert about 30 minutes before it reaches your boarding station
+        and again just before, and an alert about 20 minutes before your destination. You are also told if departure is
+        delayed or the train is cancelled. Hourly updates arrive silently between 23:00 and 06:00; the alerts always ring. Tap
+        any update to open the train&rsquo;s Running Status. You need to be signed in and to allow notifications from RailBuzz.
+      </>
+    ),
   },
   {
     q: "Can other passengers see my name or phone number?",
@@ -194,12 +210,28 @@ const pillars: {
     title: "Know where your train is, and when it will reach you",
     text: "Search any train by its number or name and open Running Status: the station it last passed, how late it is running, and the expected time at every halt still ahead. The screen keeps itself up to date while it is open, so you can leave it on the platform and glance at it.",
     points: [
-      { icon: Bell, title: "Subscribe to a Train", text: "Choose your boarding and destination stations and get an update on your phone every hour until your stop." },
+      { icon: Pin, title: "A shortcut to your train", text: "Keep a train's live status on the edge of every screen and check it with one tap." },
       { icon: Signpost, title: "Station Departures", text: "The live board for any station: the trains arriving and leaving next." },
       { icon: RouteIcon, title: "Trains Between Stations", text: "Every train that runs between two stations, to plan the next journey." },
       { icon: Ticket, title: "PNR Status", text: "Check your booking and each passenger's current status in one place." },
     ],
     visual: <StatusVisual />,
+  },
+  {
+    // Worded as the app's own card ("Hourly updates till your stop"): the
+    // updates come about every hour, the two alerts are timed to the passenger's
+    // stations from the train's live position (train-watch).
+    id: "subscribe",
+    eyebrow: "Subscribe to a Train",
+    title: "Live updates on your phone, all the way to your stop",
+    text: "Tell RailBuzz which train you are on, the day, and where you get on and get down. From then on your phone tells you where the train is and how late it is running, without you opening the app. Your alerts are timed from where the train actually is, not only from the timetable, so a late train does not catch you out.",
+    points: [
+      { icon: Clock, title: "Updates about every hour", text: "Where the train is and whether it is on time, sent as it leaves its halts." },
+      { icon: BellRing, title: "Boarding alerts", text: "About 30 minutes before the train reaches your station, and again just before, with the platform when it is known." },
+      { icon: MapPin, title: "Destination alert", text: "About 20 minutes before your stop, so you are ready to get down." },
+      { icon: Newspaper, title: "Delays and cancellations", text: "Told when departure is delayed, when the train is cancelled, or when the news reports a change to it." },
+    ],
+    visual: <SubscribeVisual />,
   },
   {
     id: "train-chat",
@@ -232,7 +264,7 @@ const pillars: {
 const steps = [
   { title: "Install and sign in", text: "Get RailBuzz from Google Play and sign in with your mobile number or your Google account." },
   { title: "Find your train", text: "Search by train number or name, or pick from the popular trains for your state." },
-  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe for hourly updates, or tap Join Chat. The first time you chat, you verify your number with an SMS code." },
+  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe for updates on your phone until your stop, or tap Join Chat. The first time you chat, you verify your number with an SMS code." },
 ];
 
 const safety: Point[] = [
@@ -292,8 +324,8 @@ function Index() {
             Live train status, and a <span className="text-primary">chat room for your train.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
-            RailBuzz shows where your train is right now and when it should reach your station. It also puts you in a chat
-            room with the passengers on the same train, on the same day.
+            RailBuzz shows where your train is right now and when it should reach your station, and keeps you posted on your
+            phone until your stop. It also puts you in a chat room with the passengers on the same train, on the same day.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <PlayButton />
@@ -315,13 +347,41 @@ function Index() {
             <p className="mt-1.5 text-sm text-muted-foreground">{h.text}</p>
           </a>
         ))}
+        {/* The spotlight: the one feature that works with the phone in a pocket. */}
+        <a
+          href="#subscribe"
+          className="group relative col-span-2 overflow-hidden rounded-2xl border border-primary/50 bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary md:col-span-4 md:p-7"
+        >
+          <div aria-hidden className="absolute -left-16 -top-24 size-64 rounded-full bg-primary/15 blur-3xl" />
+          <div className="relative grid items-center gap-6 md:grid-cols-[auto_1fr] md:gap-x-8 lg:grid-cols-[auto_1fr_minmax(0,22rem)]">
+            <span className="grid size-12 place-items-center rounded-2xl bg-gradient-primary text-primary-foreground shadow-glow">
+              <BellRing className="size-6" />
+            </span>
+            <div>
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h2 className="text-xl font-bold leading-tight group-hover:text-primary md:text-2xl">Subscribe to a Train</h2>
+                <span className="flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                  <span className="size-1.5 animate-pulse rounded-full bg-primary" /> Live updates
+                </span>
+              </div>
+              <p className="mt-2 text-muted-foreground">
+                Choose your train and your two stations. Your phone then tells you where the train is about every hour, and
+                alerts you before it reaches your boarding station and your stop.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                See how it works <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+              </span>
+            </div>
+            <PushCard push={destinationPush} className="bg-background md:col-span-2 lg:col-span-1" />
+          </div>
+        </a>
       </section>
 
       <section id="features" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-24">
         <SectionHead
           eyebrow="What RailBuzz does"
           title="Everything you check on a train journey, in one app"
-          text="Running status, PNR and station boards, the people on your train, and quick answers to travel questions. Here is what each part does."
+          text="Running status, updates on your phone, PNR and station boards, the people on your train, and quick answers to travel questions. Here is what each part does."
         />
         <div className="mt-6 flex flex-wrap gap-2">
           {pillars.map((p) => (
@@ -418,7 +478,14 @@ function Index() {
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Your next journey, with company.</h2>
               <ul className="mt-5 grid gap-2 text-muted-foreground sm:grid-cols-2">
-                {["Live running status", "A chat room for every train", "PNR and station boards", "RailBuzz AI for questions"].map((t) => (
+                {[
+                  "Live running status",
+                  "Alerts before your station",
+                  "A chat room for every train",
+                  "PNR and station boards",
+                  "RailBuzz AI for questions",
+                  "Free to use",
+                ].map((t) => (
                   <li key={t} className="flex items-center gap-2"><CircleCheck className="size-4 text-primary" /> {t}</li>
                 ))}
               </ul>
