@@ -4,14 +4,11 @@ import {
   ArrowRight,
   BadgeCheck,
   BellRing,
-  Bot,
   ChevronDown,
-  CircleCheck,
   Clock,
   Flag,
   HandHelping,
   IndianRupee,
-  Languages,
   MapPin,
   MessageCircle,
   Newspaper,
@@ -19,78 +16,97 @@ import {
   Pin,
   Route as RouteIcon,
   Share2,
-  ShieldCheck,
   Signpost,
-  Smartphone,
   Sparkles,
   ScrollText,
+  Search,
   Ticket,
   TrainFront,
   UserRound,
   Utensils,
 } from "lucide-react";
-import type { ReactNode } from "react";
-import hero from "@/assets/hero-train.jpg";
-import { AiVisual, ChatVisual, PushCard, StatusVisual, SubscribeVisual, destinationPush } from "@/components/home-visuals";
+import { type ReactNode, useState } from "react";
+import hero from "@/assets/hero-train.webp";
+import { AiVisual, ChatVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
+import { PlayButton } from "@/components/site-layout";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
+import { SearchHub } from "@/components/search-hub";
 
 // Every claim on this page is something the app does today (1.0 (13)), and
 // every number is one already published in /privacy, /grievance or
 // /community-guidelines. Change them together.
 
-const TITLE = "RailBuzz: Live Train Status, PNR & Chat for Indian Railways";
+const TITLE = "RailBuzz: Live Train Status, PNR & Train Chat for Indian Railways";
 const DESCRIPTION =
-  "Live train running status, updates and alerts on your phone until your stop, PNR status and a chat room with the passengers on your train. The Android app for Indian Railways journeys.";
+  "Live train running status, alerts until your stop, PNR status and a chat room with the passengers on your train. Free Android app for Indian Railways.";
 
-const faqs: { q: string; a: ReactNode; text: string }[] = [
+type Faq = { q: string; a: ReactNode; text: string };
+
+// The five questions a first-time visitor asks most, shown; five more behind
+// "More questions?". Fuller answers live on /train-chat/, /privacy/ and
+// /delete-account/.
+const faqs: Faq[] = [
+  {
+    q: "Is RailBuzz free?",
+    text: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use. It runs on Android phones.",
+    a: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use. It runs on Android phones.",
+  },
   {
     q: "Is RailBuzz an official Indian Railways or IRCTC app?",
     text:
-      "No. RailBuzz is an independent app. It is not affiliated with, endorsed by or run by Indian Railways, IRCTC or any government body. Train timetables, running status, station boards and PNR status come from RailRadar (railradar.in). You can check them against Indian Railways' own National Train Enquiry System at enquiry.indianrail.gov.in.",
+      "No. RailBuzz is an independent app, not run by Indian Railways, IRCTC or any government body. Train times, running status and PNR status come from RailRadar (railradar.in).",
     a: (
       <>
-        No. RailBuzz is an independent app. It is not affiliated with, endorsed by or run by Indian Railways, IRCTC or any
-        government body. Train timetables, running status, station boards and PNR status come from{" "}
+        No. RailBuzz is an independent app, not run by Indian Railways, IRCTC or any government body. Train times, running
+        status and PNR status come from{" "}
         <a href="https://railradar.in" rel="noopener" className="text-primary underline underline-offset-2">RailRadar</a>.
-        You can check them against Indian Railways&rsquo; own National Train Enquiry System at{" "}
-        <a href="https://enquiry.indianrail.gov.in" rel="noopener" className="text-primary underline underline-offset-2">
-          enquiry.indianrail.gov.in
-        </a>
-        .
       </>
     ),
   },
   {
-    q: "Is RailBuzz free?",
-    text: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use.",
-    a: "Yes. RailBuzz is free to download from Google Play, and every feature is free to use.",
-  },
-  {
-    q: "How do train updates and alerts on my phone work?",
+    q: "How do I get alerts before my station?",
     text:
-      "Tap Subscribe to a Train on the home screen, then choose your train, the day you travel and the stations where you get on and get down. RailBuzz then sends a notification about every hour with where the train is and how late it is running, an alert about 30 minutes before it reaches your boarding station and again just before, and an alert about 20 minutes before your destination. You are also told if departure is delayed or the train is cancelled. Hourly updates arrive silently between 23:00 and 06:00; the alerts always ring. Tap any update to open the train's Running Status. You need to be signed in and to allow notifications from RailBuzz.",
+      "In the app, tap Subscribe to a Train and choose your train, the day and the stations where you get on and get down. RailBuzz then updates you about every hour, alerts you about 30 minutes before your boarding station, and again about 20 minutes before your stop. You are also told if the train is delayed or cancelled.",
     a: (
       <>
-        Tap <strong className="text-foreground">Subscribe to a Train</strong> on the home screen, then choose your train, the
-        day you travel and the stations where you get on and get down. RailBuzz then sends a notification about every hour
-        with where the train is and how late it is running, an alert about 30 minutes before it reaches your boarding station
-        and again just before, and an alert about 20 minutes before your destination. You are also told if departure is
-        delayed or the train is cancelled. Hourly updates arrive silently between 23:00 and 06:00; the alerts always ring. Tap
-        any update to open the train&rsquo;s Running Status. You need to be signed in and to allow notifications from RailBuzz.
+        In the app, tap <strong className="text-foreground">Subscribe to a Train</strong> and choose your train, the day and
+        the stations where you get on and get down. RailBuzz then updates you about every hour, alerts you about 30 minutes
+        before your boarding station, and again about 20 minutes before your stop. You are also told if the train is delayed
+        or cancelled.
+      </>
+    ),
+  },
+  {
+    q: "How do I join the chat for my train?",
+    text:
+      "Find your train in the app and tap Join Chat. Every train has a chat room for each day it runs, with the passengers on that train. The first time, you verify your mobile number with an SMS code.",
+    a: (
+      <>
+        Find your train in the app and tap <strong className="text-foreground">Join Chat</strong>. Every train has a chat room
+        for each day it runs, with the passengers on that train. The first time, you verify your mobile number with an SMS
+        code. <Link to="/train-chat/" className="text-primary underline underline-offset-2">How train chat works</Link>
       </>
     ),
   },
   {
     q: "Can other passengers see my name or phone number?",
     text:
-      "No. In a chat room you appear under an alias such as Traveller-392, which you can reshuffle from your profile. Other passengers never see your name or your mobile number. Anything you type in a message or a help card is visible to everyone in the room, so don't share your number there.",
+      "No. In a chat room you appear under an alias such as Traveller-392. Other passengers never see your name or your mobile number.",
     a: (
       <>
-        No. In a chat room you appear under an alias such as <strong className="text-foreground">Traveller-392</strong>, which
-        you can reshuffle from your profile. Other passengers never see your name or your mobile number. Anything you type in
-        a message or a help card is visible to everyone in the room, so don&rsquo;t share your number there.
+        No. In a chat room you appear under an alias such as <strong className="text-foreground">Traveller-392</strong>.
+        Other passengers never see your name or your mobile number.
       </>
     ),
+  },
+];
+
+const moreFaqs: Faq[] = [
+  {
+    q: "Do I need an account?",
+    text:
+      "Searching trains on this website needs no account. In the app, you sign in with your mobile number or your Google account. You must be 18 or older to create an account.",
+    a: "Searching trains on this website needs no account. In the app, you sign in with your mobile number or your Google account. You must be 18 or older to create an account.",
   },
   {
     q: "Why do I need to verify my mobile number to chat?",
@@ -106,7 +122,7 @@ const faqs: { q: string; a: ReactNode; text: string }[] = [
       <>
         A train&rsquo;s room closes 15 minutes after the train completes its run, and most chat is deleted within days.
         Messages someone reported are kept longer, for safety review. The{" "}
-        <Link to="/privacy" hash="chat-retention" className="text-primary underline underline-offset-2">Privacy Policy</Link>{" "}
+        <Link to="/privacy/" hash="chat-retention" className="text-primary underline underline-offset-2">Privacy Policy</Link>{" "}
         sets out every period.
       </>
     ),
@@ -120,14 +136,10 @@ const faqs: { q: string; a: ReactNode; text: string }[] = [
         No. A help card reaches the passengers in your train&rsquo;s chat room, not railway staff or emergency services. For
         anything urgent, call <strong className="text-foreground">139</strong> (Railway helpline),{" "}
         <strong className="text-foreground">112</strong> (police and emergency) or{" "}
-        <strong className="text-foreground">182</strong> (railway security). RailBuzz keeps these numbers one tap away on the home screen.
+        <strong className="text-foreground">182</strong> (railway security). RailBuzz keeps these numbers one tap away on the
+        home screen.
       </>
     ),
-  },
-  {
-    q: "Which phones can I use RailBuzz on?",
-    text: "RailBuzz is an Android app, available from Google Play. You must be 18 or older to create an account.",
-    a: "RailBuzz is an Android app, available from Google Play. You must be 18 or older to create an account.",
   },
   {
     q: "How do I delete my account?",
@@ -138,7 +150,7 @@ const faqs: { q: string; a: ReactNode; text: string }[] = [
         In the app, open the menu, then <strong className="text-foreground">Settings</strong>, then{" "}
         <strong className="text-foreground">Delete account</strong>. You can also ask by email to{" "}
         <a href="mailto:support@railbuzz.in" className="text-primary underline underline-offset-2">support@railbuzz.in</a>. The{" "}
-        <Link to="/delete-account" className="text-primary underline underline-offset-2">Delete your account</Link> page
+        <Link to="/delete-account/" className="text-primary underline underline-offset-2">Delete your account</Link> page
         explains what is erased and when.
       </>
     ),
@@ -149,11 +161,29 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      // Who RailBuzz is, for search engines' brand panel and logo in results.
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "RailBuzz",
+      url: `${SITE_URL}/`,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 },
+      description: "RailBuzz makes a free Android app for Indian Railways passengers: live train status, alerts, PNR status and a chat room for every train.",
+      foundingDate: "2026-11",
+      areaServed: { "@type": "Country", name: "India" },
+      email: "support@railbuzz.in",
+      contactPoint: [
+        { "@type": "ContactPoint", contactType: "customer support", email: "support@railbuzz.in", areaServed: "IN", availableLanguage: "en" },
+        { "@type": "ContactPoint", contactType: "grievance officer", name: "Kiran Kumar", email: "grievance@railbuzz.in", areaServed: "IN" },
+      ],
+      sameAs: [PLAY_URL],
+    },
+    {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       name: "RailBuzz",
       url: `${SITE_URL}/`,
       inLanguage: "en-IN",
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": "MobileApplication",
@@ -164,11 +194,12 @@ const structuredData = {
       url: `${SITE_URL}/`,
       installUrl: PLAY_URL,
       countriesSupported: "IN",
+      publisher: { "@id": `${SITE_URL}/#organization` },
       offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
     },
     {
       "@type": "FAQPage",
-      mainEntity: faqs.map((f) => ({
+      mainEntity: [...faqs, ...moreFaqs].map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.text },
@@ -186,12 +217,13 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// The four things RailBuzz is for, under the hero; each opens its section.
-const highlights = [
-  { icon: MapPin, title: "Accurate Train Tracking", text: "Live position, delay and the expected time at every halt ahead.", href: "#running-status" },
-  { icon: MessageCircle, title: "Live Passenger Chat", text: "A chat room for your train and day, with the people on board.", href: "#train-chat" },
-  { icon: Sparkles, title: "RailBuzz AI Chat", text: "Ask about food, fares, refunds and rules in plain words.", href: "#railbuzz-ai" },
-  { icon: Ticket, title: "PNR Status", text: "Your booking and every passenger's current status, in one place.", href: "#running-status" },
+// The four things RailBuzz does, under the hero; each opens its section below.
+// Taglines chosen by the owner, 15 November 2026.
+const highlights: { icon: LucideIcon; title: string; text: string; href: string; badge?: string }[] = [
+  { icon: MapPin, title: "Live train status", text: "Where your train is, how late it is, and when it reaches your station.", href: "#running-status" },
+  { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", badge: "Live updates" },
+  { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat" },
+  { icon: Sparkles, title: "RailBuzz AI", text: "Ask anything about your journey. Food, fares, refunds, rules.", href: "#railbuzz-ai" },
 ];
 
 type Point = { icon: LucideIcon; title: string; text: string };
@@ -203,12 +235,13 @@ const pillars: {
   text: string;
   points: Point[];
   visual: ReactNode;
+  more?: { to: "/train-chat/"; label: string };
 }[] = [
   {
     id: "running-status",
     eyebrow: "Live train running status",
     title: "Know where your train is, and when it will reach you",
-    text: "Search any train by its number or name and open Running Status: the station it last passed, how late it is running, and the expected time at every halt still ahead. The screen keeps itself up to date while it is open, so you can leave it on the platform and glance at it.",
+    text: "Search any train by number or name to see the station it last passed, how late it is running, and the expected time at every halt ahead. It updates itself while open.",
     points: [
       { icon: Pin, title: "A shortcut to your train", text: "Keep a train's live status on the edge of every screen and check it with one tap." },
       { icon: Signpost, title: "Station Departures", text: "The live board for any station: the trains arriving and leaving next." },
@@ -224,7 +257,7 @@ const pillars: {
     id: "subscribe",
     eyebrow: "Subscribe to a Train",
     title: "Live updates on your phone, all the way to your stop",
-    text: "Tell RailBuzz which train you are on, the day, and where you get on and get down. From then on your phone tells you where the train is and how late it is running, without you opening the app. Your alerts are timed from where the train actually is, not only from the timetable, so a late train does not catch you out.",
+    text: "Tell RailBuzz your train, the day, and where you get on and get down. Your phone then keeps you posted, without opening the app. Alerts are timed from where the train actually is, so a late train does not catch you out.",
     points: [
       { icon: Clock, title: "Updates about every hour", text: "Where the train is and whether it is on time, sent as it leaves its halts." },
       { icon: BellRing, title: "Boarding alerts", text: "About 30 minutes before the train reaches your station, and again just before, with the platform when it is known." },
@@ -237,7 +270,7 @@ const pillars: {
     id: "train-chat",
     eyebrow: "A chat room for your train",
     title: "Talk to the passengers on the same train, on the same day",
-    text: "Every train gets a chat room for each day it runs. Join the room for your train and you are talking to the people on your journey: about the delay, a platform change, which coach is where, or whether the pantry has come round. It is news from people who are actually on board.",
+    text: "Every train gets a chat room for each day it runs. Talk to the people on your journey about the delay, a platform change or which coach is where.",
     points: [
       { icon: MessageCircle, title: "Quick posts", text: "One tap for a Delay Update, Platform Info or Coach Help." },
       { icon: HandHelping, title: "Ask for help", text: "Post a help card with your coach number. Everyone in the room sees it and can reply." },
@@ -245,12 +278,13 @@ const pillars: {
       { icon: Clock, title: "Only for the journey", text: "A room closes 15 minutes after the train completes its run." },
     ],
     visual: <ChatVisual />,
+    more: { to: "/train-chat/", label: "How train chat works" },
   },
   {
     id: "railbuzz-ai",
     eyebrow: "RailBuzz AI",
     title: "Ask your travel questions in plain words",
-    text: "RailBuzz AI answers the questions that come up on a journey. Tap a suggestion or type your own. When an answer depends on your train, such as where food can be delivered, it is worked out from the train's live running status, not guessed.",
+    text: "Tap a suggestion or type your own question. When the answer depends on your train, such as where food can reach your seat, it is worked out from its live running status.",
     points: [
       { icon: Utensils, title: "Order Food", text: "The next halts where food can reach your seat, with IRCTC's official ways to order." },
       { icon: IndianRupee, title: "Fare Enquiry", text: "Fares for a train, class by class." },
@@ -264,136 +298,118 @@ const pillars: {
 const steps = [
   { title: "Install and sign in", text: "Get RailBuzz from Google Play and sign in with your mobile number or your Google account." },
   { title: "Find your train", text: "Search by train number or name, or pick from the popular trains for your state." },
-  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe for updates on your phone until your stop, or tap Join Chat. The first time you chat, you verify your number with an SMS code." },
+  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe for alerts until your stop, or tap Join Chat." },
 ];
 
 const safety: Point[] = [
-  { icon: BadgeCheck, title: "Verified passengers", text: "Live chat needs a mobile number verified on your phone, so everyone in a room is accountable." },
-  { icon: UserRound, title: "Aliases, never names", text: "Other passengers see a generated alias like Traveller-392, never your name or number." },
-  { icon: Languages, title: "Rules in seven languages", text: "Seven short community rules, shown in English and in Hindi, Telugu, Tamil, Kannada, Bengali or Malayalam when you join a room." },
-  { icon: Flag, title: "Report and block", text: "Report a message or block a passenger from the chat. A content complaint is acknowledged within 24 hours." },
-  { icon: PhoneCall, title: "Helplines one tap away", text: "139 Railway, 112 Police and 182 Security, on the home screen for when it matters." },
-  { icon: ShieldCheck, title: "Your account, guarded", text: "Your other phones are told when your account signs in somewhere new, and you can log out of all of them." },
+  { icon: BadgeCheck, title: "Verified passengers", text: "Chat needs a mobile number verified on your phone, so everyone in a room is accountable." },
+  { icon: UserRound, title: "Aliases, never names", text: "Others see an alias like Traveller-392, never your name or number." },
+  { icon: Flag, title: "Report and block", text: "Report a message or block a passenger. Complaints are acknowledged within 24 hours." },
+  { icon: PhoneCall, title: "Helplines one tap away", text: "139 Railway, 112 Police and 182 Security, on the app's home screen." },
 ];
 
-const policies = [
-  { to: "/terms", title: "Terms of Service", text: "The agreement for using the app and site." },
-  { to: "/privacy", title: "Privacy Policy", text: "What we collect, why, and for how long." },
-  { to: "/community-guidelines", title: "Community Guidelines", text: "The seven rules for chat rooms." },
-  { to: "/grievance", title: "Grievance Redressal", text: "How to complain, and how long we take." },
-  { to: "/delete-account", title: "Delete your account", text: "In the app or by email." },
-] as const;
 
-function PlayButton({ className = "" }: { className?: string }) {
-  return (
-    <a
-      href={PLAY_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={
-        "inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-primary px-6 py-3.5 font-semibold text-primary-foreground shadow-glow transition hover:brightness-110 " +
-        className
-      }
-    >
-      <Smartphone className="size-5" /> Get it on Google Play
-    </a>
-  );
-}
-
-function SectionHead({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
+function SectionHead({ eyebrow, title, text, id }: { eyebrow: string; title: string; text?: string; id?: string }) {
   return (
     <div className="max-w-2xl">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-bold md:text-4xl">{title}</h2>
+      <h2 id={id} className="mt-3 text-3xl font-bold md:text-4xl">{title}</h2>
       {text && <p className="mt-4 text-lg text-muted-foreground">{text}</p>}
     </div>
   );
 }
 
+/** One question: closed until tapped; opening it closes any other ("common-questions"). */
+function Question({ faq }: { faq: Faq }) {
+  return (
+    <details name="common-questions" className="group rounded-2xl border border-border bg-card open:border-primary/50">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold [&::-webkit-details-marker]:hidden">
+        <h3 className="text-base md:text-lg">{faq.q}</h3>
+        <ChevronDown className="size-5 shrink-0 text-primary transition group-open:rotate-180" />
+      </summary>
+      <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{faq.a}</p>
+    </details>
+  );
+}
+
 function Index() {
+  const [more, setMore] = useState(false);
   return (
     <main>
       <section className="relative isolate overflow-hidden">
-        <img src={hero} alt="An Indian Railways train curving through fields at sunset" width={1600} height={912} className="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
+        <img src={hero} alt="An Indian Railways train curving through fields at sunset" width={1600} height={912} fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
         <div className="absolute inset-0 -z-10 bg-gradient-hero" />
-        <div className="mx-auto max-w-6xl px-5 py-24 md:py-36">
+        {/* Phones: the text runs over the whole photo, so the photo is dimmed evenly. */}
+        <div className="absolute inset-0 -z-10 bg-background/75 md:hidden" />
+        <div className="mx-auto max-w-6xl px-5 pb-24 pt-10 md:pb-32 md:pt-16">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             <TrainFront className="size-3.5" /> For Indian Railways passengers
           </p>
-          <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.05] md:text-7xl">
+          <h1 className="max-w-3xl text-[2.6rem] font-extrabold leading-[1.05] sm:text-5xl md:text-6xl lg:text-7xl">
             Live train status, and a <span className="text-primary">chat room for your train.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
-            RailBuzz shows where your train is right now and when it should reach your station, and keeps you posted on your
-            phone until your stop. It also puts you in a chat room with the passengers on the same train, on the same day.
+            See where your train is, get alerts on your phone until your stop, and chat with the passengers on the same train.
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <PlayButton />
-            <a href="#features" className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-6 py-3.5 font-semibold transition hover:border-primary">
-              See what it does <ChevronDown className="size-4" />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <PlayButton medium="home_hero" />
+            <a
+              href="#search"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-6 py-3.5 font-semibold backdrop-blur transition hover:border-primary"
+            >
+              <Search className="size-5" /> Search trains
             </a>
           </div>
           <p className="mt-5 text-sm text-muted-foreground">Free on Android · Sign in with your mobile number or Google</p>
         </div>
       </section>
 
-      <section aria-label="What RailBuzz is for" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-4">
+      {/* The four things RailBuzz does; each card opens its section below. */}
+      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-4">
         {highlights.map((h) => (
-          <a key={h.title} href={h.href} className="group rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary">
-            <span className="grid size-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow">
-              <h.icon className="size-5" />
-            </span>
+          <a
+            key={h.title}
+            href={h.href}
+            className={
+              "group rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary " +
+              (h.badge ? "border-primary/50" : "border-border")
+            }
+          >
+            <div className="flex items-start justify-between gap-2">
+              <span className="grid size-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow">
+                <h.icon className="size-5" />
+              </span>
+              {h.badge && (
+                <span className="hidden items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary sm:flex">
+                  <span className="size-1.5 animate-pulse rounded-full bg-primary" /> {h.badge}
+                </span>
+              )}
+            </div>
             <h2 className="mt-4 text-lg font-bold leading-tight group-hover:text-primary md:text-xl">{h.title}</h2>
             <p className="mt-1.5 text-sm text-muted-foreground">{h.text}</p>
           </a>
         ))}
-        {/* The spotlight: the one feature that works with the phone in a pocket. */}
-        <a
-          href="#subscribe"
-          className="group relative col-span-2 overflow-hidden rounded-2xl border border-primary/50 bg-card p-5 transition hover:-translate-y-0.5 hover:border-primary md:col-span-4 md:p-7"
-        >
-          <div aria-hidden className="absolute -left-16 -top-24 size-64 rounded-full bg-primary/15 blur-3xl" />
-          <div className="relative grid items-center gap-6 md:grid-cols-[auto_1fr] md:gap-x-8 lg:grid-cols-[auto_1fr_minmax(0,22rem)]">
-            <span className="grid size-12 place-items-center rounded-2xl bg-gradient-primary text-primary-foreground shadow-glow">
-              <BellRing className="size-6" />
-            </span>
-            <div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                <h2 className="text-xl font-bold leading-tight group-hover:text-primary md:text-2xl">Subscribe to a Train</h2>
-                <span className="flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary">
-                  <span className="size-1.5 animate-pulse rounded-full bg-primary" /> Live updates
-                </span>
-              </div>
-              <p className="mt-2 text-muted-foreground">
-                Choose your train and your two stations. Your phone then tells you where the train is about every hour, and
-                alerts you before it reaches your boarding station and your stop.
-              </p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                See how it works <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
-              </span>
-            </div>
-            <PushCard push={destinationPush} className="bg-background md:col-span-2 lg:col-span-1" />
-          </div>
-        </a>
       </section>
 
-      <section id="features" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-24">
+      {/* Every way to look a train up, in one panel (components/search-hub.tsx). */}
+      <section aria-labelledby="search-heading" className="mx-auto max-w-6xl px-5 pt-16 md:pt-24">
         <SectionHead
-          eyebrow="What RailBuzz does"
-          title="Everything you check on a train journey, in one app"
-          text="Running status, updates on your phone, PNR and station boards, the people on your train, and quick answers to travel questions. Here is what each part does."
+          eyebrow="Search trains"
+          title="Find your train"
+          text="A train's timetable, trains between two stations, a station's live board or your PNR status, all in one place."
+          id="search-heading"
         />
-        <div className="mt-6 flex flex-wrap gap-2">
-          {pillars.map((p) => (
-            <a key={p.id} href={`#${p.id}`} className="rounded-full border border-border px-4 py-1.5 text-sm text-muted-foreground transition hover:border-primary hover:text-foreground">
-              {p.eyebrow}
-            </a>
-          ))}
+        <div className="mt-8">
+          <SearchHub />
         </div>
       </section>
 
+      <section id="features" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-16 md:pt-24">
+        <SectionHead eyebrow="What RailBuzz does" title="Everything for your train journey, in one app" />
+      </section>
+
       {pillars.map((p, i) => (
-        <section key={p.id} id={p.id} className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-20 md:pt-28">
+        <section key={p.id} id={p.id} className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-16 md:pt-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className={i % 2 === 1 ? "lg:order-last" : ""}>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{p.eyebrow}</p>
@@ -412,107 +428,106 @@ function Index() {
                   </li>
                 ))}
               </ul>
+              {p.more && (
+                <Link to={p.more.to} className="mt-8 inline-flex items-center gap-1.5 font-semibold text-primary hover:underline">
+                  {p.more.label} <ArrowRight className="size-4" />
+                </Link>
+              )}
             </div>
             {p.visual}
           </div>
         </section>
       ))}
 
-      <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-24 md:pt-32">
+      <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-20 md:pt-32">
         <SectionHead eyebrow="How it works" title="Ready before your train leaves" />
         <div className="relative mt-10">
           <div aria-hidden className="absolute left-[2.6rem] right-[2.6rem] top-[2.6rem] hidden border-t-2 border-dashed border-border md:block" />
           <ol className="relative grid gap-4 md:grid-cols-3">
-          {steps.map((s, i) => (
-            <li key={s.title} className="relative rounded-2xl border border-border bg-card p-6">
-              <span className="relative grid size-10 place-items-center rounded-full bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
-                {i + 1}
-              </span>
-              <h3 className="mt-5 text-lg font-semibold">{s.title}</h3>
-              <p className="mt-1.5 text-muted-foreground">{s.text}</p>
-            </li>
-          ))}
+            {steps.map((s, i) => (
+              // Phones: the number beside the words, so three steps fit a screen.
+              <li key={s.title} className="relative flex gap-4 rounded-2xl border border-border bg-card p-5 md:block md:p-6">
+                <span className="relative grid size-10 shrink-0 place-items-center rounded-full bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="text-lg font-semibold md:mt-5">{s.title}</h3>
+                  <p className="mt-1 text-muted-foreground md:mt-1.5">{s.text}</p>
+                </div>
+              </li>
+            ))}
           </ol>
         </div>
       </section>
 
-      <section id="safety" className="mt-24 border-y border-border bg-card/40 md:mt-32">
-        <div className="mx-auto max-w-6xl px-5 py-20">
+      <section id="safety" className="mt-20 border-y border-border bg-card/40 md:mt-32">
+        <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
           <SectionHead
             eyebrow="Safe by design"
             title="A chat with strangers, built to stay civil"
-            text="RailBuzz is open to every passenger on a train, so it is built around accountability and privacy from the start."
+            text="Every passenger on a train can join its room, so RailBuzz is built around accountability and privacy."
           />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {safety.map((s) => (
-              <div key={s.title} className="rounded-2xl border border-border bg-background p-6">
-                <s.icon className="size-6 text-primary" />
-                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-                <p className="mt-1.5 text-muted-foreground">{s.text}</p>
+              <div key={s.title} className="flex gap-4 rounded-2xl border border-border bg-background p-5 sm:block sm:p-6">
+                <s.icon className="size-6 shrink-0 text-primary" />
+                <div>
+                  <h3 className="text-lg font-semibold sm:mt-4">{s.title}</h3>
+                  <p className="mt-1 text-muted-foreground sm:mt-1.5">{s.text}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-
-      <section id="faq" className="mx-auto max-w-3xl scroll-mt-20 px-5 pt-24">
-        <SectionHead eyebrow="Questions" title="Frequently asked questions" />
+      {/* Common questions: closed until tapped, one open at a time; five more behind "More questions?". */}
+      <section id="faq" className="mx-auto max-w-3xl scroll-mt-20 px-5 pt-20 md:pt-24">
+        <SectionHead eyebrow="Questions" title="Common questions" />
         <div className="mt-8 space-y-3">
           {faqs.map((f) => (
-            <details key={f.q} className="group rounded-2xl border border-border bg-card open:border-primary/50">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold [&::-webkit-details-marker]:hidden">
-                <h3 className="text-base md:text-lg">{f.q}</h3>
-                <ChevronDown className="size-5 shrink-0 text-primary transition group-open:rotate-180" />
-              </summary>
-              <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
+            <Question key={f.q} faq={f} />
           ))}
+        </div>
+        <div id="more-questions" hidden={!more} className="mt-3 space-y-3">
+          {moreFaqs.map((f) => (
+            <Question key={f.q} faq={f} />
+          ))}
+        </div>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setMore((m) => !m)}
+            aria-expanded={more}
+            aria-controls="more-questions"
+            className="-my-2 inline-flex items-center gap-1.5 py-2 font-semibold text-primary hover:underline"
+          >
+            {more ? "Fewer questions" : "More questions?"}
+            <ChevronDown aria-hidden className={"size-4 transition " + (more ? "rotate-180" : "")} />
+          </button>
+          <p className="text-sm text-muted-foreground">
+            Still stuck? Write to{" "}
+            <a href="mailto:support@railbuzz.in" className="text-primary underline underline-offset-2">support@railbuzz.in</a>.
+          </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pt-24">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/40 bg-card p-8 md:p-12">
+      <section className="mx-auto max-w-6xl px-5 pt-20 md:pt-24">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/40 bg-card p-6 sm:p-8 md:p-12">
           <div aria-hidden className="absolute -right-20 -top-20 size-72 rounded-full bg-primary/20 blur-3xl" />
-          <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
+          <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Your next journey, with company.</h2>
-              <ul className="mt-5 grid gap-2 text-muted-foreground sm:grid-cols-2">
-                {[
-                  "Live running status",
-                  "Alerts before your station",
-                  "A chat room for every train",
-                  "PNR and station boards",
-                  "RailBuzz AI for questions",
-                  "Free to use",
-                ].map((t) => (
-                  <li key={t} className="flex items-center gap-2"><CircleCheck className="size-4 text-primary" /> {t}</li>
-                ))}
-              </ul>
+              <p className="mt-3 max-w-xl text-lg text-muted-foreground">
+                Live status, alerts until your stop and a chat room for your train. Free on Android.
+              </p>
             </div>
-            <div className="flex flex-col items-start gap-3 md:items-end">
-              <PlayButton />
-              <a href="#faq" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary">
-                <Bot className="size-4" /> Questions first? Read the FAQ <ArrowRight className="size-3.5" />
-              </a>
-            </div>
+            <PlayButton medium="home_closing" className="shrink-0" />
           </div>
           <p className="relative mt-8 border-t border-border pt-5 text-xs text-muted-foreground">
             RailBuzz is an independent app, not affiliated with Indian Railways, IRCTC or any government body. Train data comes
             from RailRadar.
           </p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pt-24">
-        <h2 className="text-3xl font-bold md:text-4xl">Policies and support</h2>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {policies.map((p) => (
-            <Link key={p.to} to={p.to} className="group rounded-2xl border border-border bg-card p-5 transition hover:border-primary">
-              <h3 className="font-semibold group-hover:text-primary">{p.title} →</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{p.text}</p>
-            </Link>
-          ))}
         </div>
       </section>
     </main>

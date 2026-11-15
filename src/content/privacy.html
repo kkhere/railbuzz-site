@@ -1,5 +1,5 @@
 <p class="updated">
-    Last updated 8 November 2026 · App: <code>com.railbuzz.app</code>
+    Last updated 15 November 2026 · App: <code>com.railbuzz.app</code>
   </p>
 
   <p>
@@ -319,6 +319,26 @@
     a room that you would not want those people to read.
   </p>
 
+  <h2 id="website-pnr">Looking things up on railbuzz.in</h2>
+  <p>
+    On railbuzz.in you can check a PNR, open a train&rsquo;s timetable, find the trains
+    between two stations and see a station&rsquo;s live board, without an account. What
+    you enter goes from our server to RailRadar, and the answer comes back to your
+    browser. We do not store the PNR or its status. A PNR status shows the journey and
+    each passenger&rsquo;s booking status, coach and berth; it does not show names or
+    contact details. Timetables, trains between stations and station boards are about
+    trains, not people: our server keeps them for a while, as it does for the app, so
+    the next person asking gets them faster.
+  </p>
+  <p>
+    To keep the service fair, each kind of lookup has a daily limit per internet
+    address (5 PNR checks a day). To count them we keep a one-way code made from your
+    internet address (from its first half, for an IPv6 address) with a secret key,
+    never the address itself, together with the number of lookups that day. The key is
+    held only by the server that answers the lookups, and the code is deleted after two
+    days.
+  </p>
+
   <h2>Who we share data with</h2>
   <p>We do not sell your data and we do not use it for advertising. We use these providers:</p>
   <div class="table-scroll"><table>
@@ -327,6 +347,7 @@
     <tr><td><strong>Google Firebase</strong> (Cloud Messaging)</td><td>Your phone&rsquo;s notification token, and the text of each notification: in chat, the sender&rsquo;s alias and the start of the message, with long numbers hidden; for a train you follow, its running status; for an account alert, what happened and when</td></tr>
     <tr><td><strong>Google Play</strong> (Integrity API)</td><td>When a code is checked, Google Play checks that the app came from Google Play and runs on a genuine Android device, and tells our server the result. The request is tied to that one check; it carries no name, number or message</td></tr>
     <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and your account identifier, a random code that is not your number or name</td></tr>
+    <tr><td><strong>Vercel</strong></td><td>Hosts the server that answers PNR checks and train lookups on railbuzz.in. It receives what you enter and your internet address, as any web server does; we do not keep either</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Hosts the database and the server functions that hold your account and everything listed above</td></tr>
     <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
     <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below</td></tr>

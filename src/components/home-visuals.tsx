@@ -8,8 +8,8 @@ import { BellRing, Moon } from "lucide-react";
 function Screen({ title, sub, live = true, children }: { title: string; sub: string; live?: boolean; children: ReactNode }) {
   return (
     <div aria-hidden className="relative mx-auto w-full max-w-[22rem]">
-      <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-primary/15 blur-3xl" />
-      <div className="rounded-[2.25rem] border border-border bg-card p-2.5 shadow-2xl shadow-black/40">
+      <div className="absolute -inset-x-2 -inset-y-6 -z-10 rounded-[3rem] bg-primary/15 blur-3xl sm:-inset-6" />
+      <div className="rounded-[2.25rem] border border-border bg-card p-2.5 shadow-2xl shadow-black/10 dark:shadow-black/40">
         <div className="overflow-hidden rounded-[1.75rem] bg-background">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <div>
@@ -83,7 +83,7 @@ const journey: Push[] = [
 /** A notification, drawn the way Android shows one: the app, the time, then the words. */
 export function PushCard({ push, className = "" }: { push: Push; className?: string }) {
   return (
-    <div aria-hidden className={"rounded-2xl border border-border bg-card p-3 text-left shadow-lg shadow-black/25 " + className}>
+    <div aria-hidden className={"rounded-2xl border border-border bg-card p-3 text-left shadow-lg shadow-black/10 dark:shadow-black/25 " + className}>
       <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
         <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-primary text-primary-foreground">
           <BellRing className="size-2.5" />
@@ -124,7 +124,7 @@ function Bubble({ who, text, mine = false }: { who: string; text: string; mine?:
       <div
         className={
           "inline-block rounded-2xl px-3 py-2 text-left " +
-          (mine ? "rounded-br-md bg-primary text-primary-foreground" : "rounded-bl-md bg-secondary")
+          (mine ? "rounded-br-md bg-gradient-primary text-primary-foreground" : "rounded-bl-md bg-secondary")
         }
       >
         {text}

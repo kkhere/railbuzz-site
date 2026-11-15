@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Shell } from "@/components/site-layout";
 import { NotFoundComponent } from "@/components/not-found";
+import { THEME_SCRIPT } from "@/components/theme-toggle";
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
@@ -36,7 +37,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:brightness-110"
           >
             Try again
           </button>
@@ -59,7 +60,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "RailBuzz" },
       { name: "description", content: "Live train information and chat with fellow passengers on Indian Railways." },
-      { name: "theme-color", content: "#051532" },
+      // The browser bar's colour, for each theme (the page's background).
+      { name: "theme-color", content: "#f4f7fb", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#051532", media: "(prefers-color-scheme: dark)" },
       { property: "og:site_name", content: "RailBuzz" },
       { property: "og:locale", content: "en_IN" },
       // The picture a shared railbuzz.in link shows (WhatsApp, X, Facebook).
@@ -91,8 +94,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    // The theme script sets <html>'s class before React loads, so React is told
+    // not to mind that it differs from the server's HTML.
+    <html lang="en-IN" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <HeadContent />
       </head>
       <body>

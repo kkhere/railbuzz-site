@@ -2,7 +2,8 @@
 @source "../src";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
 
 @theme inline {
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
@@ -41,8 +42,14 @@
   --color-chart-5: var(--chart-5);
 }
 
-/* RailBuzz: night-train navy with signal orange. Dark by design. */
+/*
+ * RailBuzz: night-train navy with signal orange.
+ * Dark is the default (and what a page shows without JavaScript). The theme
+ * script in routes/__root.tsx puts "light" or "dark" on <html> before the page
+ * paints: the visitor's own choice from the header toggle, else their device's.
+ */
 :root {
+  color-scheme: dark;
   --radius: 0.875rem;
   --background: oklch(0.2 0.04 255);
   --foreground: oklch(0.95 0.01 245);
@@ -74,10 +81,43 @@
   --shadow-glow: 0 18px 40px -16px color-mix(in oklab, var(--primary) 55%, transparent);
 }
 
+/* Light: the same navy and signal orange on paper. Buttons keep the bright
+   orange with navy text, as in dark; orange TEXT is a shade deeper so it stays
+   readable on white (about 5:1). */
+:root.light {
+  color-scheme: light;
+  --background: oklch(0.975 0.006 250);
+  --foreground: oklch(0.22 0.045 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.045 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.045 255);
+  --primary: oklch(0.56 0.17 42);
+  --primary-glow: oklch(0.78 0.15 62);
+  --primary-foreground: oklch(0.18 0.04 255);
+  --secondary: oklch(0.95 0.012 250);
+  --secondary-foreground: oklch(0.22 0.045 255);
+  --muted: oklch(0.95 0.012 250);
+  --muted-foreground: oklch(0.47 0.035 255);
+  --accent: oklch(0.93 0.018 250);
+  --accent-foreground: oklch(0.22 0.045 255);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.015 250);
+  --input: oklch(0.88 0.015 250);
+  --ring: oklch(0.56 0.17 42);
+  --chart-1: oklch(0.56 0.17 42);
+  --gradient-primary: linear-gradient(150deg, var(--primary-glow), oklch(0.7 0.19 48));
+  --gradient-hero: linear-gradient(90deg, oklch(0.975 0.006 250 / 0.97) 0%, oklch(0.975 0.006 250 / 0.85) 45%, oklch(0.975 0.006 250 / 0.15) 100%);
+  --shadow-glow: 0 14px 30px -16px color-mix(in oklab, var(--primary) 45%, transparent);
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
   body {
+    /* Glows and phone frames that reach past the edge never make a phone scroll sideways. */
+    overflow-x: clip;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);

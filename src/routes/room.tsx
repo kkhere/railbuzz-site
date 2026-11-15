@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { PLAY_URL as PLAY, pageHead } from "@/lib/legal-page";
+import { pageHead, playLink } from "@/lib/legal-page";
+
+const PLAY = playLink("room_link");
 
 // The same link as an Android intent for RailBuzz itself: the app opens on the
 // room when it is installed, whether or not Android has verified railbuzz.in
@@ -59,12 +60,21 @@ function RoomPage() {
         {t && d ? `Someone shared the RailBuzz chat room for train ${t} on ${d}.` : "Someone shared a RailBuzz chat room with you."}
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <Button asChild size="lg">
-          <a href={android ? appIntent(t, d) : PLAY}>Open in RailBuzz app</a>
-        </Button>
-        <Button asChild size="lg" variant="outline">
-          <a href={PLAY} target="_blank" rel="noopener noreferrer">Get RailBuzz on Google Play</a>
-        </Button>
+        {/* The site's own buttons: the orange one readable in both themes, each a full thumb tall on a phone. */}
+        <a
+          href={android ? appIntent(t, d) : PLAY}
+          className="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-primary px-6 font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
+        >
+          Open in RailBuzz app
+        </a>
+        <a
+          href={PLAY}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-12 items-center justify-center rounded-xl border border-border bg-card px-6 font-semibold transition hover:border-primary"
+        >
+          Get RailBuzz on Google Play
+        </a>
       </div>
       <div className="mt-8 space-y-3 rounded-2xl border border-border bg-card p-6 text-muted-foreground">
         <h2 className="text-lg font-semibold text-foreground">What this is</h2>

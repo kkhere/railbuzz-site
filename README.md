@@ -18,7 +18,27 @@ here, on GitHub Pages; the domain is not connected to Lovable.
 | `src/content/grievance.html` | `/grievance/` | Rule 3(2) officer + DPDP Rule 14(3) timelines |
 | `src/content/delete-account.html` | `/delete-account/` | Data safety → account deletion |
 | `src/routes/room.tsx` | `/room/?t=<train>&d=<date>` | Landing page for a shared chat-room link |
-| `src/routes/index.tsx` | `/` | Home page: what the app does, how it works, FAQ |
+| `src/routes/index.tsx` | `/` | Home page: what the app does, the Search Trains panel, how it works, FAQ |
+| `src/routes/trains.tsx` | `/trains/` | Search Trains: one panel, four tabs (train, between stations, station board, PNR); `?tab=`, `?from=&to=`, `?code=` |
+| `src/routes/trains-between-stations.tsx`, `station-departures.tsx`, `pnr-status.tsx` | `/trains-between-stations/`, `/station-departures/`, `/pnr-status/` | Pages search engines land on; the same panel on that tab, plus their own guide and FAQ |
+| `src/routes/train.$number.tsx` | `/train/<n>/` | A train's page, built ahead for the 180 trains in `src/data/trains/` (listed in `vite.config.ts`, not linked) |
+| `src/routes/train.index.tsx` | `/train/?n=<n>` | Any other train's page, loaded when opened; not indexed |
+| `src/routes/train-chat.tsx`, `about.tsx` | `/train-chat/`, `/about/` | Train chat explained (for "train chat" searches); who RailBuzz is |
+
+Live lookups (PNR, timetables, between stations, station boards) go to the
+admin app's public route, `https://admin.railbuzz.in/api/public/rail`
+(`admin/src/app/api/public/rail/route.ts`, limits in migration 080). A preview
+build can point elsewhere with `VITE_RAIL_API`.
+
+Trains between stations has the app's **Nearby stations** box (on unless
+turned off, remembered in the browser): the trains from the other main
+stations in each one's city too, sent as `nearby: true`. The admin route works
+the list out with a copy of the app's `supabase/functions/railradar/nearby.ts`
+(`admin/src/lib/railradar/`; `npm run typecheck` there fails if the copy
+drifts, `npm run copy:nearby` refreshes it) and counts each RailRadar request
+it makes against the site's day (migration 081). `public/llms.txt` summarises
+the site for AI assistants; `public/<key>.txt` is the IndexNow key the publish
+workflow submits the sitemap with.
 
 The app links to `/privacy/`, `/terms/`, `/grievance/` and
 `/room/?t=…&d=…` with these exact spellings. Keep them working.

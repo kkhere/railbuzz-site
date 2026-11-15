@@ -10,18 +10,31 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as CommunityGuidelinesRouteImport } from './routes/community-guidelines'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as GrievanceRouteImport } from './routes/grievance'
 import { Route as NotFoundRouteImport } from './routes/not-found'
+import { Route as PnrStatusRouteImport } from './routes/pnr-status'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RoomRouteImport } from './routes/room'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StationDeparturesRouteImport } from './routes/station-departures'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TrainChatRouteImport } from './routes/train-chat'
+import { Route as TrainsRouteImport } from './routes/trains'
+import { Route as TrainsBetweenStationsRouteImport } from './routes/trains-between-stations'
+import { Route as TrainIndexRouteImport } from './routes/train.index'
+import { Route as TrainNumberRouteImport } from './routes/train.$number'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommunityGuidelinesRoute = CommunityGuidelinesRouteImport.update({
@@ -44,6 +57,11 @@ const NotFoundRoute = NotFoundRouteImport.update({
   path: '/not-found',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PnrStatusRoute = PnrStatusRouteImport.update({
+  id: '/pnr-status',
+  path: '/pnr-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -59,92 +77,178 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StationDeparturesRoute = StationDeparturesRouteImport.update({
+  id: '/station-departures',
+  path: '/station-departures',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainChatRoute = TrainChatRouteImport.update({
+  id: '/train-chat',
+  path: '/train-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainsRoute = TrainsRouteImport.update({
+  id: '/trains',
+  path: '/trains',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainsBetweenStationsRoute = TrainsBetweenStationsRouteImport.update({
+  id: '/trains-between-stations',
+  path: '/trains-between-stations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainIndexRoute = TrainIndexRouteImport.update({
+  id: '/train/',
+  path: '/train/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainNumberRoute = TrainNumberRouteImport.update({
+  id: '/train/$number',
+  path: '/train/$number',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/station-departures': typeof StationDeparturesRoute
   '/terms': typeof TermsRoute
+  '/train-chat': typeof TrainChatRoute
+  '/trains': typeof TrainsRoute
+  '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/train/$number': typeof TrainNumberRoute
+  '/train/': typeof TrainIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/station-departures': typeof StationDeparturesRoute
   '/terms': typeof TermsRoute
+  '/train-chat': typeof TrainChatRoute
+  '/trains': typeof TrainsRoute
+  '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/train/$number': typeof TrainNumberRoute
+  '/train': typeof TrainIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/community-guidelines': typeof CommunityGuidelinesRoute
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/station-departures': typeof StationDeparturesRoute
   '/terms': typeof TermsRoute
+  '/train-chat': typeof TrainChatRoute
+  '/trains': typeof TrainsRoute
+  '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/train/$number': typeof TrainNumberRoute
+  '/train/': typeof TrainIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/community-guidelines'
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/pnr-status'
     | '/privacy'
     | '/room'
     | '/sitemap.xml'
+    | '/station-departures'
     | '/terms'
+    | '/train-chat'
+    | '/trains'
+    | '/trains-between-stations'
+    | '/train/$number'
+    | '/train/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/community-guidelines'
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/pnr-status'
     | '/privacy'
     | '/room'
     | '/sitemap.xml'
+    | '/station-departures'
     | '/terms'
+    | '/train-chat'
+    | '/trains'
+    | '/trains-between-stations'
+    | '/train/$number'
+    | '/train'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/community-guidelines'
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/pnr-status'
     | '/privacy'
     | '/room'
     | '/sitemap.xml'
+    | '/station-departures'
     | '/terms'
+    | '/train-chat'
+    | '/trains'
+    | '/trains-between-stations'
+    | '/train/$number'
+    | '/train/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CommunityGuidelinesRoute: typeof CommunityGuidelinesRoute
   DeleteAccountRoute: typeof DeleteAccountRoute
   GrievanceRoute: typeof GrievanceRoute
   NotFoundRoute: typeof NotFoundRoute
+  PnrStatusRoute: typeof PnrStatusRoute
   PrivacyRoute: typeof PrivacyRoute
   RoomRoute: typeof RoomRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StationDeparturesRoute: typeof StationDeparturesRoute
   TermsRoute: typeof TermsRoute
+  TrainChatRoute: typeof TrainChatRoute
+  TrainsRoute: typeof TrainsRoute
+  TrainsBetweenStationsRoute: typeof TrainsBetweenStationsRoute
+  TrainNumberRoute: typeof TrainNumberRoute
+  TrainIndexRoute: typeof TrainIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -154,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/community-guidelines': {
@@ -184,6 +295,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NotFoundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pnr-status': {
+      id: '/pnr-status'
+      path: '/pnr-status'
+      fullPath: '/pnr-status'
+      preLoaderRoute: typeof PnrStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -205,6 +323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/station-departures': {
+      id: '/station-departures'
+      path: '/station-departures'
+      fullPath: '/station-departures'
+      preLoaderRoute: typeof StationDeparturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -212,19 +337,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/train-chat': {
+      id: '/train-chat'
+      path: '/train-chat'
+      fullPath: '/train-chat'
+      preLoaderRoute: typeof TrainChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trains': {
+      id: '/trains'
+      path: '/trains'
+      fullPath: '/trains'
+      preLoaderRoute: typeof TrainsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trains-between-stations': {
+      id: '/trains-between-stations'
+      path: '/trains-between-stations'
+      fullPath: '/trains-between-stations'
+      preLoaderRoute: typeof TrainsBetweenStationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/train/': {
+      id: '/train/'
+      path: '/train'
+      fullPath: '/train/'
+      preLoaderRoute: typeof TrainIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/train/$number': {
+      id: '/train/$number'
+      path: '/train/$number'
+      fullPath: '/train/$number'
+      preLoaderRoute: typeof TrainNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CommunityGuidelinesRoute: CommunityGuidelinesRoute,
   DeleteAccountRoute: DeleteAccountRoute,
   GrievanceRoute: GrievanceRoute,
   NotFoundRoute: NotFoundRoute,
+  PnrStatusRoute: PnrStatusRoute,
   PrivacyRoute: PrivacyRoute,
   RoomRoute: RoomRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StationDeparturesRoute: StationDeparturesRoute,
   TermsRoute: TermsRoute,
+  TrainChatRoute: TrainChatRoute,
+  TrainsRoute: TrainsRoute,
+  TrainsBetweenStationsRoute: TrainsBetweenStationsRoute,
+  TrainNumberRoute: TrainNumberRoute,
+  TrainIndexRoute: TrainIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

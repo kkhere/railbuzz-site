@@ -41,3 +41,29 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # After each publish, tell the IndexNow search engines (Bing, which ChatGPT
+  # search and Copilot draw on, and others) which pages exist, so they look
+  # again sooner. public/c803e9c3cb5b1772a9f74983c8e3064f.txt proves the site is ours. A failure here
+  # never fails the publish.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Submit the sitemap's pages to IndexNow
+        env:
+          INDEXNOW_KEY: c803e9c3cb5b1772a9f74983c8e3064f
+        run: |
+          curl -fsS https://railbuzz.in/sitemap.xml -o sitemap.xml
+          python3 - <<'PY'
+          import json, os, re, urllib.request
+          key = os.environ["INDEXNOW_KEY"]
+          urls = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml").read())
+          body = json.dumps({"host": "railbuzz.in", "key": key,
+                             "keyLocation": f"https://railbuzz.in/{key}.txt", "urlList": urls}).encode()
+          req = urllib.request.Request("https://api.indexnow.org/indexnow", data=body,
+                                       headers={"Content-Type": "application/json; charset=utf-8"})
+          print("IndexNow:", urllib.request.urlopen(req, timeout=30).status, "for", len(urls), "pages")
+          PY
+

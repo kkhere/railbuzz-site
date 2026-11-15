@@ -1,0 +1,35 @@
+# RailBuzz
+
+> RailBuzz is a free Android app for Indian Railways passengers. It shows live train running status, sends updates and alerts until your stop, checks PNR status, finds trains between stations and shows live station departures, and gives every train a chat room for each day it runs, where passengers on the same train can talk under an alias.
+
+Key facts:
+
+- Website: https://railbuzz.in
+- App: Google Play, package com.railbuzz.app — https://play.google.com/store/apps/details?id=com.railbuzz.app
+- Price: free; every feature is free to use
+- Launched: November 2026, made in India
+- Train information comes from RailRadar (railradar.in), as Indian Railways reports it
+- Independent: not run by or affiliated with Indian Railways, IRCTC or any government body
+- Contact: support@railbuzz.in; Grievance Officer: Kiran Kumar, grievance@railbuzz.in
+
+## Search
+
+- [Search trains](https://railbuzz.in/trains/): any train's timetable by number or name, trains between two stations, a station's live board and PNR status, on one page
+- [Trains between stations](https://railbuzz.in/trains-between-stations/): every train from one station to another, with times, journey time and running days
+- [Live station departures](https://railbuzz.in/station-departures/): trains due at a station in the next hours, with expected times, delays and platforms
+- [PNR status](https://railbuzz.in/pnr-status/): booking and current status of each passenger, coach, berth and chart status, and what CNF, RAC, WL and GNWL mean
+- Train timetables: https://railbuzz.in/train/{number}/ for well-known trains (for example [12727 Hyderabad Godavari SF Express](https://railbuzz.in/train/12727/)), and https://railbuzz.in/train/?n={number} for any other
+
+## The app
+
+- [Home](https://railbuzz.in/): what RailBuzz does — live running status, Subscribe to a Train alerts, train chat, RailBuzz AI
+- [Train chat](https://railbuzz.in/train-chat/): how the chat room for every train works, and how it is kept safe
+- [About RailBuzz](https://railbuzz.in/about/): who runs RailBuzz and where its information comes from
+
+## Policies
+
+- [Privacy Policy](https://railbuzz.in/privacy/)
+- [Terms of Service](https://railbuzz.in/terms/)
+- [Community Guidelines](https://railbuzz.in/community-guidelines/)
+- [Grievance Redressal](https://railbuzz.in/grievance/)
+- [Delete your account](https://railbuzz.in/delete-account/)
