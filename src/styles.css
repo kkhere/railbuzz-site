@@ -76,6 +76,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-live: var(--live);
 }
 
 /*
@@ -112,6 +113,8 @@
   --chart-3: oklch(0.82 0.14 90);
   --chart-4: oklch(0.65 0.15 300);
   --chart-5: oklch(0.7 0.14 150);
+  /* "Live" labels: green, as the app's chat label. */
+  --live: oklch(0.8 0.17 150);
   --gradient-primary: linear-gradient(150deg, var(--primary-glow), var(--primary));
   --gradient-hero: linear-gradient(90deg, oklch(0.17 0.04 255 / 0.95) 0%, oklch(0.17 0.04 255 / 0.7) 45%, oklch(0.17 0.04 255 / 0.1) 100%);
   --shadow-glow: 0 18px 40px -16px color-mix(in oklab, var(--primary) 55%, transparent);
@@ -144,6 +147,7 @@
   --ring: oklch(0.56 0.17 42);
   --chart-1: oklch(0.56 0.17 42);
   --gradient-primary: linear-gradient(150deg, var(--primary-glow), oklch(0.7 0.19 48));
+  --live: oklch(0.52 0.14 150);
   --gradient-hero: linear-gradient(90deg, oklch(0.975 0.006 250 / 0.97) 0%, oklch(0.975 0.006 250 / 0.85) 45%, oklch(0.975 0.006 250 / 0.15) 100%);
   --shadow-glow: 0 14px 30px -16px color-mix(in oklab, var(--primary) 45%, transparent);
 }

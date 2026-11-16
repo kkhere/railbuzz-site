@@ -34,7 +34,7 @@ import heroSmall from "@/assets/hero-train-828.webp";
 import { AiVisual, ChatVisual, NewsVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
 import { PlayButton } from "@/components/site-layout";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
-import { SearchHub, findTrain } from "@/components/search-hub";
+import { SearchHub, openSearch } from "@/components/search-hub";
 
 // Every claim on this page is something the app does today (1.0 (13)), and
 // every number is one already published in /privacy, /grievance or
@@ -224,13 +224,19 @@ export const Route = createFileRoute("/")({
 // The five things RailBuzz does, under the hero, numbered as their sections
 // below; each card opens its section. Taglines of the first four chosen by the
 // owner, 15 November 2026; Latest railway news added 16 November.
-const highlights: { icon: LucideIcon; title: string; text: string; href: string; badge?: string }[] = [
+// Subscribe and Train chat carry a green Live label, as the app's chat does
+// (the owner, 16 November 2026); no card is highlighted over the others.
+const highlights: { icon: LucideIcon; title: string; text: string; href: string; live?: { short: string; long: string } }[] = [
   { icon: MapPin, title: "Live train status", text: "Where your train is, how late it is, and when it reaches your station.", href: "#running-status" },
-  { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", badge: "Live updates" },
-  { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat" },
+  { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", live: { short: "Live", long: "Live updates" } },
+  { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat", live: { short: "Live", long: "Live" } },
   { icon: Sparkles, title: "RailBuzz AI", text: "Ask anything about your journey. Food, fares, refunds, rules.", href: "#railbuzz-ai" },
   { icon: Newspaper, title: "Latest railway news", text: "Rail news near you, disruptions on your route, and big news from across India.", href: "#latest-news" },
 ];
+
+/** The hero's Find your train and Check PNR status: alike, and side by side even on a phone. */
+const HERO_SECONDARY =
+  "inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-3 py-3.5 text-sm font-semibold backdrop-blur transition hover:border-primary sm:px-6 sm:text-base";
 
 /** "01", "02"…: the features' numbers, the same on the cards and the sections. */
 const numbered = (i: number) => String(i + 1).padStart(2, "0");
@@ -379,48 +385,66 @@ function Index() {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
             See where your train is, get alerts on your phone until your stop, and chat with the passengers on the same train.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <PlayButton medium="home_hero" />
+          {/* Play first; then a train and a PNR, each one tap from its box (the owner, 16 November 2026). */}
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
+            <PlayButton medium="home_hero" className="col-span-2" />
             <a
               href="#search"
               onClick={(e) => {
-                if (findTrain()) e.preventDefault();
+                if (openSearch("train")) e.preventDefault();
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-6 py-3.5 font-semibold backdrop-blur transition hover:border-primary"
+              className={HERO_SECONDARY}
             >
-              <Search className="size-5" /> Find your train
+              <Search aria-hidden className="size-5 shrink-0" /> Find your train
+            </a>
+            <a
+              href="/pnr-status/"
+              onClick={(e) => {
+                if (openSearch("pnr")) e.preventDefault();
+              }}
+              className={HERO_SECONDARY}
+            >
+              <Ticket aria-hidden className="size-5 shrink-0" />
+              <span className="sm:hidden">PNR status</span>
+              <span className="hidden sm:inline">Check PNR status</span>
             </a>
           </div>
           <p className="mt-5 text-sm text-muted-foreground">Free on Android · Sign in with your mobile number or Google</p>
         </div>
       </section>
 
-      {/* The five things RailBuzz does; each card opens its section below. */}
-      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-3 lg:grid-cols-5">
+      {/* The five things RailBuzz does, alike: number, icon, name, one line, and
+          the way to its section below. Two carry a green Live label. */}
+      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
         {highlights.map((h, i) => (
           <a
             key={h.title}
             href={h.href}
-            className={
-              "group rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary last:col-span-2 md:last:col-span-1 " +
-              (h.badge ? "border-primary/50" : "border-border")
-            }
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-lg shadow-black/5 transition duration-200 hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl hover:shadow-primary/10 sm:p-5 dark:shadow-black/25 last:col-span-2 md:last:col-span-1"
           >
-            <div className="flex items-start justify-between gap-2">
-              <span className="grid size-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow">
-                <h.icon className="size-5" />
+            {/* A thin line of the brand colour along the top, brighter on hover. */}
+            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-primary opacity-40 transition group-hover:opacity-100" />
+            <div className="flex items-center justify-between gap-2">
+              <span className="grid size-11 place-items-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/25 transition group-hover:bg-gradient-primary group-hover:text-primary-foreground group-hover:ring-0">
+                <h.icon aria-hidden className="size-5" />
               </span>
-              <span aria-hidden className="font-display text-2xl font-extrabold leading-none text-primary/40 transition group-hover:text-primary">
-                {numbered(i)}
-              </span>
-              {h.badge && (
-                <span className="hidden items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary sm:flex">
-                  <span className="size-1.5 animate-pulse rounded-full bg-primary" /> {h.badge}
+              {h.live && (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-live/12 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-live ring-1 ring-live/30 sm:px-2.5 sm:text-[11px]">
+                  <span aria-hidden className="relative flex size-1.5">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-live opacity-75" />
+                    <span className="relative inline-flex size-1.5 rounded-full bg-live" />
+                  </span>
+                  <span className="sm:hidden">{h.live.short}</span>
+                  <span className="hidden sm:inline">{h.live.long}</span>
                 </span>
               )}
             </div>
-            <h2 className="mt-4 text-lg font-bold leading-tight group-hover:text-primary md:text-xl">{h.title}</h2>
-            <p className="mt-1.5 text-sm text-muted-foreground">{h.text}</p>
+            <p aria-hidden className="mt-4 font-display text-xs font-bold tracking-[0.2em] text-primary">{numbered(i)}</p>
+            <h2 className="mt-1 text-base font-bold leading-snug sm:text-lg">{h.title}</h2>
+            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">{h.text}</p>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+              See how <ArrowRight aria-hidden className="size-4 transition group-hover:translate-x-1" />
+            </span>
           </a>
         ))}
       </section>
@@ -443,7 +467,7 @@ function Index() {
       </section>
 
       {pillars.map((p, i) => (
-        <section key={p.id} id={p.id} className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-16 md:pt-24">
+        <section key={p.id} id={p.id} className={"mx-auto max-w-6xl scroll-mt-20 px-5 " + (i === 0 ? "pt-10 md:pt-14" : "pt-16 md:pt-24")}>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className={i % 2 === 1 ? "lg:order-last" : ""}>
               <div className="flex items-end gap-4">

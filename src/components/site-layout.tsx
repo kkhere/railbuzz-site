@@ -72,7 +72,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 min-[400px]:px-5 md:gap-6">
         <Logo />
-        <nav aria-label="Main" className="hidden flex-1 items-center gap-7 text-sm font-medium text-muted-foreground md:flex">
+        {/* The links on the right, beside the theme switch and Get the app (the owner, 16 November 2026). */}
+        <nav aria-label="Main" className="hidden flex-1 items-center justify-end gap-7 pr-1 text-sm font-medium text-muted-foreground md:flex lg:gap-8">
           {menu.slice(0, 2).map((n) => (
             <Link key={n.to} to={n.to} className="transition hover:text-foreground" activeProps={{ className: "text-foreground" }}>
               {n.label}
