@@ -221,9 +221,9 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// The five things RailBuzz does, under the hero, numbered as their sections
-// below; each card opens its section. Taglines of the first four chosen by the
-// owner, 15 November 2026; Latest railway news added 16 November.
+// The four things RailBuzz does, under the hero; each opens its section below.
+// Taglines chosen by the owner, 15 November 2026. Latest Railway News is in
+// the features below, not here (the owner, 16 November 2026).
 // Subscribe and Train chat carry a green Live label, as the app's chat does
 // (the owner, 16 November 2026); no card is highlighted over the others.
 const highlights: { icon: LucideIcon; title: string; text: string; href: string; live?: { short: string; long: string } }[] = [
@@ -231,14 +231,13 @@ const highlights: { icon: LucideIcon; title: string; text: string; href: string;
   { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", live: { short: "Live", long: "Live updates" } },
   { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat", live: { short: "Live", long: "Live" } },
   { icon: Sparkles, title: "RailBuzz AI", text: "Ask anything about your journey. Food, fares, refunds, rules.", href: "#railbuzz-ai" },
-  { icon: Newspaper, title: "Latest railway news", text: "Rail news near you, disruptions on your route, and big news from across India.", href: "#latest-news" },
 ];
 
 /** The hero's Find your train and Check PNR status: alike, and side by side even on a phone. */
 const HERO_SECONDARY =
   "inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-3 py-3.5 text-sm font-semibold backdrop-blur transition hover:border-primary sm:px-6 sm:text-base";
 
-/** "01", "02"…: the features' numbers, the same on the cards and the sections. */
+/** "01", "02"…: the features' numbers. */
 const numbered = (i: number) => String(i + 1).padStart(2, "0");
 
 type Point = { icon: LucideIcon; title: string; text: string };
@@ -413,38 +412,28 @@ function Index() {
         </div>
       </section>
 
-      {/* The five things RailBuzz does, alike: number, icon, name, one line, and
-          the way to its section below. Two carry a green Live label. */}
-      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
-        {highlights.map((h, i) => (
+      {/* The four things RailBuzz does; each card opens its section below. */}
+      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-4">
+        {highlights.map((h) => (
           <a
             key={h.title}
             href={h.href}
-            className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-lg shadow-black/5 transition duration-200 hover:-translate-y-1 hover:border-primary/60 hover:shadow-xl hover:shadow-primary/10 sm:p-5 dark:shadow-black/25 last:col-span-2 md:last:col-span-1"
+            className="group rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary"
           >
-            {/* A thin line of the brand colour along the top, brighter on hover. */}
-            <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-primary opacity-40 transition group-hover:opacity-100" />
-            <div className="flex items-center justify-between gap-2">
-              <span className="grid size-11 place-items-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/25 transition group-hover:bg-gradient-primary group-hover:text-primary-foreground group-hover:ring-0">
-                <h.icon aria-hidden className="size-5" />
+            <div className="flex items-start justify-between gap-2">
+              <span className="grid size-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow">
+                <h.icon className="size-5" />
               </span>
               {h.live && (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-live/12 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-live ring-1 ring-live/30 sm:px-2.5 sm:text-[11px]">
-                  <span aria-hidden className="relative flex size-1.5">
-                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-live opacity-75" />
-                    <span className="relative inline-flex size-1.5 rounded-full bg-live" />
-                  </span>
+                <span className="flex items-center gap-1.5 rounded-full bg-live/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-live">
+                  <span className="size-1.5 animate-pulse rounded-full bg-live" />
                   <span className="sm:hidden">{h.live.short}</span>
                   <span className="hidden sm:inline">{h.live.long}</span>
                 </span>
               )}
             </div>
-            <p aria-hidden className="mt-4 font-display text-xs font-bold tracking-[0.2em] text-primary">{numbered(i)}</p>
-            <h2 className="mt-1 text-base font-bold leading-snug sm:text-lg">{h.title}</h2>
-            <p className="mt-1.5 flex-1 text-sm leading-relaxed text-muted-foreground">{h.text}</p>
-            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              See how <ArrowRight aria-hidden className="size-4 transition group-hover:translate-x-1" />
-            </span>
+            <h2 className="mt-4 text-lg font-bold leading-tight group-hover:text-primary md:text-xl">{h.title}</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground">{h.text}</p>
           </a>
         ))}
       </section>
