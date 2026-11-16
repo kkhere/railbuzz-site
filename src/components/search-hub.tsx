@@ -1,5 +1,6 @@
 import { ArrowLeftRight, Signpost, Ticket, TrainFront } from "lucide-react";
-import { type KeyboardEvent, useId, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { BetweenTool } from "@/components/tools/between-tool";
 import { PnrTool } from "@/components/tools/pnr-tool";
 import { StationTool } from "@/components/tools/station-tool";
@@ -21,6 +22,23 @@ export const TABS: { id: Tab; label: string; short: string; icon: typeof TrainFr
   { id: "station", label: "Station board", short: "Station", icon: Signpost, hint: "Trains due at a station now: times, delays, platforms." },
   { id: "pnr", label: "PNR status", short: "PNR", icon: Ticket, hint: "Your booking and each passenger's current status." },
 ];
+
+const FIND_TRAIN = "railbuzz:find-train";
+
+/**
+ * A "Find your train" link's tap: the search panel on this page opens its
+ * Train tab and puts the cursor in the box, then the page scrolls to it.
+ * False when there is no panel here (the link then works as a plain link).
+ */
+export function findTrain(): boolean {
+  const panel = document.getElementById("search");
+  if (!panel) return false;
+  window.dispatchEvent(new Event(FIND_TRAIN));
+  const still = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  panel.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+  history.replaceState(history.state, "", "#search");
+  return true;
+}
 
 export function SearchHub({
   initialTab = "train",
@@ -51,6 +69,20 @@ export function SearchHub({
     onTab?.(t);
     if (focus) tabRefs.current[t]?.focus();
   };
+
+  // "Find your train" on the home page (findTrain below): the Train tab, and
+  // the cursor in its box, in the same tap, so a phone opens its keyboard
+  // (the owner, 16 November 2026: no second tap on the box).
+  useEffect(() => {
+    const onFind = () => {
+      flushSync(() => choose("train"));
+      const box = document.getElementById("search-train-input");
+      if (box instanceof HTMLInputElement) box.focus({ preventScroll: true });
+    };
+    window.addEventListener(FIND_TRAIN, onFind);
+    return () => window.removeEventListener(FIND_TRAIN, onFind);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Arrow keys move between tabs, as a tab list should.
   const onKey = (e: KeyboardEvent) => {

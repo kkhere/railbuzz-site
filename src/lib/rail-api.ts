@@ -24,6 +24,8 @@ export type BetweenResult = {
   to: { code: string; name: string };
   /** Asked with nearby: true, and answered with the stations in each one's city. */
   nearby?: boolean;
+  /** A nearby list given before every part came back (about 3.5 s); asked again a little later, it is whole. */
+  partial?: boolean;
   trains: {
     number: string;
     name: string;

@@ -24,14 +24,17 @@ import {
   TrainFront,
   UserRound,
   Utensils,
+  Zap,
+  Globe,
+  TriangleAlert,
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import hero from "@/assets/hero-train.webp";
 import heroSmall from "@/assets/hero-train-828.webp";
-import { AiVisual, ChatVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
+import { AiVisual, ChatVisual, NewsVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
 import { PlayButton } from "@/components/site-layout";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
-import { SearchHub } from "@/components/search-hub";
+import { SearchHub, findTrain } from "@/components/search-hub";
 
 // Every claim on this page is something the app does today (1.0 (13)), and
 // every number is one already published in /privacy, /grievance or
@@ -218,21 +221,28 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// The four things RailBuzz does, under the hero; each opens its section below.
-// Taglines chosen by the owner, 15 November 2026.
+// The five things RailBuzz does, under the hero, numbered as their sections
+// below; each card opens its section. Taglines of the first four chosen by the
+// owner, 15 November 2026; Latest railway news added 16 November.
 const highlights: { icon: LucideIcon; title: string; text: string; href: string; badge?: string }[] = [
   { icon: MapPin, title: "Live train status", text: "Where your train is, how late it is, and when it reaches your station.", href: "#running-status" },
   { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", badge: "Live updates" },
   { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat" },
   { icon: Sparkles, title: "RailBuzz AI", text: "Ask anything about your journey. Food, fares, refunds, rules.", href: "#railbuzz-ai" },
+  { icon: Newspaper, title: "Latest railway news", text: "Rail news near you, disruptions on your route, and big news from across India.", href: "#latest-news" },
 ];
+
+/** "01", "02"…: the features' numbers, the same on the cards and the sections. */
+const numbered = (i: number) => String(i + 1).padStart(2, "0");
 
 type Point = { icon: LucideIcon; title: string; text: string };
 
 const pillars: {
   id: string;
-  eyebrow: string;
-  title: string;
+  /** The feature's name: the big heading. */
+  name: string;
+  /** One short line under the name: what it does for the passenger. */
+  tagline: string;
   text: string;
   points: Point[];
   visual: ReactNode;
@@ -240,9 +250,9 @@ const pillars: {
 }[] = [
   {
     id: "running-status",
-    eyebrow: "Live train running status",
-    title: "Know where your train is, and when it will reach you",
-    text: "Search any train by number or name to see the station it last passed, how late it is running, and the expected time at every halt ahead. It updates itself while open.",
+    name: "Live Running Status",
+    tagline: "Where's my train? One tap tells you.",
+    text: "See the station your train last crossed, how late it is running, and when it will reach every station ahead. It keeps updating while you watch.",
     points: [
       { icon: Pin, title: "A shortcut to your train", text: "Keep a train's live status on the edge of every screen and check it with one tap." },
       { icon: Signpost, title: "Station Departures", text: "The live board for any station: the trains arriving and leaving next." },
@@ -256,9 +266,9 @@ const pillars: {
     // updates come about every hour, the two alerts are timed to the passenger's
     // stations from the train's live position (train-watch).
     id: "subscribe",
-    eyebrow: "Subscribe to a Train",
-    title: "Live updates on your phone, all the way to your stop",
-    text: "Tell RailBuzz your train, the day, and where you get on and get down. Your phone then keeps you posted, without opening the app. Alerts are timed from where the train actually is, so a late train does not catch you out.",
+    name: "Subscribe to a Train",
+    tagline: "Sit back. Your train keeps you posted.",
+    text: "Tell RailBuzz your train, the day and your stations, just once. Your phone then keeps you posted till your stop, even with the app closed.",
     points: [
       { icon: Clock, title: "Updates about every hour", text: "Where the train is and whether it is on time, sent as it leaves its halts." },
       { icon: BellRing, title: "Boarding alerts", text: "About 30 minutes before the train reaches your station, and again just before, with the platform when it is known." },
@@ -269,9 +279,9 @@ const pillars: {
   },
   {
     id: "train-chat",
-    eyebrow: "A chat room for your train",
-    title: "Talk to the passengers on the same train, on the same day",
-    text: "Every train gets a chat room for each day it runs. Talk to the people on your journey about the delay, a platform change or which coach is where.",
+    name: "Train Chat",
+    tagline: "Everyone on your train, in one chat.",
+    text: "Every train gets its own chat room for each day it runs. Ask about the delay, a platform change or where your coach stops, and hear from people on the same train.",
     points: [
       { icon: MessageCircle, title: "Quick posts", text: "One tap for a Delay Update, Platform Info or Coach Help." },
       { icon: HandHelping, title: "Ask for help", text: "Post a help card with your coach number. Everyone in the room sees it and can reply." },
@@ -283,16 +293,33 @@ const pillars: {
   },
   {
     id: "railbuzz-ai",
-    eyebrow: "RailBuzz AI",
-    title: "Ask your travel questions in plain words",
-    text: "Tap a suggestion or type your own question. When the answer depends on your train, such as where food can reach your seat, it is worked out from its live running status.",
+    name: "RailBuzz AI",
+    tagline: "Ask anything. Get a straight answer.",
+    text: "Ask in your own words: food on the train, fares, refund rules, your PNR. When the answer depends on your train, it is worked out from its live running status.",
     points: [
       { icon: Utensils, title: "Order Food", text: "The next halts where food can reach your seat, with IRCTC's official ways to order." },
       { icon: IndianRupee, title: "Fare Enquiry", text: "Fares for a train, class by class." },
       { icon: ScrollText, title: "IRCTC Rules & Refund", text: "Cancellation and refund rules, explained simply." },
-      { icon: Newspaper, title: "Railway news", text: "Latest railway news, nearby first, with Interesting Train Facts and Railway Developments for the long hours." },
+      { icon: Ticket, title: "PNR Status", text: "Your booking and each passenger's status, explained in plain words." },
     ],
     visual: <AiVisual />,
+  },
+  {
+    // The app's Latest News: its pages are Near You (where it opens), Disruptions
+    // and National (ui/news/LatestNewsViewModel.kt); news is looked for every
+    // three hours, breaking news up to four times a day more (migration 068), and
+    // a disruption naming a train shows on that train's screens.
+    id: "latest-news",
+    name: "Latest Railway News",
+    tagline: "Fresh railway news, before you set off.",
+    text: "Picked for passengers and updated through the day: what is happening near you, what could affect your train, and the big stories from across India.",
+    points: [
+      { icon: MapPin, title: "News around you", text: "Railway news from your own state first: new trains, new halts, station works." },
+      { icon: TriangleAlert, title: "Disruptions", text: "Cancellations, diversions and delays in the news, also shown on the trains they affect." },
+      { icon: Globe, title: "Nationwide news", text: "The big railway stories from across India, short and simple." },
+      { icon: Zap, title: "Breaking news", text: "Checked through the day, so you hear the big news early." },
+    ],
+    visual: <NewsVisual />,
   },
 ];
 
@@ -356,6 +383,9 @@ function Index() {
             <PlayButton medium="home_hero" />
             <a
               href="#search"
+              onClick={(e) => {
+                if (findTrain()) e.preventDefault();
+              }}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-6 py-3.5 font-semibold backdrop-blur transition hover:border-primary"
             >
               <Search className="size-5" /> Find your train
@@ -365,20 +395,23 @@ function Index() {
         </div>
       </section>
 
-      {/* The four things RailBuzz does; each card opens its section below. */}
-      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-4">
-        {highlights.map((h) => (
+      {/* The five things RailBuzz does; each card opens its section below. */}
+      <section aria-label="What RailBuzz does" className="relative z-10 mx-auto -mt-12 grid max-w-6xl grid-cols-2 gap-3 px-5 md:grid-cols-3 lg:grid-cols-5">
+        {highlights.map((h, i) => (
           <a
             key={h.title}
             href={h.href}
             className={
-              "group rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary " +
+              "group rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary last:col-span-2 md:last:col-span-1 " +
               (h.badge ? "border-primary/50" : "border-border")
             }
           >
             <div className="flex items-start justify-between gap-2">
               <span className="grid size-10 place-items-center rounded-xl bg-gradient-primary text-primary-foreground shadow-glow">
                 <h.icon className="size-5" />
+              </span>
+              <span aria-hidden className="font-display text-2xl font-extrabold leading-none text-primary/40 transition group-hover:text-primary">
+                {numbered(i)}
               </span>
               {h.badge && (
                 <span className="hidden items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary sm:flex">
@@ -406,16 +439,21 @@ function Index() {
       </section>
 
       <section id="features" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-16 md:pt-24">
-        <SectionHead eyebrow="What RailBuzz does" title="Everything for your train journey, in one app" />
+        <SectionHead eyebrow="What RailBuzz does" title="5 ways RailBuzz makes every journey easier" />
       </section>
 
       {pillars.map((p, i) => (
         <section key={p.id} id={p.id} className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-16 md:pt-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className={i % 2 === 1 ? "lg:order-last" : ""}>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{p.eyebrow}</p>
-              <h3 className="mt-3 text-2xl font-bold md:text-4xl">{p.title}</h3>
-              <p className="mt-4 text-lg text-muted-foreground">{p.text}</p>
+              <div className="flex items-end gap-4">
+                <span aria-hidden className="bg-gradient-primary bg-clip-text font-display text-6xl font-extrabold leading-[0.8] text-transparent md:text-8xl">
+                  {numbered(i)}
+                </span>
+                <h3 className="text-3xl font-extrabold leading-tight md:text-5xl">{p.name}</h3>
+              </div>
+              <p className="mt-5 text-xl font-semibold text-primary md:text-2xl">{p.tagline}</p>
+              <p className="mt-3 text-lg text-muted-foreground">{p.text}</p>
               <ul className="mt-8 grid gap-5 sm:grid-cols-2">
                 {p.points.map((pt) => (
                   <li key={pt.title} className="flex gap-3">

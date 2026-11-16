@@ -177,3 +177,41 @@ export function AiVisual() {
     </Screen>
   );
 }
+
+// Latest News as the app shows it: its pages are Near You (where it opens),
+// Disruptions and National. The stories are made up and name no real train.
+const stories = [
+  { label: "Near you", tone: "text-chart-2", when: "2 h ago", text: "Your city station opens a new foot overbridge and two more lifts." },
+  { label: "Disruption", tone: "text-destructive", when: "4 h ago", text: "Two trains on your route diverted this weekend for track work.", note: "Also shown on the trains it affects" },
+  { label: "National · Breaking", tone: "text-primary", when: "Today", text: "More Vande Bharat trains announced for the new timetable." },
+] as const;
+
+export function NewsVisual() {
+  return (
+    <Screen title="Latest News" sub="Railway news for your journeys" live={false}>
+      <div className="flex gap-1.5 overflow-hidden">
+        {["All", "Near You", "Disruptions", "National"].map((c) => (
+          <span
+            key={c}
+            className={
+              "shrink-0 rounded-full border px-2.5 py-1 text-[11px] " +
+              (c === "Near You" ? "border-primary/50 bg-primary/15 font-semibold text-primary" : "border-border text-muted-foreground")
+            }
+          >
+            {c}
+          </span>
+        ))}
+      </div>
+      {stories.map((s) => (
+        <div key={s.label} className="rounded-xl border border-border bg-card p-3">
+          <div className="flex items-center justify-between gap-2 text-[11px]">
+            <span className={"font-semibold uppercase tracking-wider " + s.tone}>{s.label}</span>
+            <span className="text-muted-foreground">{s.when}</span>
+          </div>
+          <div className="mt-1 font-medium">{s.text}</div>
+          {"note" in s && <div className="mt-1 text-[11px] text-muted-foreground">{s.note}</div>}
+        </div>
+      ))}
+    </Screen>
+  );
+}

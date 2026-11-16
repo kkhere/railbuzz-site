@@ -7,15 +7,13 @@
 import { readFileSync } from "node:fs";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// The train pages built ahead (scripts/build_site_trains.py). Nothing on the
-// site lists them any more (the owner, 15 November 2026: no Popular Trains
-// lists; people search for their own train), so the crawler cannot find them
-// by following links: they are named here, as the sitemap names them.
-const trainPages = (
-  JSON.parse(readFileSync(new URL("./src/data/popular-trains.json", import.meta.url), "utf8")) as {
-    trains: { number: string }[];
-  }[]
-).flatMap((s) => s.trains.map((t) => ({ path: `/train/${t.number}/` })));
+// The train and station pages built ahead (scripts/build_site_trains.py):
+// every long-distance train, and every station 15 or more of them call at
+// (the owner, 16 November 2026). Nothing lists them all, so the crawler cannot
+// find each by following links: they are named here, as the sitemap names them.
+const read = <T>(file: string): T => JSON.parse(readFileSync(new URL(file, import.meta.url), "utf8")) as T;
+const trainPages = read<[string, ...unknown[]][]>("./src/data/train-pages.json").map(([n]) => ({ path: `/train/${n}/` }));
+const stationPages = read<[string, ...unknown[]][]>("./src/data/station-pages.json").map(([c]) => ({ path: `/station/${c}/` }));
 
 // railbuzz.in is served by GitHub Pages, which serves files and runs no server.
 // So there is no server build: every page is rendered to HTML at build time
@@ -42,6 +40,7 @@ export default defineConfig({
       { path: "/sitemap.xml" },
       { path: "/not-found/", prerender: { outputPath: "/404.html" } },
       ...trainPages,
+      ...stationPages,
     ],
   },
 });

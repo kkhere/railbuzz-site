@@ -102,6 +102,8 @@ export function BetweenTool({
   const [to, setTo] = useState<Station | null>(null);
   const [nearby, setNearby] = useState(true);
   const [state, setState] = useState<"idle" | "loading">("idle");
+  /** A nearby list shown in part while the rest is asked once more. */
+  const [more, setMore] = useState(false);
   const [result, setResult] = useState<BetweenResult | null>(null);
   /** The two codes the shown list was asked for: a train's note compares with these. */
   const [asked, setAsked] = useState<{ from: string; to: string } | null>(null);
@@ -125,6 +127,7 @@ export function BetweenTool({
   async function run(a: Station, b: Station, near: boolean = nearby) {
     const n = ++latest.current;
     setState("loading");
+    setMore(false);
     setError(null);
     setResult(null);
     setDay("all");
@@ -137,8 +140,21 @@ export function BetweenTool({
     );
     if (n !== latest.current) return;
     setState("idle");
-    if ("result" in r) setResult(r.result);
-    else setError(r.error === "not_found" ? "No trains were found between these stations." : errorText(r.error as LookupError, "train searches"));
+    if ("result" in r) {
+      setResult(r.result);
+      // Given in part (the server answers within about 3.5 s): the rest is
+      // still coming from RailRadar and is kept as it comes. Asked once more
+      // a few seconds later, the list is whole; it replaces this one.
+      if (near && r.result.partial) {
+        setMore(true);
+        await new Promise((resolve) => setTimeout(resolve, 5_000));
+        if (n !== latest.current) return;
+        const again = await lookup({ kind: "between", from: a.code, to: b.code, nearby: true }, honeypot.current?.value ?? "");
+        if (n !== latest.current) return;
+        setMore(false);
+        if ("result" in again && again.result.trains.length >= r.result.trains.length) setResult(again.result);
+      }
+    } else setError(r.error === "not_found" ? "No trains were found between these stations." : errorText(r.error as LookupError, "train searches"));
   }
 
   // Turned on or off after a search: the list is asked again, as the app does.
@@ -258,6 +274,11 @@ export function BetweenTool({
               {trains.length} {trains.length === 1 ? "train" : "trains"} from {result.from.name || from?.name} to {result.to.name || to?.name}
               {stations.length > 0 && <span className="ml-2 text-sm font-medium text-muted-foreground">with nearby stations</span>}
             </h3>
+            {more && (
+              <p role="status" className="flex w-full items-center gap-2 text-sm text-muted-foreground">
+                <Loader2 aria-hidden className="size-4 animate-spin text-primary" /> Looking for more trains from nearby stations…
+              </p>
+            )}
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="Runs on">
               {["all", ...DAYS].map((d) => (
                 <button
