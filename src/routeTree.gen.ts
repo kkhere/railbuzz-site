@@ -17,6 +17,7 @@ import { Route as GrievanceRouteImport } from './routes/grievance'
 import { Route as NotFoundRouteImport } from './routes/not-found'
 import { Route as PnrStatusRouteImport } from './routes/pnr-status'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PunctualityRouteImport } from './routes/punctuality'
 import { Route as RoomRouteImport } from './routes/room'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StationDeparturesRouteImport } from './routes/station-departures'
@@ -24,6 +25,10 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrainChatRouteImport } from './routes/train-chat'
 import { Route as TrainsRouteImport } from './routes/trains'
 import { Route as TrainsBetweenStationsRouteImport } from './routes/trains-between-stations'
+import { Route as GuidesIndexRouteImport } from './routes/guides.index'
+import { Route as GuidesCoachPositionRouteImport } from './routes/guides.coach-position'
+import { Route as GuidesRunningStatusRouteImport } from './routes/guides.running-status'
+import { Route as StationCodeRouteImport } from './routes/station.$code'
 import { Route as TrainIndexRouteImport } from './routes/train.index'
 import { Route as TrainNumberRouteImport } from './routes/train.$number'
 
@@ -67,6 +72,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PunctualityRoute = PunctualityRouteImport.update({
+  id: '/punctuality',
+  path: '/punctuality',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RoomRoute = RoomRouteImport.update({
   id: '/room',
   path: '/room',
@@ -102,6 +112,26 @@ const TrainsBetweenStationsRoute = TrainsBetweenStationsRouteImport.update({
   path: '/trains-between-stations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesCoachPositionRoute = GuidesCoachPositionRouteImport.update({
+  id: '/guides/coach-position',
+  path: '/guides/coach-position',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesRunningStatusRoute = GuidesRunningStatusRouteImport.update({
+  id: '/guides/running-status',
+  path: '/guides/running-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StationCodeRoute = StationCodeRouteImport.update({
+  id: '/station/$code',
+  path: '/station/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrainIndexRoute = TrainIndexRouteImport.update({
   id: '/train/',
   path: '/train/',
@@ -122,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/not-found': typeof NotFoundRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
+  '/punctuality': typeof PunctualityRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/station-departures': typeof StationDeparturesRoute
@@ -129,7 +160,11 @@ export interface FileRoutesByFullPath {
   '/train-chat': typeof TrainChatRoute
   '/trains': typeof TrainsRoute
   '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/guides/coach-position': typeof GuidesCoachPositionRoute
+  '/guides/running-status': typeof GuidesRunningStatusRoute
+  '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
+  '/guides/': typeof GuidesIndexRoute
   '/train/': typeof TrainIndexRoute
 }
 export interface FileRoutesByTo {
@@ -141,6 +176,7 @@ export interface FileRoutesByTo {
   '/not-found': typeof NotFoundRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
+  '/punctuality': typeof PunctualityRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/station-departures': typeof StationDeparturesRoute
@@ -148,7 +184,11 @@ export interface FileRoutesByTo {
   '/train-chat': typeof TrainChatRoute
   '/trains': typeof TrainsRoute
   '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/guides/coach-position': typeof GuidesCoachPositionRoute
+  '/guides/running-status': typeof GuidesRunningStatusRoute
+  '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
+  '/guides': typeof GuidesIndexRoute
   '/train': typeof TrainIndexRoute
 }
 export interface FileRoutesById {
@@ -161,6 +201,7 @@ export interface FileRoutesById {
   '/not-found': typeof NotFoundRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
+  '/punctuality': typeof PunctualityRoute
   '/room': typeof RoomRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/station-departures': typeof StationDeparturesRoute
@@ -168,7 +209,11 @@ export interface FileRoutesById {
   '/train-chat': typeof TrainChatRoute
   '/trains': typeof TrainsRoute
   '/trains-between-stations': typeof TrainsBetweenStationsRoute
+  '/guides/coach-position': typeof GuidesCoachPositionRoute
+  '/guides/running-status': typeof GuidesRunningStatusRoute
+  '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
+  '/guides/': typeof GuidesIndexRoute
   '/train/': typeof TrainIndexRoute
 }
 export interface FileRouteTypes {
@@ -182,6 +227,7 @@ export interface FileRouteTypes {
     | '/not-found'
     | '/pnr-status'
     | '/privacy'
+    | '/punctuality'
     | '/room'
     | '/sitemap.xml'
     | '/station-departures'
@@ -189,7 +235,11 @@ export interface FileRouteTypes {
     | '/train-chat'
     | '/trains'
     | '/trains-between-stations'
+    | '/guides/coach-position'
+    | '/guides/running-status'
+    | '/station/$code'
     | '/train/$number'
+    | '/guides/'
     | '/train/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -201,6 +251,7 @@ export interface FileRouteTypes {
     | '/not-found'
     | '/pnr-status'
     | '/privacy'
+    | '/punctuality'
     | '/room'
     | '/sitemap.xml'
     | '/station-departures'
@@ -208,7 +259,11 @@ export interface FileRouteTypes {
     | '/train-chat'
     | '/trains'
     | '/trains-between-stations'
+    | '/guides/coach-position'
+    | '/guides/running-status'
+    | '/station/$code'
     | '/train/$number'
+    | '/guides'
     | '/train'
   id:
     | '__root__'
@@ -220,6 +275,7 @@ export interface FileRouteTypes {
     | '/not-found'
     | '/pnr-status'
     | '/privacy'
+    | '/punctuality'
     | '/room'
     | '/sitemap.xml'
     | '/station-departures'
@@ -227,7 +283,11 @@ export interface FileRouteTypes {
     | '/train-chat'
     | '/trains'
     | '/trains-between-stations'
+    | '/guides/coach-position'
+    | '/guides/running-status'
+    | '/station/$code'
     | '/train/$number'
+    | '/guides/'
     | '/train/'
   fileRoutesById: FileRoutesById
 }
@@ -240,6 +300,7 @@ export interface RootRouteChildren {
   NotFoundRoute: typeof NotFoundRoute
   PnrStatusRoute: typeof PnrStatusRoute
   PrivacyRoute: typeof PrivacyRoute
+  PunctualityRoute: typeof PunctualityRoute
   RoomRoute: typeof RoomRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StationDeparturesRoute: typeof StationDeparturesRoute
@@ -247,7 +308,11 @@ export interface RootRouteChildren {
   TrainChatRoute: typeof TrainChatRoute
   TrainsRoute: typeof TrainsRoute
   TrainsBetweenStationsRoute: typeof TrainsBetweenStationsRoute
+  GuidesCoachPositionRoute: typeof GuidesCoachPositionRoute
+  GuidesRunningStatusRoute: typeof GuidesRunningStatusRoute
+  StationCodeRoute: typeof StationCodeRoute
   TrainNumberRoute: typeof TrainNumberRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   TrainIndexRoute: typeof TrainIndexRoute
 }
 
@@ -309,6 +374,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/punctuality': {
+      id: '/punctuality'
+      path: '/punctuality'
+      fullPath: '/punctuality'
+      preLoaderRoute: typeof PunctualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/room': {
       id: '/room'
       path: '/room'
@@ -358,6 +430,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainsBetweenStationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/coach-position': {
+      id: '/guides/coach-position'
+      path: '/guides/coach-position'
+      fullPath: '/guides/coach-position'
+      preLoaderRoute: typeof GuidesCoachPositionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/running-status': {
+      id: '/guides/running-status'
+      path: '/guides/running-status'
+      fullPath: '/guides/running-status'
+      preLoaderRoute: typeof GuidesRunningStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/station/$code': {
+      id: '/station/$code'
+      path: '/station/$code'
+      fullPath: '/station/$code'
+      preLoaderRoute: typeof StationCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/train/': {
       id: '/train/'
       path: '/train'
@@ -384,6 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   NotFoundRoute: NotFoundRoute,
   PnrStatusRoute: PnrStatusRoute,
   PrivacyRoute: PrivacyRoute,
+  PunctualityRoute: PunctualityRoute,
   RoomRoute: RoomRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StationDeparturesRoute: StationDeparturesRoute,
@@ -391,7 +492,11 @@ const rootRouteChildren: RootRouteChildren = {
   TrainChatRoute: TrainChatRoute,
   TrainsRoute: TrainsRoute,
   TrainsBetweenStationsRoute: TrainsBetweenStationsRoute,
+  GuidesCoachPositionRoute: GuidesCoachPositionRoute,
+  GuidesRunningStatusRoute: GuidesRunningStatusRoute,
+  StationCodeRoute: StationCodeRoute,
   TrainNumberRoute: TrainNumberRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   TrainIndexRoute: TrainIndexRoute,
 }
 export const routeTree = rootRouteImport

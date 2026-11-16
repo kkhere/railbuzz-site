@@ -5,7 +5,11 @@ import grievance from "@/content/grievance.html?raw";
 import privacy from "@/content/privacy.html?raw";
 import terms from "@/content/terms.html?raw";
 import { pageUrl } from "@/lib/legal-page";
-import { popularStates } from "@/lib/trains";
+
+// Every train and station page (scripts/build_site_trains.py): [number, name, from, to, fetchedOn] and [code, name, trains].
+const first = <T>(files: Record<string, T[]>): T[] => Object.values(files)[0] ?? [];
+const trainPages = first(import.meta.glob<[string, string, string, string, string][]>("../data/train-pages.json", { eager: true, import: "default" }));
+const stationPages = first(import.meta.glob<[string, string, number][]>("../data/station-pages.json", { eager: true, import: "default" }));
 
 // Every page search engines should know, with the day it last changed: a
 // policy's own "Last updated" line, a train page's timetable fetch, and the
@@ -33,7 +37,12 @@ export const Route = createFileRoute("/sitemap.xml")({
           ["/pnr-status", built],
           ["/train-chat", built],
           ["/about", built],
-          ...popularStates.flatMap((s) => s.trains.map((t): [string, string] => [`/train/${t.number}`, t.fetchedOn || built])),
+          ["/guides", built],
+          ["/guides/running-status", built],
+          ["/guides/coach-position", built],
+          ["/punctuality", built],
+          ...trainPages.map(([n, , , , day]): [string, string] => [`/train/${n}`, day || built]),
+          ...stationPages.map(([c]): [string, string] => [`/station/${c}`, built]),
           ["/terms", updated(terms) ?? built],
           ["/privacy", updated(privacy) ?? built],
           ["/community-guidelines", updated(communityGuidelines) ?? built],

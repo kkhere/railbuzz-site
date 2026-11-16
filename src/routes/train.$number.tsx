@@ -3,7 +3,7 @@ import { TrainView, faqs } from "@/components/train-view";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 import { loadTrain, runDaysText, type Train } from "@/lib/trains";
 
-// One page per Popular Train: what people search for ("12727 timetable",
+// One page per long-distance train (3,994; the owner, 16 November 2026): what people search for ("12727 timetable",
 // "12727 coach position", "12727 chat", "where is 12727"), answered from
 // RailRadar's timetable as fetched for the site, and pointing to the app for
 // the live part. Nothing on it is live: a static page costs RailRadar nothing.
@@ -18,7 +18,11 @@ export const Route = createFileRoute("/train/$number")({
     if (!t) return {};
     const first = t.halts[0];
     const last = t.halts[t.halts.length - 1];
-    const title = `${t.number} ${t.name}: Timetable, Live Status & Train Chat`;
+    // Within the ~60 characters a search result shows: a long name keeps less of the tail.
+    const title =
+      [": Timetable, Live Status & Train Chat", ": Timetable & Live Status", " Timetable", ""]
+        .map((tail) => `${t.number} ${t.name}${tail}`)
+        .find((x) => x.length <= 60) ?? `${t.number} ${t.name}`;
     // Within the ~155 characters a search result shows: the facts first, then
     // as much of what the page offers as fits.
     const days = t.runDays.length === 7 ? "daily" : t.runDays.map((d) => d[0]!.toUpperCase() + d.slice(1)).join(", ");

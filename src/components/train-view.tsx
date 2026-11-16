@@ -10,13 +10,14 @@ import {
   dayText,
   durationText,
   hasPage,
+  hasStationPage,
   haltMinutes,
   runDaysText,
   type Train,
 } from "@/lib/trains";
 
-// A train's page, shared by the 180 built ahead (routes/train.$number.tsx,
-// RailRadar's timetable as fetched for the site) and the ones loaded when
+// A train's page, shared by the ~4,000 built ahead (routes/train.$number.tsx,
+// RailBuzz's timetable store as built for the site) and the ones loaded when
 // asked for (routes/train.index.tsx, /train/?n=12345, through the admin
 // route). Nothing on it is live: the live part is in the app.
 
@@ -191,7 +192,14 @@ export function TrainView({ t }: { t: Train }) {
                 return (
                   <tr key={`${h.code}-${i}`} className={end ? "bg-primary/5" : ""}>
                     <th scope="row" className="px-3 py-3 font-medium md:px-4">
-                      {h.name} <span className="text-xs text-muted-foreground">{h.code}</span>
+                      {hasStationPage(h.code) ? (
+                        <Link to="/station/$code/" params={{ code: h.code }} className="hover:text-primary hover:underline">
+                          {h.name}
+                        </Link>
+                      ) : (
+                        h.name
+                      )}{" "}
+                      <span className="text-xs text-muted-foreground">{h.code}</span>
                     </th>
                     <td className="px-2 py-3 tabular-nums">{h.arr || (i === 0 ? "Starts" : "—")}</td>
                     <td className="px-2 py-3 tabular-nums">{h.dep || (i === t.halts.length - 1 ? "Ends" : "—")}</td>

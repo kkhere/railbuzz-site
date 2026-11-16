@@ -18,7 +18,15 @@ Key facts:
 - [Trains between stations](https://railbuzz.in/trains-between-stations/): every train from one station to another, with times, journey time and running days
 - [Live station departures](https://railbuzz.in/station-departures/): trains due at a station in the next hours, with expected times, delays and platforms
 - [PNR status](https://railbuzz.in/pnr-status/): booking and current status of each passenger, coach, berth and chart status, and what CNF, RAC, WL and GNWL mean
-- Train timetables: https://railbuzz.in/train/{number}/ for well-known trains (for example [12727 Hyderabad Godavari SF Express](https://railbuzz.in/train/12727/)), and https://railbuzz.in/train/?n={number} for any other
+- Train timetables: https://railbuzz.in/train/{number}/ for every long-distance train, about 4,000 (for example [12727 Hyderabad Godavari SF Express](https://railbuzz.in/train/12727/)): halts with times, platforms, running days, coach position and classes; https://railbuzz.in/train/?n={number} for any other train
+- Station timetables: https://railbuzz.in/station/{code}/ for about 1,350 stations (for example [Vijayawada Jn, BZA](https://railbuzz.in/station/BZA/)): every long-distance train calling, with times, platforms and days, first and last train
+
+## Guides and data
+
+- [Guides](https://railbuzz.in/guides/): plain-English guides to Indian train travel
+- [Train running status, explained](https://railbuzz.in/guides/running-status/): Departed, Expected, delay, why expected times change
+- [Coach position](https://railbuzz.in/guides/coach-position/): ENG, SLRD, GEN, S, B, M, A, H, C, E and pantry car codes, finding your coach
+- [How late do trains run?](https://railbuzz.in/punctuality/): arrival delays at the last station for 45 trains from 773 journeys RailBuzz followed (October-November 2026)
 
 ## The app
 

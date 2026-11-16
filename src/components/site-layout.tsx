@@ -142,6 +142,8 @@ export function SiteFooter() {
           <h3 className="mb-4 font-semibold text-foreground">RailBuzz</h3>
           <ul className="space-y-1.5">
             <li><Link to="/train-chat/" className="hover:text-primary">Train chat</Link></li>
+            <li><Link to="/guides/" className="hover:text-primary">Guides</Link></li>
+            <li><Link to="/punctuality/" className="hover:text-primary">Train punctuality</Link></li>
             <li><a href="/#features" className="hover:text-primary">Features</a></li>
             <li><a href="/#faq" className="hover:text-primary">Questions</a></li>
             <li><Link to="/about/" className="hover:text-primary">About RailBuzz</Link></li>

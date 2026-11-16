@@ -1,6 +1,8 @@
-// The train pages' data: one JSON file per Popular Train, written by
-// scripts/build_site_trains.py (in the app's repo) from RailRadar's timetable.
-// Each file is its own chunk, loaded only by its own page.
+// The train and station pages' data, written by scripts/build_site_trains.py
+// (in the app's repo) from RailBuzz's timetable store: one JSON file per
+// long-distance train (3,994 on 16 November 2026) and per station where 15 or
+// more of them call (1,351). Each file is its own chunk, loaded only by its
+// own page.
 
 export type Halt = {
   code: string;
@@ -48,14 +50,51 @@ const files = import.meta.glob<Train>("../data/trains/*.json", { import: "defaul
 export const popularStates: PopularState[] =
   Object.values(import.meta.glob<PopularState[]>("../data/popular-trains.json", { eager: true, import: "default" }))[0] ?? [];
 
-const pageNumbers = new Set(popularStates.flatMap((s) => s.trains.map((t) => t.number)));
+// What has a page: train numbers and station codes, space separated (about 9 KB gzipped).
+const pages = Object.values(
+  import.meta.glob<{ t: string; s: string }>("../data/page-numbers.json", { eager: true, import: "default" }),
+)[0] ?? { t: "", s: "" };
+const pageNumbers = new Set(pages.t.split(" ").filter(Boolean));
+const stationCodes = new Set(pages.s.split(" ").filter(Boolean));
 
 /** True when [number] has a page on the site. */
 export const hasPage = (number: string) => pageNumbers.has(number);
 
+/** True when station [code] has a page on the site. */
+export const hasStationPage = (code: string) => stationCodes.has(code);
+
 export async function loadTrain(number: string): Promise<Train | null> {
   const load = files[`../data/trains/${number}.json`];
   return load ? load() : null;
+}
+
+/**
+ * A train at a station: number, name, type, from, to, arrives, leaves, the
+ * journey day it is here, platform, the days it is here ("motuwe…", two
+ * letters a day, already moved on for later days), and where on its route:
+ * 0 it starts here, 1 it passes through, 2 it ends here.
+ */
+export type StationTrain = [string, string, string, string, string, string, string, number, string, string, 0 | 1 | 2];
+
+export type Station = {
+  code: string;
+  name: string;
+  /** In order of departure (arrival, where the train ends here). */
+  trains: StationTrain[];
+  fetchedOn: string;
+};
+
+const stationFiles = import.meta.glob<Station>("../data/stations/*.json", { import: "default" });
+
+export async function loadStation(code: string): Promise<Station | null> {
+  const load = stationFiles[`../data/stations/${code}.json`];
+  return load ? load() : null;
+}
+
+/** "motuwe" as ["mon", "tue", "wed"]. */
+export function stationDays(packed: string): string[] {
+  const all = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+  return all.filter((d) => packed.includes(d.slice(0, 2)));
 }
 
 export const stateSlug = (state: string) => state.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

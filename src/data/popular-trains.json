@@ -7,56 +7,56 @@
     "name": "Hyderabad Godavari SF Express",
     "from": "Visakhapatnam",
     "to": "Hyderabad",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20805",
     "name": "Andhra Pradesh Express",
     "from": "Visakhapatnam",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12805",
     "name": "Lingampalli Janmabhoomi SF Express",
     "from": "Visakhapatnam",
     "to": "Lingampalli",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20833",
     "name": "Visakhapatnam - Secunderabad Vande Bharat Express",
     "from": "Visakhapatnam",
     "to": "Secunderabad Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12739",
     "name": "Visakhapatnam - Secunderabad Garib Rath Express",
     "from": "Visakhapatnam",
     "to": "Secunderabad Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12718",
     "name": "Ratnachal SF Express",
     "from": "Vijayawada Jn",
     "to": "Visakhapatnam",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12711",
     "name": "Pinakini SF Express",
     "from": "Vijayawada Jn",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12707",
     "name": "Andhra Pradesh Sampark Kranti Express",
     "from": "Tirupati",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -68,35 +68,35 @@
     "name": "Arunachal AC SF Express",
     "from": "Naharlagun",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12087",
     "name": "Naharlagun - Guwahati Shatabdi Express",
     "from": "Naharlagun",
     "to": "Guwahati",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15818",
     "name": "Donyi Polo Express",
     "from": "Naharlagun",
     "to": "Sukhovi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15908",
     "name": "Tinsukia Express",
     "from": "Naharlagun",
     "to": "Tinsukia Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "19526",
     "name": "Hapa Weekly Express",
     "from": "Naharlagun",
     "to": "Hapa",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -108,56 +108,56 @@
     "name": "Dibrugarh - New Delhi Rajdhani Express",
     "from": "Dibrugarh",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12505",
     "name": "North East Express",
     "from": "Kamakhya",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12346",
     "name": "Saraighat Express",
     "from": "Guwahati",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22504",
     "name": "Kanniyakumari Vivek SF Express",
     "from": "Dibrugarh",
     "to": "Kanniyakumari",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15909",
     "name": "Avadh Assam Express",
     "from": "Dibrugarh",
     "to": "Lalgarh Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22228",
     "name": "Guwahati - New Jalpaiguri Vande Bharat Express",
     "from": "Guwahati",
     "to": "New Jalpaiguri",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12067",
     "name": "Guwahati - Jorhat Town Jan Shatabdi Express",
     "from": "Guwahati",
     "to": "Jorhat Town",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15960",
     "name": "Kamrup Express",
     "from": "Dibrugarh",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -169,7 +169,7 @@
     "name": "Rajendra Nagar - New Delhi Tejas Rajdhani Express",
     "from": "Rajendra Nagar Terminal",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -181,56 +181,56 @@
     "name": "Chandigarh - New Delhi Shatabdi Express",
     "from": "Chandigarh",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20978",
     "name": "Chandigarh - Ajmer Vande Bharat Express",
     "from": "Chandigarh",
     "to": "Ajmer Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12232",
     "name": "Lucknow SF Express",
     "from": "Chandigarh",
     "to": "Lucknow Charbagh",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12218",
     "name": "Kerala Sampark Kranti Express",
     "from": "Chandigarh",
     "to": "Thiruvananthapuram North (Kochuveli)",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12450",
     "name": "Goa Sampark Kranti Express",
     "from": "Chandigarh",
     "to": "Madgaon Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22686",
     "name": "Yesvantpur Karnataka Sampark Kranti Express",
     "from": "Chandigarh",
     "to": "Yesvantpur Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12984",
     "name": "Chandigarh - Ajmer Garib Rath Express",
     "from": "Chandigarh",
     "to": "Ajmer Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12411",
     "name": "Amritsar Intercity Express",
     "from": "Chandigarh",
     "to": "Amritsar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -242,56 +242,56 @@
     "name": "Bilaspur - New Delhi Rajdhani Express",
     "from": "Bilaspur Jn",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12823",
     "name": "Chhattisgarh Sampark Kranti Express",
     "from": "Durg",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18237",
     "name": "Chhattisgarh Express",
     "from": "Korba",
     "to": "Amritsar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12409",
     "name": "Hazrat Nizamuddin Gondwana Express",
     "from": "Raigarh",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20825",
     "name": "Bilaspur - Nagpur Vande Bharat Express",
     "from": "Bilaspur Jn",
     "to": "Nagpur Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12853",
     "name": "Amarkantak Express",
     "from": "Durg",
     "to": "Bhopal Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12849",
     "name": "Pune SF Express",
     "from": "Bilaspur Jn",
     "to": "Pune Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18517",
     "name": "Visakhapatnam Express",
     "from": "Korba",
     "to": "Visakhapatnam",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -303,21 +303,21 @@
     "name": "New Delhi - Howrah Rajdhani Express",
     "from": "New Delhi",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12952",
     "name": "New Delhi - Mumbai Central Tejas Rajdhani Express",
     "from": "New Delhi",
     "to": "Mumbai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12002",
     "name": "New Delhi - Rani Kamlapati Shatabdi Express",
     "from": "New Delhi",
     "to": "Rani Kamalapati",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -329,56 +329,56 @@
     "name": "Madgaon - Mumbai CSMT Vande Bharat Express",
     "from": "Madgaon Jn",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "10104",
     "name": "Mandovi Express",
     "from": "Madgaon Jn",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20112",
     "name": "Konkan Kanya SF Express",
     "from": "Madgaon Jn",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12052",
     "name": "Madgaon - Mumbai CSMT Jan Shatabdi Express",
     "from": "Madgaon Jn",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22413",
     "name": "Madgaon - Hazrat Nizamuddin Rajdhani Express",
     "from": "Madgaon Jn",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12779",
     "name": "Goa Express",
     "from": "Vasco da Gama",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12449",
     "name": "Goa Sampark Kranti Express",
     "from": "Madgaon Jn",
     "to": "Chandigarh",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18048",
     "name": "da-Gama - Shalimar Amaravati Express",
     "from": "Vasco da Gama",
     "to": "Shalimar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -390,56 +390,56 @@
     "name": "Ahmedabad - Mumbai Central Shatabdi Express",
     "from": "Ahmedabad Jn",
     "to": "Mumbai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20902",
     "name": "Gandhinagar - Mumbai Central Vande Bharat Express",
     "from": "Gandhinagar Capital",
     "to": "Mumbai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12957",
     "name": "Sabarmati BG - New Delhi Rajdhani Express",
     "from": "Sabarmati BG",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12934",
     "name": "Karnavati Express",
     "from": "Ahmedabad Jn",
     "to": "Bandra Terminus",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12902",
     "name": "Gujarat Mail",
     "from": "Ahmedabad Jn",
     "to": "Dadar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12917",
     "name": "Hazrat Nizamuddin Gujarat Sampark Kranti Express",
     "from": "Ahmedabad Jn",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22946",
     "name": "Saurashtra Mail",
     "from": "Okha",
     "to": "Mumbai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12655",
     "name": "Navjeevan SF Express",
     "from": "Ahmedabad Jn",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -451,14 +451,14 @@
     "name": "Kalka - New Delhi Shatabdi Express",
     "from": "Kalka",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "13052",
     "name": "Netaji Express",
     "from": "Kalka",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -470,49 +470,49 @@
     "name": "Amb Andaura - New Delhi Vande Bharat Express",
     "from": "Amb Andaura",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "52456",
     "name": "Himalayan Queen",
     "from": "Shimla",
     "to": "Kalka",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "52452",
     "name": "Shivalik Deluxe Express",
     "from": "Shimla",
     "to": "Kalka",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "52460",
     "name": "Him Darshan Express",
     "from": "Shimla",
     "to": "Kalka",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12326",
     "name": "Gurumukhi SF Express",
     "from": "Amb Andaura",
     "to": "Kolkatta Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "19308",
     "name": "Indore Express",
     "from": "Una Himachal",
     "to": "Indore Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22710",
     "name": "Hazur Sahib Nanded Weekly SF Express",
     "from": "Amb Andaura",
     "to": "Nanded",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -524,56 +524,56 @@
     "name": "Jammutavi - New Delhi Rajdhani Express",
     "from": "Jammutavi",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22440",
     "name": "SMVD Katra - New Delhi Vande Bharat Express",
     "from": "Shri Mata Vaishno Devi Katra",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "26401",
     "name": "Jammutavi - Sri Nagar Vande Bharat Express",
     "from": "Jammutavi",
     "to": "Sri Nagar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12446",
     "name": "Uttar Sampark Kranti Express",
     "from": "Shri Mata Vaishno Devi Katra",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12920",
     "name": "Malwa SF Express",
     "from": "Shri Mata Vaishno Devi Katra",
     "to": "Dr. Ambedkar Nagar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12472",
     "name": "Swaraj Express",
     "from": "Shri Mata Vaishno Devi Katra",
     "to": "Bandra Terminus",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16032",
     "name": "Andaman Express",
     "from": "Shri Mata Vaishno Devi Katra",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "13152",
     "name": "Kolkata Express",
     "from": "Jammutavi",
     "to": "Kolkatta Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -585,56 +585,56 @@
     "name": "Ranchi - New Delhi Rajdhani Express",
     "from": "Ranchi",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12817",
     "name": "Swarna Jayanti Express",
     "from": "Hatia",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12825",
     "name": "Jharkhand Sampark Kranti Express",
     "from": "Ranchi",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12020",
     "name": "Ranchi - Howrah Shatabdi Express",
     "from": "Ranchi",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20898",
     "name": "Ranchi - Howrah Vande Bharat Express",
     "from": "Ranchi",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18103",
     "name": "Amritsar Jallianwala Bagh Express",
     "from": "Tatanagar Jn",
     "to": "Amritsar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12366",
     "name": "Ranchi - Patna Jan Shatabdi Express",
     "from": "Ranchi",
     "to": "Patna Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18609",
     "name": "Mumbai LTT Express",
     "from": "Ranchi",
     "to": "Mumbai LTT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -646,49 +646,49 @@
     "name": "Karnataka Express",
     "from": "KSR Bengaluru",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22691",
     "name": "KSR Bengaluru - Hazrat Nizamuddin Rajdhani Express",
     "from": "KSR Bengaluru",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12028",
     "name": "KSR Bengaluru - Chennai Central Shatabdi Express",
     "from": "KSR Bengaluru",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12608",
     "name": "Lalbagh SF Express",
     "from": "KSR Bengaluru",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12614",
     "name": "Wodeyar SF Express",
     "from": "KSR Bengaluru",
     "to": "Mysuru Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "11302",
     "name": "Udyan Express",
     "from": "KSR Bengaluru",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16526",
     "name": "Kanniyakumari Express",
     "from": "KSR Bengaluru",
     "to": "Kanniyakumari",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -700,56 +700,56 @@
     "name": "Kerala Express",
     "from": "Thiruvananthapuram Central",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12431",
     "name": "Trivandrum - Hazrat Nizamuddin Rajdhani Express",
     "from": "Thiruvananthapuram Central",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20634",
     "name": "Trivandrum - Kasaragod Vande Bharat Express",
     "from": "Thiruvananthapuram Central",
     "to": "Kasaragod",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12624",
     "name": "MGR Chennai Central Mail",
     "from": "Thiruvananthapuram Central",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12617",
     "name": "Mangala Lakshadweep SF Express",
     "from": "Ernakulam Jn",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12076",
     "name": "Trivandrum - Kozhikkode Jan Shatabdi Express",
     "from": "Thiruvananthapuram Central",
     "to": "Kozhikkode",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16629",
     "name": "Malabar Express",
     "from": "Thiruvananthapuram Central",
     "to": "Mangalore Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16301",
     "name": "Venad Express",
     "from": "Shoranur Jn",
     "to": "Thiruvananthapuram Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -761,7 +761,7 @@
     "name": "Rani Kamlapati - New Delhi Shatabdi Express",
     "from": "Rani Kamalapati",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -773,56 +773,56 @@
     "name": "Mumbai Central - New Delhi Tejas Rajdhani Express",
     "from": "Mumbai Central",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12123",
     "name": "Deccan Queen",
     "from": "Mumbai CSMT",
     "to": "Pune Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12137",
     "name": "Punjab Mail",
     "from": "Mumbai CSMT",
     "to": "Firozpur Cantt",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12809",
     "name": "Howrah Mail",
     "from": "Mumbai CSMT",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22229",
     "name": "Mumbai CSMT - Madgaon Vande Bharat Express",
     "from": "Mumbai CSMT",
     "to": "Madgaon Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12105",
     "name": "Vidarbha SF Express",
     "from": "Mumbai CSMT",
     "to": "Gondia Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12701",
     "name": "Hussain Sagar SF Express",
     "from": "Mumbai CSMT",
     "to": "Hyderabad",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "11301",
     "name": "Udyan Express",
     "from": "Mumbai CSMT",
     "to": "KSR Bengaluru",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -834,21 +834,21 @@
     "name": "Sairang - Anand Vihar Rajdhani Express",
     "from": "Sairang",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "13126",
     "name": "Sairang - Kolkata Express",
     "from": "Sairang",
     "to": "Kolkatta Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15610",
     "name": "Guwahati Express",
     "from": "Sairang",
     "to": "Guwahati",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -860,56 +860,56 @@
     "name": "Bhubaneswar - New Delhi Tejas Rajdhani Express",
     "from": "Bhubaneswar",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12801",
     "name": "Purushottam Express",
     "from": "Puri",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12815",
     "name": "Nandan Kanan Express",
     "from": "Puri",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12822",
     "name": "Dhauli Express",
     "from": "Puri",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12278",
     "name": "Puri - Howrah Shatabdi Express",
     "from": "Puri",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22896",
     "name": "Puri - Howrah Vande Bharat Express",
     "from": "Puri",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12875",
     "name": "Neelachal Express",
     "from": "Puri",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18477",
     "name": "Kalinga Utkal Express",
     "from": "Puri",
     "to": "Yog Nagari Rishikesh",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -921,56 +921,56 @@
     "name": "New Delhi SF Express",
     "from": "Pondicherry",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12868",
     "name": "Shalimar PDY SHM SF EXP",
     "from": "Pondicherry",
     "to": "Shalimar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16116",
     "name": "Chennai Egmore Express",
     "from": "Pondicherry",
     "to": "Chennai Egmore",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "11006",
     "name": "Dadar CHALUKYA EXPRESS",
     "from": "Pondicherry",
     "to": "Dadar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16861",
     "name": "Kanniyakumari Express",
     "from": "Pondicherry",
     "to": "Kanniyakumari",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "16855",
     "name": "Mangaluru Central Express",
     "from": "Pondicherry",
     "to": "Mangalore Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20852",
     "name": "Bhubaneswar SF Express",
     "from": "Pondicherry",
     "to": "Bhubaneswar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "17654",
     "name": "Kacheguda Express",
     "from": "Pondicherry",
     "to": "Kacheguda",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -982,56 +982,56 @@
     "name": "Amritsar - New Delhi Shatabdi Express",
     "from": "Amritsar",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12030",
     "name": "Amritsar - New Delhi Swarn Shatabdi Express",
     "from": "Amritsar",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22488",
     "name": "Amritsar - Delhi Vande Bharat Express",
     "from": "Amritsar",
     "to": "Delhi Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12904",
     "name": "Golden Temple Mail",
     "from": "Amritsar",
     "to": "Bandra Terminus",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12138",
     "name": "Punjab Mail",
     "from": "Firozpur Cantt",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12498",
     "name": "Shan-e-Punjab Express",
     "from": "Amritsar",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12716",
     "name": "Sachkhand Express",
     "from": "Amritsar",
     "to": "Nanded",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12054",
     "name": "Amritsar - Haridwar Jan Shatabdi Express",
     "from": "Amritsar",
     "to": "Haridwar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1043,7 +1043,7 @@
     "name": "Daurai - New Delhi Shatabdi Express",
     "from": "Daurai",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1055,56 +1055,56 @@
     "name": "Tamil Nadu Express",
     "from": "MGR Chennai Central",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12615",
     "name": "Grand Trunk Express",
     "from": "MGR Chennai Central",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12635",
     "name": "Vaigai SF Express",
     "from": "Chennai Egmore",
     "to": "Madurai Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12637",
     "name": "Pandian SF Express",
     "from": "Chennai Egmore",
     "to": "Madurai Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12675",
     "name": "Kovai SF Express",
     "from": "MGR Chennai Central",
     "to": "Coimbatore Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12633",
     "name": "Kanniyakumari SF Express",
     "from": "Chennai Egmore",
     "to": "Kanniyakumari",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12840",
     "name": "Howrah Mail",
     "from": "MGR Chennai Central",
     "to": "Howrah Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12027",
     "name": "Chennai Central - KSR Bengaluru Shatabdi Express",
     "from": "MGR Chennai Central",
     "to": "KSR Bengaluru",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1116,56 +1116,56 @@
     "name": "Telangana Express",
     "from": "Hyderabad",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12728",
     "name": "Visakhapatnam Godavari SF Express",
     "from": "Hyderabad",
     "to": "Visakhapatnam",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12760",
     "name": "Tambaram CHARMINAR SF EXP",
     "from": "Hyderabad",
     "to": "Tambaram",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12437",
     "name": "Secunderabad - Hazrat Nizamuddin Rajdhani Express",
     "from": "Secunderabad Jn",
     "to": "Hazrat Nizamuddin Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "20834",
     "name": "Secunderabad - Visakhapatnam Vande Bharat Express",
     "from": "Secunderabad Jn",
     "to": "Visakhapatnam",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12702",
     "name": "Hussain Sagar SF Express",
     "from": "Hyderabad",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12026",
     "name": "Hyderabad - Pune Shatabdi Express",
     "from": "Hyderabad",
     "to": "Pune Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12734",
     "name": "Narayanadri SF Express",
     "from": "Lingampalli",
     "to": "Tirupati",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1177,42 +1177,42 @@
     "name": "Agartala - Anand Vihar Tejas Rajdhani Express",
     "from": "Agartala",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12502",
     "name": "Agartala - Kolkata Garib Rath Express",
     "from": "Agartala",
     "to": "Kolkatta Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12504",
     "name": "Agartala - SMVT Bengaluru Humsafar Express",
     "from": "Agartala",
     "to": "SMVT Bengaluru",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "14619",
     "name": "Tripura Sundari Express",
     "from": "Agartala",
     "to": "Firozpur Cantt",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15663",
     "name": "Silchar Express",
     "from": "Agartala",
     "to": "Silchar",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15660",
     "name": "Mumbai LTT AC Express",
     "from": "Agartala",
     "to": "Mumbai LTT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1224,56 +1224,56 @@
     "name": "Varanasi - New Delhi Vande Bharat Express",
     "from": "Varanasi",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12559",
     "name": "Shiv Ganga Express",
     "from": "Banaras",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12229",
     "name": "Lucknow Mail",
     "from": "Lucknow Charbagh",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12419",
     "name": "Gomti Express",
     "from": "Lucknow Charbagh",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12417",
     "name": "Prayagraj Express",
     "from": "Prayagraj Jn",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12033",
     "name": "Kanpur Central - New Delhi Shatabdi Express",
     "from": "Kanpur Central",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22425",
     "name": "Ayodhya Cantt - Anand Vihar Vande Bharat Express",
     "from": "Ayodhya Cantt",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12555",
     "name": "Gorakhdham SF Express",
     "from": "Gorakhpur Jn",
     "to": "Bathinda",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1285,56 +1285,56 @@
     "name": "Dehradoon - New Delhi Shatabdi Express",
     "from": "Dehradoon",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22458",
     "name": "Dehradoon - Anand Vihar Vande Bharat Express",
     "from": "Dehradoon",
     "to": "Anand Vihar Terminal",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12039",
     "name": "Kathgodam - New Delhi Shatabdi Express",
     "from": "Kathgodam",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12056",
     "name": "Dehradoon - New Delhi Jan Shatabdi Express",
     "from": "Dehradoon",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15036",
     "name": "Uttaranchal Sampark Kranti Express",
     "from": "Kathgodam",
     "to": "Delhi Jn",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "15014",
     "name": "Ranikhet Express",
     "from": "Kathgodam",
     "to": "Jaisalmer",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "19020",
     "name": "Bandra Terminus Express",
     "from": "Haridwar",
     "to": "Bandra Terminus",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "18478",
     "name": "Kalinga Utkal Express",
     "from": "Yog Nagari Rishikesh",
     "to": "Puri",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  },
@@ -1346,56 +1346,56 @@
     "name": "Howrah - New Delhi Rajdhani Express",
     "from": "Howrah Jn",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12313",
     "name": "Sealdah - New Delhi Rajdhani Express",
     "from": "Sealdah",
     "to": "New Delhi",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12841",
     "name": "Coromandel Express",
     "from": "Howrah Jn",
     "to": "MGR Chennai Central",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12860",
     "name": "Gitanjali Express",
     "from": "Howrah Jn",
     "to": "Mumbai CSMT",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12345",
     "name": "Saraighat Express",
     "from": "Howrah Jn",
     "to": "Guwahati",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12343",
     "name": "Darjeeling Mail",
     "from": "Sealdah",
     "to": "Haldibari",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "22301",
     "name": "Howrah - New Jalpaiguri Vande Bharat Express",
     "from": "Howrah Jn",
     "to": "New Jalpaiguri",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    },
    {
     "number": "12303",
     "name": "Poorva Express",
     "from": "Howrah Jn",
     "to": "Shakurbasti",
-    "fetchedOn": "2026-11-15"
+    "fetchedOn": "2026-11-16"
    }
   ]
  }
