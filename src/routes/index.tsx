@@ -575,9 +575,6 @@ function Index() {
             </div>
             <PlayButton medium="home_closing" className="shrink-0" />
           </div>
-          <p className="relative mt-8 border-t border-border pt-5 text-xs text-muted-foreground">
-            RailBuzz is an independent app, not affiliated with Indian Railways, IRCTC or any government body.
-          </p>
         </div>
       </section>
     </main>

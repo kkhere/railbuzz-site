@@ -136,12 +136,6 @@ function TrainChatPage() {
               Every train gets a chat room for each day it runs. Join the room for your train and you are talking to the people
               on your journey: about the delay, the platform, the coaches, or just the long hours ahead.
             </p>
-            <p lang="hi" className="mt-3 text-muted-foreground">
-              अपनी ट्रेन के सहयात्रियों से चैट करें: हर ट्रेन का अपना चैट रूम।
-            </p>
-            <p lang="te" className="mt-1 text-muted-foreground">
-              మీ రైలులోని సహ ప్రయాణికులతో చాట్ చేయండి: ప్రతి రైలుకు సొంత చాట్ రూమ్.
-            </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <PlayButton medium="train_chat_hero" />
               <Link

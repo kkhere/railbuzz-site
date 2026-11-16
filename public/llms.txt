@@ -23,7 +23,6 @@ Key facts:
 
 ## Guides and data
 
-- [Guides](https://railbuzz.in/guides/): plain-English guides to Indian train travel
 - [Train running status, explained](https://railbuzz.in/guides/running-status/): Departed, Expected, delay, why expected times change
 - [Coach position](https://railbuzz.in/guides/coach-position/): ENG, SLRD, GEN, S, B, M, A, H, C, E and pantry car codes, finding your coach
 - [How late do trains run?](https://railbuzz.in/punctuality/): arrival delays at the last station for 45 trains from 773 journeys RailBuzz followed (October-November 2026)

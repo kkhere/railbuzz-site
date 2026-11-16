@@ -37,7 +37,6 @@ export const Route = createFileRoute("/sitemap.xml")({
           ["/pnr-status", built],
           ["/train-chat", built],
           ["/about", built],
-          ["/guides", built],
           ["/guides/running-status", built],
           ["/guides/coach-position", built],
           ["/punctuality", built],

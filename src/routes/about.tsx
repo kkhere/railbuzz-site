@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BadgeCheck, Clock, Flag, ShieldCheck, UserRound } from "lucide-react";
 import type { ReactNode } from "react";
-import { PlayButton } from "@/components/site-layout";
+import { IndiaFlag, PlayButton } from "@/components/site-layout";
 import { PLAY_URL, SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 
 // About RailBuzz: who and what it is, in plain sentences that a person, a
@@ -98,9 +98,8 @@ const facts: [string, ReactNode][] = [
   ["Available on", <a key="play" href={PLAY_URL} className="text-primary hover:underline">Google Play (Android)</a>],
   ["Price", "Free: every feature is free to use"],
   ["Launched", "November 2026"],
-  ["Made in", "India"],
+  ["Made in", <span key="in" className="inline-flex items-center gap-2">India <IndiaFlag /></span>],
   ["Train information", "Third-party railway data services, as Indian Railways reports it"],
-  ["Affiliation", "Independent: not run by or affiliated with Indian Railways, IRCTC or any government body"],
   ["Contact", <a key="mail" href="mailto:support@railbuzz.in" className="text-primary hover:underline">support@railbuzz.in</a>],
   ["Grievance Officer", <span key="go">Kiran Kumar, <a href="mailto:grievance@railbuzz.in" className="text-primary hover:underline">grievance@railbuzz.in</a></span>],
 ];
@@ -217,9 +216,8 @@ function AboutPage() {
       <Section title="Where train information comes from">
         <p className="mt-4 text-muted-foreground">
           RailBuzz uses third-party railway data services for train schedules, running status, station boards and PNR status, as Indian
-          Railways reports them. RailBuzz is independent: it is not run by, endorsed by or affiliated with Indian Railways, IRCTC or any
-          government body. For anything official, check Indian Railways&rsquo; National Train Enquiry System (enquiry.indianrail.gov.in)
-          or call 139.
+          Railways reports them. For anything official, check Indian Railways&rsquo; National Train Enquiry System
+          (enquiry.indianrail.gov.in) or call 139.
         </p>
       </Section>
 

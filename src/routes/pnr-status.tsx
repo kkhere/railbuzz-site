@@ -145,8 +145,7 @@ function PnrPage() {
       </section>
 
       <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
-        PNR status as Indian Railways&rsquo; reservation system gives it. RailBuzz is an independent app,
-        not affiliated with Indian Railways or IRCTC. For anything official, check with IRCTC or call 139.
+        PNR status as Indian Railways&rsquo; reservation system gives it. For anything official, check with IRCTC or call 139.
       </p>
     </main>
   );

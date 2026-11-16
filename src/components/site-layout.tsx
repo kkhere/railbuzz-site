@@ -67,6 +67,25 @@ export function Logo({ className = "" }: { className?: string }) {
   );
 }
 
+/** India's flag, drawn (an emoji flag shows as "IN" on Windows): saffron, white with the Ashoka Chakra, green. */
+export function IndiaFlag({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 30 20" role="img" aria-label="Flag of India" className={"inline-block h-3.5 w-auto shrink-0 rounded-[2px] ring-1 ring-black/10 " + className}>
+      <rect width="30" height="20" fill="#ffffff" />
+      <rect width="30" height="6.667" fill="#FF9933" />
+      <rect y="13.333" width="30" height="6.667" fill="#138808" />
+      <circle cx="15" cy="10" r="2.7" fill="none" stroke="#000080" strokeWidth="0.55" />
+      <g stroke="#000080" strokeWidth="0.25">
+        {Array.from({ length: 24 }, (_, i) => {
+          const a = (i * Math.PI) / 12;
+          return <line key={i} x1="15" y1="10" x2={(15 + 2.7 * Math.cos(a)).toFixed(2)} y2={(10 + 2.7 * Math.sin(a)).toFixed(2)} />;
+        })}
+      </g>
+      <circle cx="15" cy="10" r="0.55" fill="#000080" />
+    </svg>
+  );
+}
+
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
@@ -143,7 +162,6 @@ export function SiteFooter() {
           <h3 className="mb-4 font-semibold text-foreground">RailBuzz</h3>
           <ul className="space-y-1.5">
             <li><Link to="/train-chat/" className="hover:text-primary">Train chat</Link></li>
-            <li><Link to="/guides/" className="hover:text-primary">Guides</Link></li>
             <li><Link to="/punctuality/" className="hover:text-primary">Train punctuality</Link></li>
             <li><a href="/#features" className="hover:text-primary">Features</a></li>
             <li><a href="/#faq" className="hover:text-primary">Questions</a></li>
@@ -162,7 +180,10 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>© {year} RailBuzz · Made in India · Grievance Officer: Kiran Kumar, <a className="hover:text-primary" href="mailto:grievance@railbuzz.in">grievance@railbuzz.in</a></p>
+          <p className="flex items-center gap-1.5">
+            © {year} RailBuzz · Made in India <IndiaFlag />
+          </p>
+          {/* Said once on every page, here (the owner, 16 November 2026). */}
           <p>An independent app, not affiliated with Indian Railways or IRCTC.</p>
         </div>
       </div>

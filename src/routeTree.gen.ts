@@ -25,7 +25,6 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrainChatRouteImport } from './routes/train-chat'
 import { Route as TrainsRouteImport } from './routes/trains'
 import { Route as TrainsBetweenStationsRouteImport } from './routes/trains-between-stations'
-import { Route as GuidesIndexRouteImport } from './routes/guides.index'
 import { Route as GuidesCoachPositionRouteImport } from './routes/guides.coach-position'
 import { Route as GuidesRunningStatusRouteImport } from './routes/guides.running-status'
 import { Route as StationCodeRouteImport } from './routes/station.$code'
@@ -112,11 +111,6 @@ const TrainsBetweenStationsRoute = TrainsBetweenStationsRouteImport.update({
   path: '/trains-between-stations',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GuidesIndexRoute = GuidesIndexRouteImport.update({
-  id: '/guides/',
-  path: '/guides/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GuidesCoachPositionRoute = GuidesCoachPositionRouteImport.update({
   id: '/guides/coach-position',
   path: '/guides/coach-position',
@@ -164,7 +158,6 @@ export interface FileRoutesByFullPath {
   '/guides/running-status': typeof GuidesRunningStatusRoute
   '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
-  '/guides/': typeof GuidesIndexRoute
   '/train/': typeof TrainIndexRoute
 }
 export interface FileRoutesByTo {
@@ -188,7 +181,6 @@ export interface FileRoutesByTo {
   '/guides/running-status': typeof GuidesRunningStatusRoute
   '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
-  '/guides': typeof GuidesIndexRoute
   '/train': typeof TrainIndexRoute
 }
 export interface FileRoutesById {
@@ -213,7 +205,6 @@ export interface FileRoutesById {
   '/guides/running-status': typeof GuidesRunningStatusRoute
   '/station/$code': typeof StationCodeRoute
   '/train/$number': typeof TrainNumberRoute
-  '/guides/': typeof GuidesIndexRoute
   '/train/': typeof TrainIndexRoute
 }
 export interface FileRouteTypes {
@@ -239,7 +230,6 @@ export interface FileRouteTypes {
     | '/guides/running-status'
     | '/station/$code'
     | '/train/$number'
-    | '/guides/'
     | '/train/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -263,7 +253,6 @@ export interface FileRouteTypes {
     | '/guides/running-status'
     | '/station/$code'
     | '/train/$number'
-    | '/guides'
     | '/train'
   id:
     | '__root__'
@@ -287,7 +276,6 @@ export interface FileRouteTypes {
     | '/guides/running-status'
     | '/station/$code'
     | '/train/$number'
-    | '/guides/'
     | '/train/'
   fileRoutesById: FileRoutesById
 }
@@ -312,7 +300,6 @@ export interface RootRouteChildren {
   GuidesRunningStatusRoute: typeof GuidesRunningStatusRoute
   StationCodeRoute: typeof StationCodeRoute
   TrainNumberRoute: typeof TrainNumberRoute
-  GuidesIndexRoute: typeof GuidesIndexRoute
   TrainIndexRoute: typeof TrainIndexRoute
 }
 
@@ -430,13 +417,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrainsBetweenStationsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guides/': {
-      id: '/guides/'
-      path: '/guides'
-      fullPath: '/guides/'
-      preLoaderRoute: typeof GuidesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/guides/coach-position': {
       id: '/guides/coach-position'
       path: '/guides/coach-position'
@@ -496,7 +476,6 @@ const rootRouteChildren: RootRouteChildren = {
   GuidesRunningStatusRoute: GuidesRunningStatusRoute,
   StationCodeRoute: StationCodeRoute,
   TrainNumberRoute: TrainNumberRoute,
-  GuidesIndexRoute: GuidesIndexRoute,
   TrainIndexRoute: TrainIndexRoute,
 }
 export const routeTree = rootRouteImport

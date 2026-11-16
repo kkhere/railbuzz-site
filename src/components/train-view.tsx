@@ -335,8 +335,7 @@ export function TrainView({ t }: { t: Train }) {
       <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
         Timetable{t.fetchedOn ? ` as of ${dateText(t.fetchedOn)}` : ""}.
         Times, platforms and coach order can change: confirm with Indian Railways&rsquo; National Train Enquiry System
-        (enquiry.indianrail.gov.in) or 139 before you travel. RailBuzz is an independent app, not affiliated with Indian
-        Railways or IRCTC.
+        (enquiry.indianrail.gov.in) or 139 before you travel.
       </p>
     </main>
   );

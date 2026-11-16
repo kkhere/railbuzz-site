@@ -30,8 +30,7 @@ export function articleData(opts: { path: string; title: string; description: st
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "RailBuzz", item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: opts.section, item: pageUrl(opts.section === "Guides" ? "/guides" : opts.path) },
-          ...(opts.section === "Guides" && opts.path !== "/guides" ? [{ "@type": "ListItem", position: 3, name: opts.title, item: url }] : []),
+          { "@type": "ListItem", position: 2, name: opts.title, item: url },
         ],
       },
       ...(opts.faqs.length
@@ -63,11 +62,7 @@ export function Article({
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <Link to="/" className="hover:text-primary">RailBuzz</Link>
         <span className="mx-2">›</span>
-        {section === "Guides" ? (
-          <Link to="/guides/" className="hover:text-primary">Guides</Link>
-        ) : (
-          <span className="text-foreground">Data</span>
-        )}
+        <span className="text-foreground">{section === "Guides" ? "Guide" : "Data"}</span>
       </nav>
       <header className="mt-6">
         <p className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">

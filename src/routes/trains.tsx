@@ -142,10 +142,6 @@ function TrainsPage() {
         </div>
       </section>
 
-      <p className="mt-12 border-t border-border pt-5 text-xs text-muted-foreground">
-        Train information as Indian Railways reports it. RailBuzz is an independent app, not affiliated with
-        Indian Railways or IRCTC.
-      </p>
     </main>
   );
 }

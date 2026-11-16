@@ -111,9 +111,6 @@ function BetweenPage() {
         </div>
       </section>
 
-      <p className="mt-12 border-t border-border pt-5 text-xs text-muted-foreground">
-        Times from the timetable. RailBuzz is an independent app, not affiliated with Indian Railways or IRCTC.
-      </p>
     </main>
   );
 }
