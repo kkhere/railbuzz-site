@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Shell } from "@/components/site-layout";
 import { NotFoundComponent } from "@/components/not-found";
 import { THEME_SCRIPT } from "@/components/theme-toggle";
+import { VisitBeacon } from "@/components/visit-beacon";
 
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
@@ -73,12 +74,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://railbuzz.in/og-image.jpg" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap",
-      },
+      // The two fonts are ours (public/fonts, @font-face in styles.css), fetched
+      // with the page rather than after a second site's stylesheet: PageSpeed
+      // found the hero waiting 1.9 s on that chain on a phone (15 Nov 2026).
+      { rel: "preload", href: "/fonts/bricolage-latin.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: "/fonts/manrope-latin.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
@@ -118,6 +118,7 @@ function RootComponent() {
       <Shell>
         <Outlet />
       </Shell>
+      <VisitBeacon />
     </QueryClientProvider>
   );
 }

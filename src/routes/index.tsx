@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import hero from "@/assets/hero-train.webp";
+import heroSmall from "@/assets/hero-train-828.webp";
 import { AiVisual, ChatVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
 import { PlayButton } from "@/components/site-layout";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
@@ -337,7 +338,7 @@ function Index() {
   return (
     <main>
       <section className="relative isolate overflow-hidden">
-        <img src={hero} alt="An Indian Railways train curving through fields at sunset" width={1600} height={912} fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
+        <img src={hero} srcSet={`${heroSmall} 828w, ${hero} 1600w`} sizes="100vw" alt="An Indian Railways train curving through fields at sunset" width={1600} height={912} fetchPriority="high" className="absolute inset-0 -z-20 h-full w-full object-cover object-right" />
         <div className="absolute inset-0 -z-10 bg-gradient-hero" />
         {/* Phones: the text runs over the whole photo, so the photo is dimmed evenly. */}
         <div className="absolute inset-0 -z-10 bg-background/75 md:hidden" />
@@ -357,7 +358,7 @@ function Index() {
               href="#search"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background/60 px-6 py-3.5 font-semibold backdrop-blur transition hover:border-primary"
             >
-              <Search className="size-5" /> Search trains
+              <Search className="size-5" /> Find your train
             </a>
           </div>
           <p className="mt-5 text-sm text-muted-foreground">Free on Android · Sign in with your mobile number or Google</p>

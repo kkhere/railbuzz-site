@@ -1,0 +1,5 @@
+Bricolage Grotesque (Mathieu Triay) and Manrope (Mikhail Sharanda) are served
+from railbuzz.in itself rather than from Google Fonts, so the page does not
+wait on a second site before it can show anything. Both are licensed under the
+SIL Open Font License, Version 1.1 (https://openfontlicense.org), which allows
+this. The files are Google Fonts' own woff2 subsets, unchanged.

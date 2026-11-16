@@ -82,7 +82,7 @@ export function SearchHub({
             onClick={() => choose(t.id)}
             className={
               "flex flex-col items-center justify-center gap-1 rounded-2xl px-2 py-2.5 text-xs font-semibold transition sm:flex-row sm:gap-2 sm:text-sm " +
-              (tab === t.id ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-background/60 hover:text-foreground")
+              (tab === t.id ? "bg-gradient-primary text-primary-foreground shadow-glow" : "text-muted-foreground hover:bg-background/60 hover:text-foreground")
             }
           >
             <t.icon aria-hidden className="size-4.5 shrink-0" />

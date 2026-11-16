@@ -19,9 +19,16 @@ export const Route = createFileRoute("/train/$number")({
     const first = t.halts[0];
     const last = t.halts[t.halts.length - 1];
     const title = `${t.number} ${t.name}: Timetable, Live Status & Train Chat`;
-    const description =
+    // Within the ~155 characters a search result shows: the facts first, then
+    // as much of what the page offers as fits.
+    const days = t.runDays.length === 7 ? "daily" : t.runDays.map((d) => d[0]!.toUpperCase() + d.slice(1)).join(", ");
+    const core =
       `${t.number} ${t.name}: ${t.from.name} ${first?.dep ?? ""} to ${t.to.name} ${last?.arr ?? ""}, ` +
-      `${Math.max(t.halts.length - 2, 0)} halts on the way, runs ${runDaysText(t.runDays).toLowerCase()}. Timetable, coach position, live status and a chat room for the train.`;
+      `${Math.max(t.halts.length - 2, 0)} halts, runs ${days}.`;
+    const description =
+      [" Timetable, coach position, live status and train chat.", " Timetable, live status and train chat.", " Timetable and train chat.", ""]
+        .map((tail) => core + tail)
+        .find((d) => d.length <= 155) ?? core;
     return {
       ...pageHead(title, description, `/train/${t.number}`),
       scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData(t)) }],
