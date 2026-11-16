@@ -8,7 +8,7 @@ Key facts:
 - App: Google Play, package com.railbuzz.app — https://play.google.com/store/apps/details?id=com.railbuzz.app
 - Price: free; every feature is free to use
 - Launched: November 2026, made in India
-- Train information comes from RailRadar (railradar.in), as Indian Railways reports it
+- Train information comes from third-party railway data services, as Indian Railways reports it
 - Independent: not run by or affiliated with Indian Railways, IRCTC or any government body
 - Contact: support@railbuzz.in; Grievance Officer: Kiran Kumar, grievance@railbuzz.in
 

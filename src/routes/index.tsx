@@ -58,12 +58,11 @@ const faqs: Faq[] = [
   {
     q: "Is RailBuzz an official Indian Railways or IRCTC app?",
     text:
-      "No. RailBuzz is an independent app, not run by Indian Railways, IRCTC or any government body. Train times, running status and PNR status come from RailRadar (railradar.in).",
+      "No. RailBuzz is an independent app, not run by Indian Railways, IRCTC or any government body. Train times, running status and PNR status come from third-party railway data services, as Indian Railways reports them.",
     a: (
       <>
         No. RailBuzz is an independent app, not run by Indian Railways, IRCTC or any government body. Train times, running
-        status and PNR status come from{" "}
-        <a href="https://railradar.in" rel="noopener" className="text-primary underline underline-offset-2">RailRadar</a>.
+        status and PNR status come from third-party railway data services, as Indian Railways reports them.
       </>
     ),
   },
@@ -577,8 +576,7 @@ function Index() {
             <PlayButton medium="home_closing" className="shrink-0" />
           </div>
           <p className="relative mt-8 border-t border-border pt-5 text-xs text-muted-foreground">
-            RailBuzz is an independent app, not affiliated with Indian Railways, IRCTC or any government body. Train data comes
-            from RailRadar.
+            RailBuzz is an independent app, not affiliated with Indian Railways, IRCTC or any government body.
           </p>
         </div>
       </section>

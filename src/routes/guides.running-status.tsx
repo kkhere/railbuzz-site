@@ -48,8 +48,8 @@ function RunningStatusGuide() {
       <h2>Where the information comes from</h2>
       <p>
         Indian Railways records when each train passes its stations. Running status shows those times for the stations the train has
-        passed, and an estimate for the stations ahead. RailBuzz takes the live position from RailRadar, which follows Indian Railways'
-        own tracking, and works out its own arrival estimates from it.
+        passed, and an estimate for the stations ahead. RailBuzz gets each train's live position from a railway data service that follows
+        Indian Railways' own tracking, and works out its own arrival estimates from it.
       </p>
 
       <h2>The words you will see</h2>

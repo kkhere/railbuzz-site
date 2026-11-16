@@ -172,7 +172,7 @@ export function StationTool({
             <p className="mt-4 rounded-2xl border border-border bg-background p-5 text-muted-foreground">No trains are due at this station in the next hours.</p>
           )}
           <p className="mt-3 text-xs text-muted-foreground">
-            From RailRadar, as Indian Railways reports it. Platforms can change: check the station&rsquo;s displays and announcements.
+            As Indian Railways reports it. Platforms can change: check the station&rsquo;s displays and announcements.
           </p>
         </section>
       )}
