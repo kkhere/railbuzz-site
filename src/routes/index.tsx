@@ -147,11 +147,11 @@ const moreFaqs: Faq[] = [
   {
     q: "How do I delete my account?",
     text:
-      "In the app, open the menu, then Settings, then Delete account. You can also ask by email to support@railbuzz.in. The Delete your account page explains what is erased and when.",
+      "In the app, open the menu, then Settings, then Delete Account. You can also ask by email to support@railbuzz.in. The Delete your account page explains what is erased and when.",
     a: (
       <>
         In the app, open the menu, then <strong className="text-foreground">Settings</strong>, then{" "}
-        <strong className="text-foreground">Delete account</strong>. You can also ask by email to{" "}
+        <strong className="text-foreground">Delete Account</strong>. You can also ask by email to{" "}
         <a href="mailto:support@railbuzz.in" className="text-primary underline underline-offset-2">support@railbuzz.in</a>. The{" "}
         <Link to="/delete-account/" className="text-primary underline underline-offset-2">Delete your account</Link> page
         explains what is erased and when.
