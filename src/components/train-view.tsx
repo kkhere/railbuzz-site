@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { PlayButton } from "@/components/site-layout";
 import {
   className as classWords,
-  dateText,
   coachKind,
   coachWords,
   dayText,
@@ -278,9 +277,8 @@ export function TrainView({ t }: { t: Train }) {
 
 
       <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
-        Timetable{t.fetchedOn ? ` as of ${dateText(t.fetchedOn)}` : ""}.
-        Times, platforms and coach order can change: confirm with Indian Railways&rsquo; National Train Enquiry System
-        (enquiry.indianrail.gov.in) or 139 before you travel.
+        Platforms and coach order can change on the day. Follow {t.number} live in the RailBuzz app for its running status and
+        platform updates.
       </p>
     </main>
   );
