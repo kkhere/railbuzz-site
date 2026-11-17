@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { TrainView, faqs } from "@/components/train-view";
+import { TrainView } from "@/components/train-view";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 import { loadTrain, runDaysText, type Train } from "@/lib/trains";
 
@@ -67,10 +67,6 @@ function structuredData(t: Train) {
           { "@type": "ListItem", position: 2, name: "Trains", item: pageUrl("/trains") },
           { "@type": "ListItem", position: 3, name: `${t.number} ${t.name}`, item: url },
         ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: faqs(t).map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
       },
     ],
   };

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BellRing, CalendarDays, ChevronDown, Clock, MapPin, MessageCircle, Route as RouteIcon, Signpost, TrainFront } from "lucide-react";
+import { BellRing, CalendarDays, Clock, MapPin, MessageCircle, Route as RouteIcon, Signpost, TrainFront } from "lucide-react";
 import type { ReactNode } from "react";
 import { PlayButton } from "@/components/site-layout";
 import {
@@ -20,48 +20,6 @@ import {
 // RailBuzz's timetable store as built for the site) and the ones loaded when
 // asked for (routes/train.index.tsx, /train/?n=12345, through the admin
 // route). Nothing on it is live: the live part is in the app.
-
-export function faqs(t: Train): { q: string; a: string }[] {
-  const first = t.halts[0];
-  const last = t.halts[t.halts.length - 1];
-  const list: { q: string; a: string }[] = [];
-  if (first?.dep) {
-    list.push({
-      q: `What time does ${t.number} leave ${t.from.name}?`,
-      a: `${t.number} ${t.name} leaves ${t.from.name} (${t.from.code}) at ${first.dep}` +
-        (first.pf ? `, from platform ${first.pf} by the timetable.` : "."),
-    });
-  }
-  if (last?.arr) {
-    list.push({
-      q: `What time does ${t.number} reach ${t.to.name}?`,
-      a: `It is due at ${t.to.name} (${t.to.code}) at ${last.arr}, ${dayText(last.day)}` +
-        (last.pf ? `, on platform ${last.pf} by the timetable.` : "."),
-    });
-  }
-  list.push({
-    q: `On which days does ${t.number} run?`,
-    a: t.runDays.length === 7
-      ? `${t.number} runs every day.`
-      : `${t.number} runs on ${runDaysText(t.runDays)}, from ${t.from.name}.`,
-  });
-  if (t.durationMin > 0) {
-    list.push({
-      q: `How long does ${t.number} take from ${t.from.name} to ${t.to.name}?`,
-      a: `About ${durationText(t.durationMin)} for ${t.distanceKm} km, with ${t.halts.length - 2} halts on the way` +
-        (t.avgSpeed ? ` and an average speed of ${t.avgSpeed} km/h.` : "."),
-    });
-  }
-  list.push({
-    q: `Is there a chat group for ${t.number} ${t.name}?`,
-    a: `Yes. RailBuzz has a chat room for every day ${t.number} runs. Join it in the RailBuzz app to talk to the passengers on the same train about delays, platforms, coaches and food on board. Everyone appears under an alias, never a name or phone number, and the room closes 15 minutes after the run ends.`,
-  });
-  list.push({
-    q: `Where is ${t.number} right now?`,
-    a: `Open ${t.number} in the RailBuzz app for its live running status: the station it last passed, how late it is running and the expected time at every halt ahead. You can also subscribe to the train for updates on your phone until your stop, and chat with the passengers on board.`,
-  });
-  return list;
-}
 
 const coachStyle = {
   ac: "border-primary/60 bg-primary/15 text-primary",
@@ -91,7 +49,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
   );
 }
 
-/** A train's page: its timetable, coach position, running days and questions, from [t]. */
+/** A train's page: its timetable, coach position and running days, from [t]. */
 export function TrainView({ t }: { t: Train }) {
   const first = t.halts[0];
   const last = t.halts[t.halts.length - 1];
@@ -318,19 +276,6 @@ export function TrainView({ t }: { t: Train }) {
         </div>
       </Section>
 
-      <Section id="faq" title={`${t.number} questions`}>
-        <div className="mt-6 space-y-3">
-          {faqs(t).map((f) => (
-            <details key={f.q} className="group rounded-2xl border border-border bg-card open:border-primary/50">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold [&::-webkit-details-marker]:hidden">
-                <h3 className="text-base">{f.q}</h3>
-                <ChevronDown className="size-5 shrink-0 text-primary transition group-open:rotate-180" />
-              </summary>
-              <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </Section>
 
       <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
         Timetable{t.fetchedOn ? ` as of ${dateText(t.fetchedOn)}` : ""}.
