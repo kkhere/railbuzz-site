@@ -216,8 +216,7 @@ function AboutPage() {
       <Section title="Where train information comes from">
         <p className="mt-4 text-muted-foreground">
           RailBuzz uses third-party railway data services for train schedules, running status, station boards and PNR status, as Indian
-          Railways reports them. For anything official, check Indian Railways&rsquo; National Train Enquiry System
-          (enquiry.indianrail.gov.in) or call 139.
+          Railways reports them.
         </p>
       </Section>
 

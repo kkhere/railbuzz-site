@@ -381,7 +381,7 @@ export function BetweenTool({
           </ul>
           {trains.length === 0 && <p className="mt-4 text-muted-foreground">No train between these stations runs on that day.</p>}
           <p className="mt-3 text-xs text-muted-foreground">
-            Times from the timetable; +1 means it arrives the next day. Confirm with NTES or 139 before you travel.
+            Times from the timetable; +1 means it arrives the next day.
           </p>
         </section>
       )}
