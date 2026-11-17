@@ -3,7 +3,7 @@ import { Clock, Flag, MapPinned, Radio, TrainFront } from "lucide-react";
 import type { ReactNode } from "react";
 import { PlayButton } from "@/components/site-layout";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
-import { dateText, hasPage, loadStation, stationDays, type Station, type StationTrain } from "@/lib/trains";
+import { hasPage, loadStation, stationDays, type Station, type StationTrain } from "@/lib/trains";
 
 // One page per station where 15 or more long-distance trains call (1,351;
 // the owner, 16 November 2026): what people search for ("trains from
@@ -194,10 +194,6 @@ function StationPage() {
       </Section>
 
 
-      <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
-        Timetable as of {dateText(s.fetchedOn)}. Times are the timetable&rsquo;s, not live: trains can run late, and platforms can change on
-        the day. Check the live board or the RailBuzz app before you travel.
-      </p>
     </main>
   );
 }
