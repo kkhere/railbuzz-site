@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Loader2, ShieldCheck, Ticket } from "lucide-react";
+import { ArrowRight, CalendarDays, Loader2, ShieldCheck, Ticket, TriangleAlert } from "lucide-react";
 import { type FormEvent, useRef, useState } from "react";
 import { PlayButton } from "@/components/site-layout";
-import { lookup, type PnrResult } from "@/lib/rail-api";
+import { lookup, type PnrResult, type PnrState } from "@/lib/rail-api";
 import { dateText, hasPage } from "@/lib/trains";
 
 // PNR status: one 10-digit number in, the booking out. Checked through the
@@ -29,6 +29,61 @@ export function statusTone(status: string): string {
   return "border-border bg-secondary text-foreground";
 }
 
+type Passenger = PnrResult["passengers"][number];
+
+/** A passenger's state: from the route (17 November 2026 on), else from the status words. */
+function stateOf(p: Passenger): PnrState {
+  if (p.state) return p.state;
+  const s = p.current.trim().toUpperCase();
+  if (s.startsWith("CAN")) return "cancelled";
+  if (s.startsWith("CNF") || s.startsWith("CONFIRM")) return "confirmed";
+  if (s.startsWith("RAC")) return "rac";
+  if (/^(WL|GNWL|PQWL|RLWL|TQWL|RSWL|RQWL|CKWL|NOSB)/.test(s)) return "waiting";
+  return "unknown";
+}
+
+/** Each state's word on a passenger's badge, its word in the summary ("2 confirmed"), and its colours. */
+const STATE: Record<Exclude<PnrState, "unknown">, { word: string; count: string; tone: string }> = {
+  confirmed: { word: "Confirmed", count: "confirmed", tone: "border-chart-5/50 bg-chart-5/15 text-chart-5" },
+  rac: { word: "RAC", count: "RAC", tone: "border-chart-3/50 bg-chart-3/15 text-chart-3" },
+  waiting: { word: "Waiting list", count: "waiting", tone: "border-destructive/50 bg-destructive/15 text-destructive" },
+  cancelled: { word: "Cancelled", count: "cancelled", tone: "border-destructive/50 bg-destructive/15 text-destructive" },
+};
+
+/** IRCTC's berth codes, in words. */
+const BERTHS: Record<string, string> = {
+  LB: "Lower berth",
+  MB: "Middle berth",
+  UB: "Upper berth",
+  SL: "Side lower",
+  SM: "Side middle",
+  SU: "Side upper",
+  WS: "Window seat",
+  MS: "Middle seat",
+  AS: "Aisle seat",
+};
+
+/** "Coach S1 · Berth 60 · Lower berth"; empty when no seat is held. */
+function seatText(p: Passenger, state: PnrState): string {
+  if (!p.coach && !p.berth) return "";
+  const kind = p.berthType ? BERTHS[p.berthType] ?? p.berthType : "";
+  return [
+    p.coach && `Coach ${p.coach}`,
+    p.berth && `${state === "rac" ? "Shared berth" : "Berth"} ${p.berth}`,
+    kind,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+/** "2 confirmed, 1 cancelled", in the passengers' order of states. */
+function summary(passengers: Passenger[]): { state: PnrState; count: number }[] {
+  const order: PnrState[] = ["confirmed", "rac", "waiting", "cancelled", "unknown"];
+  return order
+    .map((state) => ({ state, count: passengers.filter((p) => stateOf(p) === state).length }))
+    .filter((s) => s.count > 0 && s.state !== "unknown");
+}
+
 function ResultCard({ r }: { r: PnrResult }) {
   return (
     <section aria-label={`PNR ${r.pnr}`} className="mt-6 overflow-hidden rounded-2xl border border-primary/50 bg-background">
@@ -48,6 +103,20 @@ function ResultCard({ r }: { r: PnrResult }) {
         <p className="mt-2 text-muted-foreground">
           {r.from.name} ({r.from.code}) → {r.to.name} ({r.to.code})
         </p>
+        {r.trainCancelled && (
+          <p className="mt-4 flex items-center gap-2 rounded-xl border border-destructive/50 bg-destructive/10 px-4 py-3 font-semibold text-destructive">
+            <TriangleAlert aria-hidden className="size-5 shrink-0" /> Indian Railways has cancelled this train.
+          </p>
+        )}
+        {summary(r.passengers).length > 0 && (
+          <ul aria-label="Tickets" className="mt-4 flex flex-wrap gap-2">
+            {summary(r.passengers).map((s) => (
+              <li key={s.state} className={"rounded-lg border px-3 py-1 text-sm font-bold " + STATE[s.state as Exclude<PnrState, "unknown">].tone}>
+                {s.count} {STATE[s.state as Exclude<PnrState, "unknown">].count}
+              </li>
+            ))}
+          </ul>
+        )}
         <ul className="mt-4 flex flex-wrap gap-2 text-sm">
           {r.date && (
             <li className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1">
@@ -67,31 +136,40 @@ function ResultCard({ r }: { r: PnrResult }) {
         </ul>
       </div>
       {r.passengers.length > 0 ? (
-        // Phones: tighter cells, and coach and berth under the status, so the table fits a 320 px screen.
+        // Phones: two columns, the booking status under the current one, so the table fits a 320 px screen.
         <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead className="text-[11px] uppercase tracking-normal text-muted-foreground sm:text-xs sm:tracking-wider">
             <tr>
               <th scope="col" className="px-3 py-3 sm:px-5 md:px-6">Passenger</th>
-              <th scope="col" className="px-2 py-3">Booking status</th>
+              <th scope="col" className="hidden px-2 py-3 sm:table-cell">Booking status</th>
               <th scope="col" className="px-3 py-3 sm:px-5 md:px-6">Current status</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {r.passengers.map((p) => (
-              <tr key={p.number}>
-                <th scope="row" className="px-3 py-4 font-medium sm:px-5 md:px-6">{p.number}</th>
-                <td className="px-2 py-4 text-muted-foreground">{p.booking || "—"}</td>
-                <td className="px-3 py-4 sm:px-5 md:px-6">
-                  <span className={"inline-block rounded-lg border px-2.5 py-1 font-semibold " + statusTone(p.current)}>{p.current || "—"}</span>
-                  {(p.coach || p.berth) && (
-                    <span className="mt-1 block text-muted-foreground sm:ml-2 sm:mt-0 sm:inline">
-                      {[p.coach && `Coach ${p.coach}`, p.berth && `Berth ${p.berth}`].filter(Boolean).join(" · ")}
+            {r.passengers.map((p) => {
+              const state = stateOf(p);
+              const known = state === "unknown" ? null : STATE[state];
+              const seat = seatText(p, state);
+              // The status words beside the plain word, when they add something ("WL/3", "RAC/S5/12").
+              const words = known && p.current && !/^(CNF|CAN)/i.test(p.current) && !seat ? p.current : "";
+              return (
+                <tr key={p.number} className="align-top">
+                  <th scope="row" className="px-3 py-4 font-medium sm:px-5 md:px-6">{p.number}</th>
+                  <td className="hidden px-2 py-4 font-mono text-sm text-muted-foreground [overflow-wrap:anywhere] sm:table-cell">{p.booking || "—"}</td>
+                  <td className="px-3 py-4 sm:px-5 md:px-6">
+                    <span className={"inline-block whitespace-nowrap rounded-lg border px-2.5 py-1 font-semibold " + (known ? known.tone : statusTone(p.current))}>
+                      {known ? known.word : p.current || "Not known"}
                     </span>
-                  )}
-                </td>
-              </tr>
-            ))}
+                    {words && <span className="ml-2 font-mono text-muted-foreground">{words}</span>}
+                    {seat && <span className="mt-1.5 block font-semibold text-foreground">{seat}</span>}
+                    {p.booking && (
+                      <span className="mt-1 block font-mono text-xs text-muted-foreground [overflow-wrap:anywhere] sm:hidden">Booked {p.booking}</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
         </div>

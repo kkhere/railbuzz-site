@@ -16,8 +16,25 @@ export type PnrResult = {
   travelClass: string;
   quota: string;
   chartPrepared: boolean;
-  passengers: { number: number; booking: string; current: string; coach: string; berth: string }[];
+  /** Indian Railways has cancelled the train itself. */
+  trainCancelled?: boolean;
+  passengers: {
+    number: number;
+    /** As booked: "CNF/S1/58/MB/GN", "WL/14". */
+    booking: string;
+    /** As it stands now: "CNF/S1/60", "RAC/S5/12", "WL/3", "CAN". */
+    current: string;
+    /** From the admin route since 17 November 2026; worked out from [current] when missing. */
+    state?: PnrState;
+    /** The coach and berth held now; empty when none is. */
+    coach: string;
+    berth: string;
+    /** "LB", "MB", "UB", "SL", "SU"... */
+    berthType?: string;
+  }[];
 };
+
+export type PnrState = "confirmed" | "rac" | "waiting" | "cancelled" | "unknown";
 
 export type BetweenResult = {
   from: { code: string; name: string };
