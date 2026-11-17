@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
 import { SearchHub } from "@/components/search-hub";
 import { PlayButton } from "@/components/site-layout";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
@@ -11,21 +10,6 @@ const TITLE = "Live Station Departures: Trains Due Now | RailBuzz";
 const DESCRIPTION =
   "The live board for any Indian Railways station: trains arriving and leaving in the next hours, expected times, delays and platforms.";
 
-const faqs: { q: string; a: string }[] = [
-  {
-    q: "What does the station board show?",
-    a: "The trains due at the station in the next few hours: when each is due by the timetable, when it is expected now, how late it is running and the platform, as Indian Railways reports them.",
-  },
-  {
-    q: "How up to date is it?",
-    a: "Each board is at most two minutes old when you open it. Tap Refresh for the latest, or follow a train in the RailBuzz app to have its position kept up to date for you.",
-  },
-  {
-    q: "Can I find my train's platform here?",
-    a: "Yes, when Indian Railways has announced it. Platforms can change at short notice, so check the station's displays and announcements too.",
-  },
-];
-
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -35,10 +19,6 @@ const structuredData = {
         { "@type": "ListItem", position: 1, name: "RailBuzz", item: `${SITE_URL}/` },
         { "@type": "ListItem", position: 2, name: "Station departures", item: pageUrl("/station-departures") },
       ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     },
   ],
 };
@@ -89,20 +69,6 @@ function StationPage() {
         </div>
       </section>
 
-      <section id="faq" className="scroll-mt-20 pt-14">
-        <h2 className="text-2xl font-bold md:text-3xl">Questions</h2>
-        <div className="mt-6 space-y-3">
-          {faqs.map((f) => (
-            <details key={f.q} className="group rounded-2xl border border-border bg-card open:border-primary/50">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold [&::-webkit-details-marker]:hidden">
-                <h3 className="text-base">{f.q}</h3>
-                <ChevronDown aria-hidden className="size-5 shrink-0 text-primary transition group-open:rotate-180" />
-              </summary>
-              <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
 
     </main>
   );

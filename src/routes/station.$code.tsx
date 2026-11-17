@@ -1,5 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
-import { ChevronDown, Clock, Flag, MapPinned, Radio, TrainFront } from "lucide-react";
+import { Clock, Flag, MapPinned, Radio, TrainFront } from "lucide-react";
 import type { ReactNode } from "react";
 import { PlayButton } from "@/components/site-layout";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
@@ -28,46 +28,6 @@ function facts(s: Station) {
   const ending = s.trains.filter((t) => t[10] === 2);
   const daily = s.trains.filter((t) => stationDays(t[9]).length === 7);
   return { leaving, starting, ending, daily, first: leaving[0], last: leaving[leaving.length - 1] };
-}
-
-export function stationFaqs(s: Station): { q: string; a: string }[] {
-  const f = facts(s);
-  const list: { q: string; a: string }[] = [
-    {
-      q: `How many trains stop at ${s.name}?`,
-      a: `${s.trains.length} long-distance trains call at ${s.name} (${s.code}) in the timetable, ` +
-        `${f.daily.length} of them every day. ${f.starting.length} start here and ${f.ending.length} end here. ` +
-        `Local, passenger and special trains are not counted.`,
-    },
-  ];
-  if (f.first) {
-    list.push({
-      q: `Which is the first train from ${s.name}?`,
-      a: `By the timetable, the first train to leave ${s.name} after midnight is ${f.first[0]} ${f.first[1]} at ${f.first[6]}, ` +
-        `towards ${f.first[4]} (${daysText(f.first[9]).toLowerCase() === "daily" ? "daily" : daysText(f.first[9])}).`,
-    });
-  }
-  if (f.last && f.last !== f.first) {
-    list.push({
-      q: `Which is the last train from ${s.name}?`,
-      a: `The last train of the day by the timetable is ${f.last[0]} ${f.last[1]} at ${f.last[6]}, towards ${f.last[4]} ` +
-        `(${daysText(f.last[9]).toLowerCase() === "daily" ? "daily" : daysText(f.last[9])}).`,
-    });
-  }
-  if (f.starting.length > 0) {
-    const names = f.starting.slice(0, 8).map((t) => `${t[0]} ${t[1]}`).join(", ");
-    list.push({
-      q: `Which trains start from ${s.name}?`,
-      a: `${f.starting.length} train${f.starting.length === 1 ? "" : "s"} start${f.starting.length === 1 ? "s" : ""} at ${s.name}` +
-        `${f.starting.length > 8 ? ", among them" : ":"} ${names}.`,
-    });
-  }
-  list.push({
-    q: `How do I see live arrivals and departures at ${s.name}?`,
-    a: `Open the live board for ${s.code} on RailBuzz: the trains due at ${s.name} in the next hours with their expected times and delays. ` +
-      `For one train, its live running status and alerts before your station are in the RailBuzz app.`,
-  });
-  return list;
 }
 
 export const Route = createFileRoute("/station/$code")({
@@ -106,10 +66,6 @@ function structuredData(s: Station) {
           { "@type": "ListItem", position: 2, name: "Stations", item: pageUrl("/station-departures") },
           { "@type": "ListItem", position: 3, name: `${s.name} (${s.code})`, item: url },
         ],
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: stationFaqs(s).map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
       },
     ],
   };
@@ -237,19 +193,6 @@ function StationPage() {
         </div>
       </Section>
 
-      <Section id="faq" title={`${s.name} questions`}>
-        <div className="mt-6 space-y-3">
-          {stationFaqs(s).map((q) => (
-            <details key={q.q} className="group rounded-2xl border border-border bg-card open:border-primary/50">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-semibold [&::-webkit-details-marker]:hidden">
-                <h3 className="text-base">{q.q}</h3>
-                <ChevronDown className="size-5 shrink-0 text-primary transition group-open:rotate-180" />
-              </summary>
-              <p className="px-5 pb-5 leading-relaxed text-muted-foreground">{q.a}</p>
-            </details>
-          ))}
-        </div>
-      </Section>
 
       <p className="mt-12 border-t border-border pt-5 text-xs leading-relaxed text-muted-foreground">
         Timetable as of {dateText(s.fetchedOn)}. Times are the timetable&rsquo;s, not live: trains can run late, and platforms can change on
