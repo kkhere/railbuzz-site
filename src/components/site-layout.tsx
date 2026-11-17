@@ -5,6 +5,25 @@ import logo from "@/assets/railbuzz-logo.webp";
 import logoLight from "@/assets/railbuzz-logo-light.webp";
 import { playLink } from "@/lib/legal-page";
 import { ThemeToggle } from "@/components/theme-toggle";
+import playBadge from "@/assets/google-play-badge.svg";
+
+/**
+ * Google's own "Get it on Google Play" badge (the official artwork, unchanged,
+ * as its brand guidelines ask), linking to the listing; [medium] names it in
+ * Play Console's install reports. The trademark line is in the footer.
+ */
+export function PlayBadge({ medium, className = "" }: { medium: string; className?: string }) {
+  return (
+    <a
+      href={playLink(medium)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={"inline-flex shrink-0 rounded-[0.6rem] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary " + className}
+    >
+      <img src={playBadge} alt="Get it on Google Play" width={180} height={53} className="h-[3.25rem] w-auto" />
+    </a>
+  );
+}
 
 /** "Get it on Google Play"; [medium] names the button in Play Console's install reports. */
 export function PlayButton({ medium, className = "" }: { medium: string; className?: string }) {
@@ -121,9 +140,15 @@ export function SiteHeader() {
         </div>
       </div>
       {/* Phones: the same links, in one short row under the logo. */}
-      <nav aria-label="Main" className="flex justify-center gap-2 border-t border-border/40 px-4 text-sm font-medium text-muted-foreground md:hidden">
-        {menu.map((n) => (
-          <Link key={n.to} to={n.to} className="px-2.5 py-2.5 hover:text-foreground" activeProps={{ className: "text-primary" }}>
+      <nav aria-label="Main" className="flex justify-center border-t border-border/40 px-2 text-[13px] font-medium text-muted-foreground min-[400px]:gap-1 min-[400px]:text-sm md:hidden">
+        {menu.slice(0, 2).map((n) => (
+          <Link key={n.to} to={n.to} className="px-2 py-2.5 hover:text-foreground min-[400px]:px-2.5" activeProps={{ className: "text-primary" }}>
+            {n.label}
+          </Link>
+        ))}
+        <a href="/#features" className="px-2 py-2.5 hover:text-foreground min-[400px]:px-2.5">Features</a>
+        {menu.slice(2).map((n) => (
+          <Link key={n.to} to={n.to} className="px-2 py-2.5 hover:text-foreground min-[400px]:px-2.5" activeProps={{ className: "text-primary" }}>
             {n.label}
           </Link>
         ))}
@@ -140,14 +165,8 @@ export function SiteFooter() {
         <div className="col-span-2 space-y-4 lg:col-span-1">
           <Logo />
           <p className="max-w-xs">Live train status, alerts until your stop, and a chat room for every train on Indian Railways.</p>
-          <a
-            href={playLink("footer")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 font-semibold text-foreground transition hover:border-primary"
-          >
-            <Smartphone aria-hidden className="size-4" /> Get it on Google Play
-          </a>
+          <PlayBadge medium="footer" />
+          <p className="max-w-xs text-xs">Google Play and the Google Play logo are trademarks of Google LLC.</p>
         </div>
         <div>
           <h3 className="mb-4 font-semibold text-foreground">Search</h3>
@@ -161,7 +180,7 @@ export function SiteFooter() {
         <div>
           <h3 className="mb-4 font-semibold text-foreground">RailBuzz</h3>
           <ul className="space-y-1.5">
-            <li><Link to="/train-chat/" className="hover:text-primary">Train chat</Link></li>
+            <li><Link to="/train-chat/" className="hover:text-primary">Train Chat</Link></li>
             <li><Link to="/punctuality/" className="hover:text-primary">Train punctuality</Link></li>
             <li><a href="/#features" className="hover:text-primary">Features</a></li>
             <li><a href="/#faq" className="hover:text-primary">Questions</a></li>

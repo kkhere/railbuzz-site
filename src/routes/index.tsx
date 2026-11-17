@@ -27,12 +27,14 @@ import {
   Zap,
   Globe,
   TriangleAlert,
+  Check,
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import hero from "@/assets/hero-train.webp";
 import heroSmall from "@/assets/hero-train-828.webp";
 import { AiVisual, ChatVisual, NewsVisual, StatusVisual, SubscribeVisual } from "@/components/home-visuals";
-import { PlayButton } from "@/components/site-layout";
+import { IndiaFlag, PlayBadge } from "@/components/site-layout";
+import { AppScreens } from "@/components/app-screens";
 import { PLAY_URL, SITE_URL, pageHead } from "@/lib/legal-page";
 import { SearchHub, openSearch } from "@/components/search-hub";
 
@@ -226,9 +228,9 @@ export const Route = createFileRoute("/")({
 // Subscribe and Train chat carry a green Live label, as the app's chat does
 // (the owner, 16 November 2026); no card is highlighted over the others.
 const highlights: { icon: LucideIcon; title: string; text: string; href: string; live?: { short: string; long: string } }[] = [
-  { icon: MapPin, title: "Live train status", text: "Where your train is, how late it is, and when it reaches your station.", href: "#running-status" },
-  { icon: BellRing, title: "Subscribe to any train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", live: { short: "Live", long: "Live updates" } },
-  { icon: MessageCircle, title: "Train chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat", live: { short: "Live", long: "Live" } },
+  { icon: MapPin, title: "Live Running Status", text: "Where your train is, how late it is, and when it reaches your station.", href: "#running-status" },
+  { icon: BellRing, title: "Subscribe to a Train", text: "Sit back. Your train updates you every hour, right in your notifications.", href: "#subscribe", live: { short: "Live", long: "Live updates" } },
+  { icon: MessageCircle, title: "Train Chat", text: "Your train's own group chat: delays, platforms, help and a little fun.", href: "#train-chat", live: { short: "Live", long: "Live" } },
   { icon: Sparkles, title: "RailBuzz AI", text: "Ask anything about your journey. Food, fares, refunds, rules.", href: "#railbuzz-ai" },
 ];
 
@@ -385,7 +387,7 @@ function Index() {
           </p>
           {/* Play first; then a train and a PNR, each one tap from its box (the owner, 16 November 2026). */}
           <div className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
-            <PlayButton medium="home_hero" className="col-span-2" />
+            <PlayBadge medium="home_hero" className="col-span-2 justify-self-start" />
             <a
               href="#search"
               onClick={(e) => {
@@ -407,7 +409,18 @@ function Index() {
               <span className="hidden sm:inline">Check PNR status</span>
             </a>
           </div>
-          <p className="mt-5 text-sm text-muted-foreground">Free on Android · Sign in with your mobile number or Google</p>
+          {/* Each true of the app as it is: free, chat posts need a verified number,
+              data never sold (Privacy Policy), made in India. */}
+          <ul className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            {["Free", "Verified passengers in chat", "Your data is never sold"].map((t) => (
+              <li key={t} className="flex items-center gap-1.5">
+                <Check aria-hidden className="size-4 text-primary" /> {t}
+              </li>
+            ))}
+            <li className="flex items-center gap-1.5">
+              <Check aria-hidden className="size-4 text-primary" /> Made in India <IndiaFlag />
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -489,6 +502,16 @@ function Index() {
           </div>
         </section>
       ))}
+
+      <section id="see-the-app" aria-labelledby="see-the-app-heading" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-20 md:pt-32">
+        <SectionHead
+          eyebrow="See the app"
+          title="RailBuzz, on a real journey"
+          text="Screens from the app as it is today: real trains, real stations, real news."
+          id="see-the-app-heading"
+        />
+        <AppScreens />
+      </section>
 
       <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-20 px-5 pt-20 md:pt-32">
         <SectionHead eyebrow="How it works" title="Ready before your train leaves" />
@@ -573,7 +596,7 @@ function Index() {
                 Live status, alerts until your stop and a chat room for your train. Free on Android.
               </p>
             </div>
-            <PlayButton medium="home_closing" className="shrink-0" />
+            <PlayBadge medium="home_closing" />
           </div>
         </div>
       </section>
