@@ -1,6 +1,7 @@
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { RAIL_API } from "@/lib/rail-api";
+import { isCrawler } from "@/lib/crawler";
 
 // Visit counts for the RailBuzz dashboard (admin app's /api/public/visit,
 // migration 084): one beacon per page shown, and one per tap on a Google
@@ -37,8 +38,8 @@ export function VisitBeacon() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    // Test browsers and page-speed tools are not visitors.
-    if (navigator.webdriver) return;
+    // Test browsers, page-speed tools and crawlers are not visitors (lib/crawler.ts).
+    if (isCrawler()) return;
     const utm = new URLSearchParams(window.location.search).get("utm_source");
     send({ k: "view", p: path, r: document.referrer, ...(utm ? { s: utm } : {}), w: window.screen.width });
   }, [path]);
@@ -46,7 +47,7 @@ export function VisitBeacon() {
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       const link = (event.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!link || !link.href.startsWith("https://play.google.com/") || navigator.webdriver) return;
+      if (!link || !link.href.startsWith("https://play.google.com/") || isCrawler()) return;
       send({ k: "play", p: window.location.pathname, l: playButtonOf(link.href), w: window.screen.width });
     };
     document.addEventListener("click", onClick, true);

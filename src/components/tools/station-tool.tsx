@@ -2,8 +2,15 @@ import { Link } from "@tanstack/react-router";
 import { Loader2, RefreshCw, Search, TrainFront } from "lucide-react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { StationPicker, type Station } from "@/components/station-picker";
-import { errorText, loadStations, lookup, type LookupError, type StationResult } from "@/lib/rail-api";
+import {
+  errorText,
+  loadStations,
+  lookup,
+  type LookupError,
+  type StationResult,
+} from "@/lib/rail-api";
 import { hasPage } from "@/lib/trains";
+import { isCrawler } from "@/lib/crawler";
 
 // A station's live board: the trains due in the next hours, how late they are
 // and on which platform, from RailRadar through the admin route (kind
@@ -19,8 +26,10 @@ function status(r: Row): { text: string; tone: string } {
   if (r.state === "not-started") return { text: "Not started yet", tone: "text-muted-foreground" };
   if (r.state === "scheduled") return { text: "", tone: "" };
   // A live row that does not say how late: not known, never "On time" (18 November 2026).
-  if (r.state && (r.delay === null || r.delay === undefined)) return { text: "Delay not known", tone: "text-muted-foreground" };
-  if (r.delay !== null && r.delay >= 5) return { text: `${r.delay} min late`, tone: "text-destructive" };
+  if (r.state && (r.delay === null || r.delay === undefined))
+    return { text: "Delay not known", tone: "text-muted-foreground" };
+  if (r.delay !== null && r.delay >= 5)
+    return { text: `${r.delay} min late`, tone: "text-destructive" };
   if (r.state) return { text: "On time", tone: "text-chart-5" };
   return { text: "", tone: "" };
 }
@@ -45,31 +54,44 @@ export function StationTool({
     setState("loading");
     setError(null);
     // Station names for the trains' ends: the list the picker already loads.
-    void loadStations().then(setNames).catch(() => undefined);
+    void loadStations()
+      .then(setNames)
+      .catch(() => undefined);
     const r = await lookup({ kind: "station", code: s.code }, honeypot.current?.value ?? "");
     setState("idle");
     if ("result" in r) {
       setBoard(r.result);
       setShown({
         station: s,
-        at: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }),
+        at: new Date().toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Asia/Kolkata",
+        }),
       });
     } else {
       setBoard(null);
-      setError(r.error === "not_found" ? "No live board was found for this station." : errorText(r.error as LookupError, "station boards"));
+      setError(
+        r.error === "not_found"
+          ? "No live board was found for this station."
+          : errorText(r.error as LookupError, "station boards"),
+      );
     }
   }
 
-  // A shared link (?code=BZA): fill the picker and look once.
+  // A shared link (?code=BZA): fill the picker and look once. Not for a
+  // crawler (lib/crawler.ts): the picker is filled, nothing is asked.
   useEffect(() => {
     if (!initialCode) return;
+    const crawler = isCrawler();
     let live = true;
     void loadStations()
       .then((all) => {
         if (!live) return;
         const s = { code: initialCode, name: all[initialCode] ?? initialCode };
         setStation(s);
-        void run(s);
+        if (!crawler) void run(s);
       })
       .catch(() => undefined);
     return () => {
@@ -100,13 +122,29 @@ export function StationTool({
             disabled={state === "loading"}
             className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-gradient-primary px-7 font-semibold text-primary-foreground shadow-glow transition hover:brightness-110 disabled:opacity-70"
           >
-            {state === "loading" ? <Loader2 aria-hidden className="size-5 animate-spin" /> : <Search aria-hidden className="size-5" />}
+            {state === "loading" ? (
+              <Loader2 aria-hidden className="size-5 animate-spin" />
+            ) : (
+              <Search aria-hidden className="size-5" />
+            )}
             {state === "loading" ? "Loading…" : "Show trains"}
           </button>
         </div>
-        <input ref={honeypot} type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-px w-px opacity-0" />
+        <input
+          ref={honeypot}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute -left-[9999px] h-px w-px opacity-0"
+        />
         <div aria-live="polite">
-          {error && <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">{error}</p>}
+          {error && (
+            <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">
+              {error}
+            </p>
+          )}
         </div>
       </form>
 
@@ -115,10 +153,12 @@ export function StationTool({
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <h3 className="text-xl font-bold">
-                {shown.station.name} <span className="font-mono text-base text-primary">{shown.station.code}</span>
+                {shown.station.name}{" "}
+                <span className="font-mono text-base text-primary">{shown.station.code}</span>
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                {board.trains.length} {board.trains.length === 1 ? "train" : "trains"} · updated {shown.at}
+                {board.trains.length} {board.trains.length === 1 ? "train" : "trains"} · updated{" "}
+                {shown.at}
               </p>
             </div>
             <button
@@ -127,7 +167,11 @@ export function StationTool({
               disabled={state === "loading"}
               className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-semibold transition hover:border-primary disabled:opacity-60"
             >
-              <RefreshCw aria-hidden className={"size-4 " + (state === "loading" ? "animate-spin" : "")} /> Refresh
+              <RefreshCw
+                aria-hidden
+                className={"size-4 " + (state === "loading" ? "animate-spin" : "")}
+              />{" "}
+              Refresh
             </button>
           </div>
           {board.trains.length > 0 ? (
@@ -140,7 +184,10 @@ export function StationTool({
                 const startsHere = r.from === board.code;
                 const endsHere = r.to === board.code || !r.dep;
                 return (
-                  <li key={`${r.number}-${time}`} className="border-b border-border last:border-b-0">
+                  <li
+                    key={`${r.number}-${time}`}
+                    className="border-b border-border last:border-b-0"
+                  >
                     <Link
                       {...(hasPage(r.number)
                         ? { to: "/train/$number/" as const, params: { number: r.number } }
@@ -148,22 +195,41 @@ export function StationTool({
                       className="group grid grid-cols-[4.5rem_1fr] gap-3 p-4 transition hover:bg-primary/5 sm:grid-cols-[5rem_1fr_auto] sm:items-center"
                     >
                       <span className="tabular-nums">
-                        <span className={"block text-lg font-bold " + (late ? "text-muted-foreground line-through decoration-1" : "")}>{time}</span>
-                        {late && <span className="block text-lg font-bold text-destructive">{expected}</span>}
-                        <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">{endsHere ? "Arrives" : "Leaves"}</span>
+                        <span
+                          className={
+                            "block text-lg font-bold " +
+                            (late ? "text-muted-foreground line-through decoration-1" : "")
+                          }
+                        >
+                          {time}
+                        </span>
+                        {late && (
+                          <span className="block text-lg font-bold text-destructive">
+                            {expected}
+                          </span>
+                        )}
+                        <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">
+                          {endsHere ? "Arrives" : "Leaves"}
+                        </span>
                       </span>
                       <span className="min-w-0">
                         <span className="flex items-center gap-2 font-semibold group-hover:text-primary">
                           <TrainFront aria-hidden className="size-4 shrink-0 text-primary" />
-                          <span className="text-primary">{r.number}</span> <span className="truncate">{r.name}</span>
+                          <span className="text-primary">{r.number}</span>{" "}
+                          <span className="truncate">{r.name}</span>
                         </span>
                         <span className="mt-0.5 block text-sm text-muted-foreground">
-                          {startsHere ? "Starts here" : `From ${name(r.from)}`} → {endsHere && r.to === board.code ? "ends here" : name(r.to)}
+                          {startsHere ? "Starts here" : `From ${name(r.from)}`} →{" "}
+                          {endsHere && r.to === board.code ? "ends here" : name(r.to)}
                         </span>
                       </span>
                       <span className="col-span-2 flex items-center gap-3 text-sm sm:col-span-1 sm:flex-col sm:items-end sm:gap-1">
                         {st.text && <span className={"font-semibold " + st.tone}>{st.text}</span>}
-                        {r.pf && <span className="rounded-md border border-border px-2 py-0.5 text-xs">PF {r.pf}</span>}
+                        {r.pf && (
+                          <span className="rounded-md border border-border px-2 py-0.5 text-xs">
+                            PF {r.pf}
+                          </span>
+                        )}
                       </span>
                     </Link>
                   </li>
@@ -171,10 +237,13 @@ export function StationTool({
               })}
             </ul>
           ) : (
-            <p className="mt-4 rounded-2xl border border-border bg-background p-5 text-muted-foreground">No trains are due at this station in the next hours.</p>
+            <p className="mt-4 rounded-2xl border border-border bg-background p-5 text-muted-foreground">
+              No trains are due at this station in the next hours.
+            </p>
           )}
           <p className="mt-3 text-xs text-muted-foreground">
-            As Indian Railways reports it. Platforms can change: check the station&rsquo;s displays and announcements.
+            As Indian Railways reports it. Platforms can change: check the station&rsquo;s displays
+            and announcements.
           </p>
         </section>
       )}

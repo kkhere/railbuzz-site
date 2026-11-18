@@ -2,8 +2,15 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeftRight, ArrowRight, Loader2, Search, TrainFront } from "lucide-react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { StationPicker, type Station } from "@/components/station-picker";
-import { type BetweenResult, errorText, loadStations, lookup, type LookupError } from "@/lib/rail-api";
+import {
+  type BetweenResult,
+  errorText,
+  loadStations,
+  lookup,
+  type LookupError,
+} from "@/lib/rail-api";
 import { durationText, hasPage } from "@/lib/trains";
+import { isCrawler } from "@/lib/crawler";
 
 // Every train between two stations, from RailRadar through the admin route
 // (kind "between"). An answer is kept six hours and shared with the app, so a
@@ -65,16 +72,31 @@ function fromStations(trains: Row[], askedFrom: string): FromStation[] {
     by.set(code, s);
   }
   if (by.size === 0 || (by.size === 1 && by.has(asked))) return [];
-  return [...by.values()].sort((a, b) => Number(a.code !== asked) - Number(b.code !== asked) || b.count - a.count);
+  return [...by.values()].sort(
+    (a, b) => Number(a.code !== asked) - Number(b.code !== asked) || b.count - a.count,
+  );
 }
 
 /** The "Nearby stations" box; the whole label takes the tap. */
-function NearbyBox({ id, checked, onChange, className }: { id: string; checked: boolean; onChange: (on: boolean) => void; className: string }) {
+function NearbyBox({
+  id,
+  checked,
+  onChange,
+  className,
+}: {
+  id: string;
+  checked: boolean;
+  onChange: (on: boolean) => void;
+  className: string;
+}) {
   return (
     <label
       htmlFor={id}
       title="Also show trains from the other main stations in the same city, such as Kacheguda for Secunderabad"
-      className={"-my-2 cursor-pointer select-none items-center gap-2 py-2 text-sm font-medium text-foreground " + className}
+      className={
+        "-my-2 cursor-pointer select-none items-center gap-2 py-2 text-sm font-medium text-foreground " +
+        className
+      }
     >
       <input
         id={id}
@@ -135,7 +157,9 @@ export function BetweenTool({
     setAllStations(false);
     setAsked({ from: a.code, to: b.code });
     const r = await lookup(
-      near ? { kind: "between", from: a.code, to: b.code, nearby: true } : { kind: "between", from: a.code, to: b.code },
+      near
+        ? { kind: "between", from: a.code, to: b.code, nearby: true }
+        : { kind: "between", from: a.code, to: b.code },
       honeypot.current?.value ?? "",
     );
     if (n !== latest.current) return;
@@ -149,12 +173,21 @@ export function BetweenTool({
         setMore(true);
         await new Promise((resolve) => setTimeout(resolve, 5_000));
         if (n !== latest.current) return;
-        const again = await lookup({ kind: "between", from: a.code, to: b.code, nearby: true }, honeypot.current?.value ?? "");
+        const again = await lookup(
+          { kind: "between", from: a.code, to: b.code, nearby: true },
+          honeypot.current?.value ?? "",
+        );
         if (n !== latest.current) return;
         setMore(false);
-        if ("result" in again && again.result.trains.length >= r.result.trains.length) setResult(again.result);
+        if ("result" in again && again.result.trains.length >= r.result.trains.length)
+          setResult(again.result);
       }
-    } else setError(r.error === "not_found" ? "No trains were found between these stations." : errorText(r.error as LookupError, "train searches"));
+    } else
+      setError(
+        r.error === "not_found"
+          ? "No trains were found between these stations."
+          : errorText(r.error as LookupError, "train searches"),
+      );
   }
 
   // Turned on or off after a search: the list is asked again, as the app does.
@@ -165,12 +198,15 @@ export function BetweenTool({
     } catch {
       // Storage refused: the choice lasts for this page.
     }
-    if (asked && from && to && from.code === asked.from && to.code === asked.to) void run(from, to, on);
+    if (asked && from && to && from.code === asked.from && to.code === asked.to)
+      void run(from, to, on);
   }
 
-  // A shared link (?from=SC&to=BZA): fill both pickers and search once.
+  // A shared link (?from=SC&to=BZA): fill both pickers and search once; for a
+  // crawler (lib/crawler.ts), only fill them.
   useEffect(() => {
     if (!initialFrom || !initialTo || initialFrom === initialTo) return;
+    const crawler = isCrawler();
     let live = true;
     void loadStations()
       .then((all) => {
@@ -185,7 +221,7 @@ export function BetweenTool({
         } catch {
           near = true;
         }
-        void run(a, b, near);
+        if (!crawler) void run(a, b, near);
       })
       .catch(() => undefined);
     return () => {
@@ -214,11 +250,15 @@ export function BetweenTool({
   const shownStations = allStations ? stations : stations.slice(0, SHOWN);
   const hiddenStations = stations.length - shownStations.length;
   const byDay = result?.trains.filter((t) => day === "all" || t.runDays.includes(day)) ?? [];
-  const trains = byDay.filter((t) => fromSel === null || (t.fromCode || askedFrom).toUpperCase() === fromSel);
+  const trains = byDay.filter(
+    (t) => fromSel === null || (t.fromCode || askedFrom).toUpperCase() === fromSel,
+  );
 
   const chip = (chosen: boolean) =>
     "inline-flex min-h-9 items-center gap-1.5 rounded-xl border px-3 text-xs font-medium transition " +
-    (chosen ? "border-primary/60 bg-primary/15 font-semibold text-primary" : "border-border bg-card hover:border-primary");
+    (chosen
+      ? "border-primary/60 bg-primary/15 font-semibold text-primary"
+      : "border-border bg-card hover:border-primary");
 
   return (
     <div>
@@ -231,7 +271,14 @@ export function BetweenTool({
             onChange={setFrom}
             placeholder="Station name or code"
             // Phones: the box at the top, beside "From". Wider: beside "To", at the row's right end.
-            aside={<NearbyBox id="nearby-stations-sm" checked={nearby} onChange={changeNearby} className="inline-flex md:hidden" />}
+            aside={
+              <NearbyBox
+                id="nearby-stations-sm"
+                checked={nearby}
+                onChange={changeNearby}
+                className="inline-flex md:hidden"
+              />
+            }
           />
           <button
             type="button"
@@ -250,20 +297,43 @@ export function BetweenTool({
             value={to}
             onChange={setTo}
             placeholder="Station name or code"
-            aside={<NearbyBox id="nearby-stations" checked={nearby} onChange={changeNearby} className="hidden md:inline-flex" />}
+            aside={
+              <NearbyBox
+                id="nearby-stations"
+                checked={nearby}
+                onChange={changeNearby}
+                className="hidden md:inline-flex"
+              />
+            }
           />
           <button
             type="submit"
             disabled={state === "loading"}
             className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-gradient-primary px-7 font-semibold text-primary-foreground shadow-glow transition hover:brightness-110 disabled:opacity-70"
           >
-            {state === "loading" ? <Loader2 aria-hidden className="size-5 animate-spin" /> : <Search aria-hidden className="size-5" />}
+            {state === "loading" ? (
+              <Loader2 aria-hidden className="size-5 animate-spin" />
+            ) : (
+              <Search aria-hidden className="size-5" />
+            )}
             {state === "loading" ? "Finding…" : "Find trains"}
           </button>
         </div>
-        <input ref={honeypot} type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-px w-px opacity-0" />
+        <input
+          ref={honeypot}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute -left-[9999px] h-px w-px opacity-0"
+        />
         <div aria-live="polite">
-          {error && <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">{error}</p>}
+          {error && (
+            <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">
+              {error}
+            </p>
+          )}
         </div>
       </form>
 
@@ -271,12 +341,21 @@ export function BetweenTool({
         <section aria-label="Trains found" className="mt-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h3 className="text-xl font-bold">
-              {trains.length} {trains.length === 1 ? "train" : "trains"} from {result.from.name || from?.name} to {result.to.name || to?.name}
-              {stations.length > 0 && <span className="ml-2 text-sm font-medium text-muted-foreground">with nearby stations</span>}
+              {trains.length} {trains.length === 1 ? "train" : "trains"} from{" "}
+              {result.from.name || from?.name} to {result.to.name || to?.name}
+              {stations.length > 0 && (
+                <span className="ml-2 text-sm font-medium text-muted-foreground">
+                  with nearby stations
+                </span>
+              )}
             </h3>
             {more && (
-              <p role="status" className="flex w-full items-center gap-2 text-sm text-muted-foreground">
-                <Loader2 aria-hidden className="size-4 animate-spin text-primary" /> Looking for more trains from nearby stations…
+              <p
+                role="status"
+                className="flex w-full items-center gap-2 text-sm text-muted-foreground"
+              >
+                <Loader2 aria-hidden className="size-4 animate-spin text-primary" /> Looking for
+                more trains from nearby stations…
               </p>
             )}
             <div className="flex flex-wrap gap-1.5" role="group" aria-label="Runs on">
@@ -288,7 +367,9 @@ export function BetweenTool({
                   aria-pressed={day === d}
                   className={
                     "rounded-full border px-3 py-1.5 text-xs font-semibold capitalize transition " +
-                    (day === d ? "border-primary bg-gradient-primary text-primary-foreground" : "border-border text-muted-foreground hover:border-primary")
+                    (day === d
+                      ? "border-primary bg-gradient-primary text-primary-foreground"
+                      : "border-border text-muted-foreground hover:border-primary")
                   }
                 >
                   {d === "all" ? "All days" : d}
@@ -300,11 +381,18 @@ export function BetweenTool({
           {/* The stations the trains leave from, as filters (the app's FromStationChips). */}
           {stations.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Leaves from">
-              <button type="button" onClick={() => setFromSel(null)} aria-pressed={fromSel === null} className={chip(fromSel === null)}>
+              <button
+                type="button"
+                onClick={() => setFromSel(null)}
+                aria-pressed={fromSel === null}
+                className={chip(fromSel === null)}
+              >
                 All <span className="font-bold">{byDay.length}</span>
               </button>
               {shownStations.map((s) => {
-                const count = byDay.filter((t) => (t.fromCode || askedFrom).toUpperCase() === s.code).length;
+                const count = byDay.filter(
+                  (t) => (t.fromCode || askedFrom).toUpperCase() === s.code,
+                ).length;
                 return (
                   <button
                     key={s.code}
@@ -314,7 +402,13 @@ export function BetweenTool({
                     className={chip(fromSel === s.code)}
                   >
                     <span className="max-w-[12rem] truncate">{s.name}</span>
-                    <span className={fromSel === s.code ? "font-bold" : "font-bold text-muted-foreground"}>{count}</span>
+                    <span
+                      className={
+                        fromSel === s.code ? "font-bold" : "font-bold text-muted-foreground"
+                      }
+                    >
+                      {count}
+                    </span>
                   </button>
                 );
               })}
@@ -340,16 +434,23 @@ export function BetweenTool({
                     <span className="min-w-0">
                       <span className="flex items-center gap-2 font-semibold group-hover:text-primary">
                         <TrainFront aria-hidden className="size-4 shrink-0 text-primary" />
-                        <span className="text-primary">{t.number}</span> <span className="truncate">{t.name}</span>
+                        <span className="text-primary">{t.number}</span>{" "}
+                        <span className="truncate">{t.name}</span>
                       </span>
-                      {where && <span className="mt-1 block text-xs font-semibold text-primary">{where}</span>}
+                      {where && (
+                        <span className="mt-1 block text-xs font-semibold text-primary">
+                          {where}
+                        </span>
+                      )}
                       <span className="mt-1.5 flex flex-wrap gap-1">
                         {DAYS.map((d) => (
                           <span
                             key={d}
                             className={
                               "rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase " +
-                              (t.runDays.includes(d) ? "bg-primary/15 text-primary" : "text-muted-foreground/50 line-through")
+                              (t.runDays.includes(d)
+                                ? "bg-primary/15 text-primary"
+                                : "text-muted-foreground/50 line-through")
                             }
                           >
                             {d.slice(0, 2)}
@@ -360,7 +461,9 @@ export function BetweenTool({
                     <span className="flex items-center gap-4 tabular-nums">
                       <span className="text-right">
                         <span className="block text-lg font-bold">{t.dep || "—"}</span>
-                        <span className="block text-xs text-muted-foreground">{t.fromCode || result.from.code}</span>
+                        <span className="block text-xs text-muted-foreground">
+                          {t.fromCode || result.from.code}
+                        </span>
                       </span>
                       <span className="flex flex-col items-center text-xs text-muted-foreground">
                         {t.durationMin > 0 ? durationText(t.durationMin) : ""}
@@ -369,9 +472,13 @@ export function BetweenTool({
                       <span>
                         <span className="block text-lg font-bold">
                           {t.arr || "—"}
-                          {t.arrLater > 0 && <sup className="ml-0.5 text-xs text-primary">+{t.arrLater}</sup>}
+                          {t.arrLater > 0 && (
+                            <sup className="ml-0.5 text-xs text-primary">+{t.arrLater}</sup>
+                          )}
                         </span>
-                        <span className="block text-xs text-muted-foreground">{t.toCode || result.to.code}</span>
+                        <span className="block text-xs text-muted-foreground">
+                          {t.toCode || result.to.code}
+                        </span>
                       </span>
                     </span>
                   </Link>
@@ -379,7 +486,11 @@ export function BetweenTool({
               );
             })}
           </ul>
-          {trains.length === 0 && <p className="mt-4 text-muted-foreground">No train between these stations runs on that day.</p>}
+          {trains.length === 0 && (
+            <p className="mt-4 text-muted-foreground">
+              No train between these stations runs on that day.
+            </p>
+          )}
           <p className="mt-3 text-xs text-muted-foreground">
             Times from the timetable; +1 means it arrives the next day.
           </p>

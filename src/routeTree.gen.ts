@@ -15,6 +15,7 @@ import { Route as CommunityGuidelinesRouteImport } from './routes/community-guid
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as GrievanceRouteImport } from './routes/grievance'
 import { Route as NotFoundRouteImport } from './routes/not-found'
+import { Route as OpenRouteImport } from './routes/open'
 import { Route as PnrStatusRouteImport } from './routes/pnr-status'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PunctualityRouteImport } from './routes/punctuality'
@@ -59,6 +60,11 @@ const GrievanceRoute = GrievanceRouteImport.update({
 const NotFoundRoute = NotFoundRouteImport.update({
   id: '/not-found',
   path: '/not-found',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpenRoute = OpenRouteImport.update({
+  id: '/open',
+  path: '/open',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PnrStatusRoute = PnrStatusRouteImport.update({
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/open': typeof OpenRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/punctuality': typeof PunctualityRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/open': typeof OpenRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/punctuality': typeof PunctualityRoute
@@ -191,6 +199,7 @@ export interface FileRoutesById {
   '/delete-account': typeof DeleteAccountRoute
   '/grievance': typeof GrievanceRoute
   '/not-found': typeof NotFoundRoute
+  '/open': typeof OpenRoute
   '/pnr-status': typeof PnrStatusRoute
   '/privacy': typeof PrivacyRoute
   '/punctuality': typeof PunctualityRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/open'
     | '/pnr-status'
     | '/privacy'
     | '/punctuality'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/open'
     | '/pnr-status'
     | '/privacy'
     | '/punctuality'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/grievance'
     | '/not-found'
+    | '/open'
     | '/pnr-status'
     | '/privacy'
     | '/punctuality'
@@ -286,6 +298,7 @@ export interface RootRouteChildren {
   DeleteAccountRoute: typeof DeleteAccountRoute
   GrievanceRoute: typeof GrievanceRoute
   NotFoundRoute: typeof NotFoundRoute
+  OpenRoute: typeof OpenRoute
   PnrStatusRoute: typeof PnrStatusRoute
   PrivacyRoute: typeof PrivacyRoute
   PunctualityRoute: typeof PunctualityRoute
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/not-found'
       fullPath: '/not-found'
       preLoaderRoute: typeof NotFoundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/open': {
+      id: '/open'
+      path: '/open'
+      fullPath: '/open'
+      preLoaderRoute: typeof OpenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pnr-status': {
@@ -462,6 +482,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeleteAccountRoute: DeleteAccountRoute,
   GrievanceRoute: GrievanceRoute,
   NotFoundRoute: NotFoundRoute,
+  OpenRoute: OpenRoute,
   PnrStatusRoute: PnrStatusRoute,
   PrivacyRoute: PrivacyRoute,
   PunctualityRoute: PunctualityRoute,

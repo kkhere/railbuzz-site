@@ -6,6 +6,7 @@ import { TrainView } from "@/components/train-view";
 import { pageHead } from "@/lib/legal-page";
 import { errorText, lookup, type LookupError } from "@/lib/rail-api";
 import { hasPage, type Train } from "@/lib/trains";
+import { isCrawler } from "@/lib/crawler";
 
 // /train/?n=17255: the timetable of any train, loaded when someone opens it
 // from the site's search, Trains between stations or a station's board. The
@@ -18,7 +19,13 @@ export const Route = createFileRoute("/train/")({
     const n = String(s["n"] ?? "");
     return /^\d{4,6}$/.test(n) ? { n } : {};
   },
-  head: () => pageHead("Train timetable | RailBuzz", "The timetable of an Indian Railways train: halts, times, platforms and coach position.", "/train", true),
+  head: () =>
+    pageHead(
+      "Train timetable | RailBuzz",
+      "The timetable of an Indian Railways train: halts, times, platforms and coach position.",
+      "/train",
+      true,
+    ),
   component: AnyTrainPage,
 });
 
@@ -36,6 +43,8 @@ function AnyTrainPage() {
       void navigate({ to: "/train/$number/", params: { number: n }, replace: true });
       return;
     }
+    // Not looked up for a crawler (lib/crawler.ts): this page is not for search engines.
+    if (isCrawler()) return;
     let live = true;
     void lookup({ kind: "train", number: n }).then((r) => {
       if (!live) return;
@@ -57,9 +66,13 @@ function AnyTrainPage() {
   return (
     <main className="mx-auto max-w-4xl px-5 pt-10">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-        <Link to="/" className="hover:text-primary">RailBuzz</Link>
+        <Link to="/" className="hover:text-primary">
+          RailBuzz
+        </Link>
         <span className="mx-2">›</span>
-        <Link to="/trains/" className="hover:text-primary">Trains</Link>
+        <Link to="/trains/" className="hover:text-primary">
+          Trains
+        </Link>
         {n && (
           <>
             <span className="mx-2">›</span>
@@ -68,15 +81,24 @@ function AnyTrainPage() {
         )}
       </nav>
       {n && !error && (
-        <p className="mt-10 flex items-center gap-3 text-lg text-muted-foreground" aria-live="polite">
-          <Loader2 aria-hidden className="size-5 animate-spin text-primary" /> Loading the timetable of {n}…
+        <p
+          className="mt-10 flex items-center gap-3 text-lg text-muted-foreground"
+          aria-live="polite"
+        >
+          <Loader2 aria-hidden className="size-5 animate-spin text-primary" /> Loading the timetable
+          of {n}…
         </p>
       )}
       {n && error && (
-        <div className="mt-10 rounded-2xl border border-destructive/50 bg-destructive/10 p-5" role="alert">
+        <div
+          className="mt-10 rounded-2xl border border-destructive/50 bg-destructive/10 p-5"
+          role="alert"
+        >
           <p className="font-semibold">Couldn&rsquo;t load train {n}.</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            {error === "not_found" ? "No train with this number was found." : errorText(error, "train timetables")}
+            {error === "not_found"
+              ? "No train with this number was found."
+              : errorText(error, "train timetables")}
           </p>
         </div>
       )}
