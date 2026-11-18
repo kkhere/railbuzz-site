@@ -124,14 +124,15 @@ function ResultCard({ r }: { r: PnrResult }) {
             </li>
           )}
           {r.travelClass && <li className="rounded-full border border-border px-3 py-1">Class {r.travelClass}</li>}
-          <li className="rounded-full border border-border px-3 py-1">Quota {r.quota}</li>
+          {r.quota && <li className="rounded-full border border-border px-3 py-1">Quota {r.quota}</li>}
+          {/* Said only when the answer says it: "not known" otherwise, never "not prepared" (18 November 2026). */}
           <li
             className={
               "rounded-full border px-3 py-1 font-semibold " +
-              (r.chartPrepared ? "border-chart-5/50 bg-chart-5/15 text-chart-5" : "border-border text-muted-foreground")
+              (r.chartPrepared === true ? "border-chart-5/50 bg-chart-5/15 text-chart-5" : "border-border text-muted-foreground")
             }
           >
-            {r.chartPrepared ? "Chart prepared" : "Chart not prepared"}
+            {r.chartPrepared === true ? "Chart prepared" : r.chartPrepared === false ? "Chart not prepared" : "Chart not known"}
           </li>
         </ul>
       </div>

@@ -14,8 +14,10 @@ export type PnrResult = {
   to: { code: string; name: string };
   date: string;
   travelClass: string;
+  /** "" when not said. */
   quota: string;
-  chartPrepared: boolean;
+  /** Null when not said: "Chart not known". */
+  chartPrepared: boolean | null;
   /** Indian Railways has cancelled the train itself. */
   trainCancelled?: boolean;
   passengers: {
@@ -76,7 +78,8 @@ export type StationResult = {
     dep: string;
     expArr: string;
     expDep: string;
-    delay: number;
+    /** Null when the row does not say: "Delay not known". */
+    delay: number | null;
     pf: string;
     state: string;
   }[];

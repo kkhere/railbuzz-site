@@ -18,7 +18,9 @@ function status(r: Row): { text: string; tone: string } {
   if (r.state === "cancelled") return { text: "Cancelled", tone: "text-destructive" };
   if (r.state === "not-started") return { text: "Not started yet", tone: "text-muted-foreground" };
   if (r.state === "scheduled") return { text: "", tone: "" };
-  if (r.delay >= 5) return { text: `${r.delay} min late`, tone: "text-destructive" };
+  // A live row that does not say how late: not known, never "On time" (18 November 2026).
+  if (r.state && (r.delay === null || r.delay === undefined)) return { text: "Delay not known", tone: "text-muted-foreground" };
+  if (r.delay !== null && r.delay >= 5) return { text: `${r.delay} min late`, tone: "text-destructive" };
   if (r.state) return { text: "On time", tone: "text-chart-5" };
   return { text: "", tone: "" };
 }
