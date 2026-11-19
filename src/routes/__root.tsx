@@ -61,9 +61,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "RailBuzz" },
       { name: "description", content: "Live train information and chat with fellow passengers on Indian Railways." },
-      // The browser bar's colour, for each theme (the page's background).
-      { name: "theme-color", content: "#f4f7fb", media: "(prefers-color-scheme: light)" },
-      { name: "theme-color", content: "#051532", media: "(prefers-color-scheme: dark)" },
+      // The browser bar's colour is THEME_SCRIPT's own tag, set to the theme
+      // the page is in. (The two here before, one per device theme, were cut
+      // to the dark one by the head, which keeps the last of a name.)
       { property: "og:site_name", content: "RailBuzz" },
       { property: "og:locale", content: "en_IN" },
       // The picture a shared railbuzz.in link shows (WhatsApp, X, Facebook).
