@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeftRight, ArrowRight, Loader2, Search, TrainFront } from "lucide-react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { RecentSearches } from "@/components/recent-searches";
 import { StationPicker, type Station } from "@/components/station-picker";
 import {
   type BetweenResult,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/rail-api";
 import { durationText, hasPage } from "@/lib/trains";
 import { isCrawler } from "@/lib/crawler";
+import { remember, useRecent } from "@/lib/recent";
 
 // Every train between two stations, from RailRadar through the admin route
 // (kind "between"). An answer is kept six hours and shared with the app, so a
@@ -22,6 +24,9 @@ import { isCrawler } from "@/lib/crawler";
 // remembered on this browser. The admin route makes the list, as the app's
 // railradar function does (nearby.ts); this page says where each train is
 // caught when it is not at the stations typed, and filters by that station.
+//
+// Above the pickers, the From–To pairs this browser searched lately
+// (lib/recent.ts); a tap searches again.
 
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
 
@@ -136,6 +141,7 @@ export function BetweenTool({
   const honeypot = useRef<HTMLInputElement>(null);
   /** The latest search, so an older answer arriving late is not shown over it. */
   const latest = useRef(0);
+  const recent = useRecent("routes");
 
   // The box as this browser last left it (on until turned off).
   useEffect(() => {
@@ -166,6 +172,10 @@ export function BetweenTool({
     setState("idle");
     if ("result" in r) {
       setResult(r.result);
+      remember("routes", {
+        from: { code: a.code, name: a.name },
+        to: { code: b.code, name: b.name },
+      });
       // Given in part (the server answers within about 3.5 s): the rest is
       // still coming from RailRadar and is kept as it comes. Asked once more
       // a few seconds later, the list is whole; it replaces this one.
@@ -263,6 +273,26 @@ export function BetweenTool({
   return (
     <div>
       <form onSubmit={submit} noValidate className="relative">
+        <RecentSearches
+          what="routes"
+          onClear={recent.clear}
+          chips={recent.list.map((r) => ({
+            key: `${r.from.code}>${r.to.code}`,
+            words: `${r.from.name} to ${r.to.name}`,
+            label: (
+              <span className="font-mono font-semibold">
+                {r.from.code} <span className="text-primary">→</span> {r.to.code}
+              </span>
+            ),
+            onPick: () => {
+              setFrom(r.from);
+              setTo(r.to);
+              onSearch?.(r.from.code, r.to.code);
+              void run(r.from, r.to);
+            },
+            onRemove: () => recent.remove(r),
+          }))}
+        />
         <div className="grid items-end gap-3 md:grid-cols-[1fr_auto_1fr_auto]">
           <StationPicker
             id="from-station"

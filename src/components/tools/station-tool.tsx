@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Loader2, RefreshCw, Search, TrainFront } from "lucide-react";
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { RecentSearches } from "@/components/recent-searches";
 import { StationPicker, type Station } from "@/components/station-picker";
 import {
   errorText,
@@ -11,11 +12,13 @@ import {
 } from "@/lib/rail-api";
 import { hasPage } from "@/lib/trains";
 import { isCrawler } from "@/lib/crawler";
+import { remember, useRecent } from "@/lib/recent";
 
 // A station's live board: the trains due in the next hours, how late they are
 // and on which platform, from RailRadar through the admin route (kind
 // "station"). Shared with the app for two minutes, so a busy station costs
-// one request every two minutes at most, however many look.
+// one request every two minutes at most, however many look. Above the
+// picker, the stations this browser looked at lately (lib/recent.ts).
 
 type Row = StationResult["trains"][number];
 
@@ -49,6 +52,7 @@ export function StationTool({
   const [shown, setShown] = useState<{ station: Station; at: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const honeypot = useRef<HTMLInputElement>(null);
+  const recent = useRecent("stations");
 
   async function run(s: Station) {
     setState("loading");
@@ -61,6 +65,7 @@ export function StationTool({
     setState("idle");
     if ("result" in r) {
       setBoard(r.result);
+      remember("stations", { code: s.code, name: s.name });
       setShown({
         station: s,
         at: new Date().toLocaleTimeString("en-IN", {
@@ -115,6 +120,26 @@ export function StationTool({
   return (
     <div>
       <form onSubmit={submit} noValidate className="relative">
+        <RecentSearches
+          what="stations"
+          onClear={recent.clear}
+          chips={recent.list.map((s) => ({
+            key: s.code,
+            words: `${s.name} (${s.code})`,
+            label: (
+              <>
+                <span className="font-mono font-semibold text-primary">{s.code}</span> {s.name}
+              </>
+            ),
+            onPick: () => {
+              setStation(s);
+              setError(null);
+              onSearch?.(s.code);
+              void run(s);
+            },
+            onRemove: () => recent.remove(s),
+          }))}
+        />
         <div className="grid items-end gap-3 md:grid-cols-[1fr_auto]">
           <StationPicker id="board-station" label="Station" value={station} onChange={setStation} />
           <button

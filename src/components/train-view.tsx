@@ -9,8 +9,9 @@ import {
   Signpost,
   TrainFront,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect } from "react";
 import { OpenInApp } from "@/components/open-in-app";
+import { remember } from "@/lib/recent";
 import {
   className as classWords,
   coachKind,
@@ -69,6 +70,8 @@ function Section({ id, title, children }: { id: string; title: string; children:
 
 /** A train's page: its timetable, coach position and running days, from [t]. */
 export function TrainView({ t }: { t: Train }) {
+  // Opened, from the search box or from Google: one of this browser's recent trains.
+  useEffect(() => remember("trains", { number: t.number, name: t.name }), [t.number, t.name]);
   const first = t.halts[0];
   const last = t.halts[t.halts.length - 1];
   const kinds = new Set(t.coaches.map(coachKind));

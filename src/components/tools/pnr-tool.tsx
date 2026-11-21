@@ -1,13 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, Loader2, ShieldCheck, Ticket, TriangleAlert } from "lucide-react";
 import { type FormEvent, useRef, useState } from "react";
+import { RecentSearches } from "@/components/recent-searches";
 import { PlayButton } from "@/components/site-layout";
 import { lookup, type PnrResult, type PnrState } from "@/lib/rail-api";
+import { remember, useRecent } from "@/lib/recent";
 import { dateText, hasPage } from "@/lib/trains";
 
 // PNR status: one 10-digit number in, the booking out. Checked through the
 // admin app's public route (kind "pnr"): 5 a day per visitor, 200 for the
 // site (migration 080). Nothing is stored there: not the PNR, not the answer.
+// A PNR that was answered is kept in this browser only, for a tap next time
+// (lib/recent.ts), until 2 days after its journey.
 
 const ERRORS: Record<string, string> = {
   bad_request: "Enter the 10-digit PNR number from your ticket.",
@@ -194,10 +198,11 @@ export function PnrTool() {
   const [error, setError] = useState<string | null>(null);
   const honeypot = useRef<HTMLInputElement>(null);
 
-  async function check(e: FormEvent) {
-    e.preventDefault();
+  const recent = useRecent("pnrs");
+
+  async function checkPnr(value: string) {
     if (state === "checking") return;
-    if (!/^\d{10}$/.test(pnr)) {
+    if (!/^\d{10}$/.test(value)) {
       setError(ERRORS["bad_request"] ?? null);
       return;
     }
@@ -205,12 +210,24 @@ export function PnrTool() {
     setError(null);
     setResult(null);
     try {
-      const r = await lookup({ kind: "pnr", pnr }, honeypot.current?.value ?? "");
-      if ("result" in r) setResult(r.result);
-      else setError(ERRORS[r.error] ?? ERRORS["unavailable"] ?? null);
+      const r = await lookup({ kind: "pnr", pnr: value }, honeypot.current?.value ?? "");
+      if ("result" in r) {
+        setResult(r.result);
+        remember("pnrs", {
+          pnr: value,
+          train: /^\d{1,6}$/.test(r.result.train.number) ? r.result.train.number : "",
+          date: /^\d{4}-\d{2}-\d{2}$/.test(r.result.date) ? r.result.date : null,
+          at: Date.now(),
+        });
+      } else setError(ERRORS[r.error] ?? ERRORS["unavailable"] ?? null);
     } finally {
       setState("idle");
     }
+  }
+
+  function check(e: FormEvent) {
+    e.preventDefault();
+    void checkPnr(pnr);
   }
 
   return (
@@ -219,6 +236,30 @@ export function PnrTool() {
         <label htmlFor="pnr-input" className="mb-2 block text-sm font-semibold">
           PNR number
         </label>
+        <RecentSearches
+          what="PNRs"
+          onClear={recent.clear}
+          chips={recent.list.map((p) => {
+            const about = [p.train, p.date && dateText(p.date).replace(/ (\w{3})\w* \d{4}$/, " $1")]
+              .filter(Boolean)
+              .join(" · ");
+            return {
+              key: p.pnr,
+              words: `PNR ${p.pnr}${about ? `, ${about}` : ""}`,
+              label: (
+                <>
+                  <span className="font-mono font-semibold tracking-wide">{p.pnr}</span>
+                  {about && <span className="text-muted-foreground"> · {about}</span>}
+                </>
+              ),
+              onPick: () => {
+                setPnr(p.pnr);
+                void checkPnr(p.pnr);
+              },
+              onRemove: () => recent.remove(p),
+            };
+          })}
+        />
         <div className="flex flex-col gap-3 sm:flex-row">
           <div className="relative flex-1">
             <Ticket aria-hidden className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
@@ -249,7 +290,8 @@ export function PnrTool() {
         </div>
         <p id="pnr-hint" className="mt-3 flex items-start gap-2 text-sm text-muted-foreground">
           <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
-          RailBuzz doesn&rsquo;t store your PNR or its status. Up to 5 checks a day on the website.
+          RailBuzz doesn&rsquo;t store your PNR or its status. Your recent PNRs stay in this browser
+          only. Up to 5 checks a day on the website.
         </p>
         <div aria-live="polite">
           {error && <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">{error}</p>}

@@ -2,6 +2,7 @@
 // (admin/src/app/api/public/rail/route.ts), which holds the RailRadar key and
 // the daily limits (migration 080). Nothing the visitor types is kept there.
 
+import { indexStations, type IndexedStation } from "@/lib/station-search";
 import type { Train } from "@/lib/trains";
 
 /** The route; a local preview build can point elsewhere with VITE_RAIL_API. */
@@ -152,13 +153,42 @@ export function errorText(error: LookupError, what: string): string {
   }
 }
 
-/** Station names, code -> name, fetched once when a picker is first used (public/data/stations.json). */
+/**
+ * Every station with the trains stopping there (public/data/station-index.json,
+ * scripts/build_site_trains.py), fetched once when a picker is first used. The
+ * older public/data/stations.json (names only) if the index cannot be had:
+ * every station then counts as one with trains, as the pickers were before.
+ */
+let index: Promise<IndexedStation[]> | null = null;
+export function loadStationIndex(): Promise<IndexedStation[]> {
+  index ??= fetch("/data/station-index.json")
+    .then((r) => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.json() as Promise<{ s: [string, string, number, number][] }>;
+    })
+    .then((d) => indexStations(d.s))
+    .catch(() =>
+      fetch("/data/stations.json")
+        .then((r) => {
+          if (!r.ok) throw new Error(String(r.status));
+          return r.json() as Promise<Record<string, string>>;
+        })
+        .then((names) =>
+          indexStations(Object.entries(names).map(([code, name]) => [code, name, 0, 1])),
+        ),
+    );
+  index.catch(() => {
+    index = null;
+  });
+  return index;
+}
+
+/** Station names, code -> name (every station, trains stopping or not). */
 let stations: Promise<Record<string, string>> | null = null;
 export function loadStations(): Promise<Record<string, string>> {
-  stations ??= fetch("/data/stations.json").then((r) => {
-    if (!r.ok) throw new Error(String(r.status));
-    return r.json() as Promise<Record<string, string>>;
-  });
+  stations ??= loadStationIndex().then((list) =>
+    Object.fromEntries(list.map((s) => [s.code, s.name])),
+  );
   stations.catch(() => {
     stations = null;
   });
