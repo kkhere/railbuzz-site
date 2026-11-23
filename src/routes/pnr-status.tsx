@@ -47,7 +47,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "How many PNRs can I check?",
-    a: "Up to 5 a day on the website. The RailBuzz app checks more, keeps your journey's running status in view and can alert you before your station.",
+    a: "Up to 5 a day on the website. The RailBuzz app checks more, keeps your journey's running status in view and lets you subscribe to the train for travel updates.",
   },
 ];
 
@@ -121,7 +121,7 @@ function PnrPage() {
               <TrainFront aria-hidden className="size-6 text-primary" /> After the PNR: your train, live
             </h2>
             <p className="mt-2 text-muted-foreground">
-              RailBuzz shows where your train is, alerts you before your station, and puts you in a chat room with the
+              RailBuzz shows where your train is, lets you subscribe to it for travel updates, and puts you in a chat room with the
               passengers on the same train.
             </p>
           </div>

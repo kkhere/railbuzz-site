@@ -164,8 +164,8 @@ export function TrainView({ t }: { t: Train }) {
               },
               {
                 icon: BellRing,
-                title: "Alerts until your stop",
-                text: "Subscribe for updates every hour and alerts before your stations.",
+                title: "Subscribe for travel updates",
+                text: "An update about every hour, and alerts before your stations.",
               },
               {
                 icon: MessageCircle,

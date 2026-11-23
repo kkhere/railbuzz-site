@@ -164,7 +164,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-5 py-14 text-sm text-muted-foreground lg:grid-cols-[1.4fr_1fr_1fr_1fr] [&_li>a]:inline-block [&_li>a]:py-1">
         <div className="col-span-2 space-y-4 lg:col-span-1">
           <Logo />
-          <p className="max-w-xs">Live train status, alerts until your stop, and a chat room for every train on Indian Railways.</p>
+          <p className="max-w-xs">Live train status, travel updates for the trains you subscribe to, and a chat room for every train on Indian Railways.</p>
           <PlayBadge medium="footer" />
           <p className="max-w-xs text-xs">Google Play and the Google Play logo are trademarks of Google LLC.</p>
         </div>

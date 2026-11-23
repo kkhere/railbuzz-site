@@ -44,7 +44,7 @@ import { SearchHub, openSearch } from "@/components/search-hub";
 
 const TITLE = "RailBuzz: Live Train Status, PNR & Train Chat for Indian Railways";
 const DESCRIPTION =
-  "Live train running status, alerts until your stop, PNR status and a chat room with the passengers on your train. Free Android app for Indian Railways.";
+  "Live train status, travel updates for the trains you subscribe to, PNR status and a chat room for your train. Free Android app for Indian Railways.";
 
 type Faq = { q: string; a: ReactNode; text: string };
 
@@ -172,7 +172,7 @@ const structuredData = {
       name: "RailBuzz",
       url: `${SITE_URL}/`,
       logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.png`, width: 512, height: 512 },
-      description: "RailBuzz makes a free Android app for Indian Railways passengers: live train status, alerts, PNR status and a chat room for every train.",
+      description: "RailBuzz makes a free Android app for Indian Railways passengers: live train status, travel updates for the trains you subscribe to, PNR status and a chat room for every train.",
       foundingDate: "2026-11",
       areaServed: { "@type": "Country", name: "India" },
       email: "support@railbuzz.in",
@@ -332,7 +332,7 @@ const pillars: {
 const steps = [
   { title: "Install and sign in", text: "Get RailBuzz from Google Play and sign in with your mobile number or your Google account." },
   { title: "Find your train", text: "Search by train number or name, or pick from the popular trains for your state." },
-  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe for alerts until your stop, or tap Join Chat." },
+  { title: "Follow it, or join the chat", text: "Open Running Status, subscribe to a train for travel updates, or tap Join Chat." },
 ];
 
 const safety: Point[] = [
@@ -383,7 +383,7 @@ function Index() {
             Live train status, and a <span className="text-primary">chat room for your train.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
-            See where your train is, get alerts on your phone until your stop, and chat with the passengers on the same train.
+            Track your train live, subscribe to a train for travel updates, get the latest railway news, and chat with fellow passengers on board.
           </p>
           {/* Play first; then a train and a PNR, each one tap from its box (the owner, 16 November 2026). */}
           <div className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center">
@@ -593,7 +593,7 @@ function Index() {
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Your next journey, with company.</h2>
               <p className="mt-3 max-w-xl text-lg text-muted-foreground">
-                Live status, alerts until your stop and a chat room for your train. Free on Android.
+                Live status, travel updates for the trains you subscribe to, and a chat room for your train. Free on Android.
               </p>
             </div>
             <PlayBadge medium="home_closing" />

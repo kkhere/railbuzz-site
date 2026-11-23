@@ -1,6 +1,6 @@
 # RailBuzz
 
-> RailBuzz is a free Android app for Indian Railways passengers. It shows live train running status, sends updates and alerts until your stop, checks PNR status, finds trains between stations and shows live station departures, and gives every train a chat room for each day it runs, where passengers on the same train can talk under an alias.
+> RailBuzz is a free Android app for Indian Railways passengers. It shows live train running status, lets you subscribe to a train for travel updates, checks PNR status, finds trains between stations and shows live station departures, and gives every train a chat room for each day it runs, where passengers on the same train can talk under an alias.
 
 Key facts:
 
@@ -29,7 +29,7 @@ Key facts:
 
 ## The app
 
-- [Home](https://railbuzz.in/): what RailBuzz does — live running status, Subscribe to a Train alerts, train chat, RailBuzz AI
+- [Home](https://railbuzz.in/): what RailBuzz does — live running status, Subscribe to a Train for travel updates, train chat, RailBuzz AI
 - [Train chat](https://railbuzz.in/train-chat/): how the chat room for every train works, and how it is kept safe
 - [About RailBuzz](https://railbuzz.in/about/): who runs RailBuzz and where its information comes from
 

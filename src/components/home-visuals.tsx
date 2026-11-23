@@ -105,7 +105,7 @@ export function SubscribeVisual() {
           <li key={p.at}>
             <PushCard push={p} />
             {i === 1 && (
-              <div className="py-1.5 text-center text-[11px] text-muted-foreground">· · · about every hour, until your stop · · ·</div>
+              <div className="py-1.5 text-center text-[11px] text-muted-foreground">· · · about every hour of your journey · · ·</div>
             )}
           </li>
         ))}

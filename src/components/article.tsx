@@ -92,7 +92,7 @@ export function Article({
       )}
       <section className="mt-14 flex flex-col gap-4 rounded-3xl border border-primary/50 bg-card p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
         <p className="text-muted-foreground">
-          Live running status, alerts before your station and a chat with the passengers on your train: all in the RailBuzz app.
+          Follow your train live, subscribe to it for travel updates and chat with the passengers on board: all in the RailBuzz app.
         </p>
         <PlayButton medium={medium} className="shrink-0" />
       </section>

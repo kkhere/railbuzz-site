@@ -237,7 +237,7 @@ function TrainChatPage() {
           <div className="relative grid items-center gap-8 md:grid-cols-[1fr_auto]">
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Your next journey, with company.</h2>
-              <p className="mt-3 text-muted-foreground">Free on Android. Live status, alerts and a chat room for every train.</p>
+              <p className="mt-3 text-muted-foreground">Free on Android. Live status, travel updates for the trains you subscribe to, and a chat room for every train.</p>
             </div>
             <PlayButton medium="train_chat_closing" />
           </div>

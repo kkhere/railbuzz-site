@@ -14,7 +14,7 @@ import { PLAY_URL, SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 
 const TITLE = "About RailBuzz: Live Train Status and Train Chat";
 const DESCRIPTION =
-  "RailBuzz is a free Android app for Indian Railways passengers: live train status, alerts, PNR status, railway news and a chat room for every train. Made in India.";
+  "RailBuzz is a free Android app for Indian Railways passengers: live train status, travel updates for the trains you subscribe to, PNR status, railway news and train chat. Made in India.";
 
 const features: { name: string; text: ReactNode }[] = [
   {

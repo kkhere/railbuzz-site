@@ -51,10 +51,10 @@ function OpenPage() {
       <h1 className="text-4xl font-bold md:text-5xl">Open {name} in RailBuzz</h1>
       <p className="mt-3 text-muted-foreground">
         {train
-          ? `Where ${train} is right now, how late it is and its platform, with alerts before your station.`
+          ? `Where ${train} is right now, how late it is and its platform. Subscribe to it for travel updates.`
           : station
             ? `The trains due at ${station}, how late they are and their platforms.`
-            : "Live train status, alerts and a chat room for every train."}
+            : "Live train status, travel updates for the trains you subscribe to, and a chat room for every train."}
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         {target ? (

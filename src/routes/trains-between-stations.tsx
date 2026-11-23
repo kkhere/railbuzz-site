@@ -23,7 +23,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Can I see where the train is right now?",
-    a: "Open the train in the RailBuzz app for its live running status, alerts before your station and a chat room with the passengers on board.",
+    a: "Open the train in the RailBuzz app for its live running status. Subscribe to it for travel updates, or join its chat room with the passengers on board.",
   },
 ];
 
@@ -89,7 +89,7 @@ function BetweenPage() {
           <div>
             <h2 className="text-2xl font-bold">Picked your train? Follow it live.</h2>
             <p className="mt-2 text-muted-foreground">
-              RailBuzz shows where it is, alerts you before your station and puts you in a chat room with the passengers on board.
+              RailBuzz shows where it is, lets you subscribe to it for travel updates and puts you in a chat room with the passengers on board.
             </p>
           </div>
           <PlayButton medium="between_page" />

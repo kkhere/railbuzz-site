@@ -32,7 +32,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Where is my train right now?",
-    a: "Open the train in the RailBuzz app for its live running status: where it is, how late it is running and the expected time at every halt ahead. You can also subscribe for updates until your stop.",
+    a: "Open the train in the RailBuzz app for its live running status: where it is, how late it is running and the expected time at every halt ahead. You can also subscribe to the train for travel updates.",
   },
 ];
 
@@ -119,7 +119,7 @@ function TrainsPage() {
           <div>
             <h2 className="text-2xl font-bold">Found your train? Follow it live.</h2>
             <p className="mt-2 text-muted-foreground">
-              RailBuzz shows where it is right now, alerts you before your station and puts you in a chat room with the
+              RailBuzz shows where it is right now, lets you subscribe to it for travel updates and puts you in a chat room with the
               passengers on board.
             </p>
           </div>

@@ -183,7 +183,7 @@ function ResultCard({ r }: { r: PnrResult }) {
       )}
       <div className="flex flex-col gap-4 border-t border-border bg-card/60 p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
         <p className="text-sm text-muted-foreground">
-          Follow {r.train.number} live, get alerts before your station and chat with your co-passengers in RailBuzz.
+          Follow {r.train.number} live, subscribe to it for travel updates and chat with your co-passengers in RailBuzz.
         </p>
         <PlayButton medium="pnr_result" className="shrink-0" />
       </div>
