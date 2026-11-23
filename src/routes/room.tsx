@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useHydrated } from "@/lib/hydrated";
 import { pageHead, playLink } from "@/lib/legal-page";
 
 const PLAY = playLink("room_link");
@@ -35,7 +36,9 @@ export const Route = createFileRoute("/room")({
 });
 
 function RoomPage() {
-  const { t, d } = Route.useSearch();
+  // The query once React has the page (lib/hydrated.ts): built with none.
+  const query = Route.useSearch();
+  const { t, d } = useHydrated() ? query : {};
   const [android, setAndroid] = useState(false);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { appIntent, OpenInApp } from "@/components/open-in-app";
 import { isCrawler } from "@/lib/crawler";
+import { useHydrated } from "@/lib/hydrated";
 import { pageHead, playLink } from "@/lib/legal-page";
 import { hasPage } from "@/lib/trains";
 
@@ -29,7 +30,9 @@ export const Route = createFileRoute("/open")({
 });
 
 function OpenPage() {
-  const { train, station } = Route.useSearch();
+  // The query once React has the page (lib/hydrated.ts): built with none.
+  const query = Route.useSearch();
+  const { train, station } = useHydrated() ? query : {};
   const target = train && train.length >= 4 ? { train } : station ? { station } : null;
 
   useEffect(() => {

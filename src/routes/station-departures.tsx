@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { SearchHub } from "@/components/search-hub";
 import { PlayButton } from "@/components/site-layout";
+import { useHydrated } from "@/lib/hydrated";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 import { OpenInApp } from "@/components/open-in-app";
 
@@ -44,6 +45,9 @@ export const Route = createFileRoute("/station-departures")({
 function StationPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: Route.fullPath });
+  // The station's button once React has the page (lib/hydrated.ts): built with
+  // none. The search panel reads the code only as it starts, after that.
+  const code = useHydrated() ? search.code : undefined;
   return (
     <main className="mx-auto max-w-5xl px-5 pt-10">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
@@ -80,15 +84,15 @@ function StationPage() {
           <div>
             <h2 className="text-2xl font-bold">Waiting for a train? Keep it in your pocket.</h2>
             <p className="mt-2 text-muted-foreground">
-              Subscribe to it in RailBuzz for updates until it reaches you, or join its chat room to
-              hear from the passengers on board.
+              Subscribe to it in RailBuzz for travel updates, or join its chat room to hear from the
+              passengers on board.
             </p>
           </div>
-          {search.code ? (
+          {code ? (
             <OpenInApp
-              station={search.code}
+              station={code}
               medium="station_departures"
-              label={`Open ${search.code} in RailBuzz`}
+              label={`Open ${code} in RailBuzz`}
             />
           ) : (
             <PlayButton medium="station_departures" />

@@ -7,6 +7,7 @@ import { pageHead } from "@/lib/legal-page";
 import { errorText, lookup, type LookupError } from "@/lib/rail-api";
 import { hasPage, type Train } from "@/lib/trains";
 import { isCrawler } from "@/lib/crawler";
+import { useHydrated } from "@/lib/hydrated";
 
 // /train/?n=17255: the timetable of any train, loaded when someone opens it
 // from the site's search, Trains between stations or a station's board. The
@@ -30,7 +31,9 @@ export const Route = createFileRoute("/train/")({
 });
 
 function AnyTrainPage() {
-  const { n } = Route.useSearch();
+  // The query once React has the page (lib/hydrated.ts): built with none.
+  const query = Route.useSearch();
+  const { n } = useHydrated() ? query : {};
   const navigate = useNavigate();
   const [train, setTrain] = useState<Train | null>(null);
   const [error, setError] = useState<LookupError | null>(null);

@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { SearchHub, type Tab } from "@/components/search-hub";
 import { PlayButton } from "@/components/site-layout";
+import { useHydrated, useQueryKey } from "@/lib/hydrated";
 import { SITE_URL, pageHead, pageUrl } from "@/lib/legal-page";
 
 // Search Trains: every way to look a train up, on one page (the owner, 15
@@ -84,7 +85,11 @@ export const Route = createFileRoute("/trains")({
 });
 
 function TrainsPage() {
-  const search = Route.useSearch();
+  // The query once React has the page (lib/hydrated.ts): built with none. The
+  // panel then starts again on the query's tab and stations, once.
+  const query = Route.useSearch();
+  const search: Search = useHydrated() ? query : {};
+  const panel = useQueryKey();
   const navigate = useNavigate({ from: Route.fullPath });
   const tab: Tab = search.tab ?? (search.from ? "between" : search.code ? "station" : "train");
 
@@ -103,6 +108,7 @@ function TrainsPage() {
 
       <div className="mt-8">
         <SearchHub
+          key={panel}
           initialTab={tab}
           from={search.from}
           to={search.to}
