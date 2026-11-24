@@ -4,6 +4,7 @@ import path from "node:path";
 
 export default defineConfig({
   plugins: [react()],
+  define: { __BUILD_YEAR__: JSON.stringify(String(new Date().getFullYear())) },
   test: {
     environment: "jsdom",
     globals: true,

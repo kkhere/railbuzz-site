@@ -158,7 +158,9 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  const year = new Date().getFullYear();
+  // The build's year, not the phone's: the same in the built page and on the
+  // phone, so New Year doesn't make React redraw every page (vite.config.ts).
+  const year = __BUILD_YEAR__;
   return (
     <footer className="mt-24 border-t border-border bg-card/30">
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-5 py-14 text-sm text-muted-foreground lg:grid-cols-[1.4fr_1fr_1fr_1fr] [&_li>a]:inline-block [&_li>a]:py-1">

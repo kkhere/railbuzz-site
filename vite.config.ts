@@ -15,10 +15,20 @@ const read = <T>(file: string): T => JSON.parse(readFileSync(new URL(file, impor
 const trainPages = read<[string, ...unknown[]][]>("./src/data/train-pages.json").map(([n]) => ({ path: `/train/${n}/` }));
 const stationPages = read<[string, ...unknown[]][]>("./src/data/station-pages.json").map(([c]) => ({ path: `/station/${c}/` }));
 
+// The year in the footer's "© 2026", fixed when the site is built (in India's
+// time). Read on the phone it would change at New Year while the pages built
+// in December still say the old one, and React would throw error #418 and
+// redraw the page (the owner, 24 November 2026).
+const buildYear = new Intl.DateTimeFormat("en-IN", {
+  year: "numeric",
+  timeZone: "Asia/Kolkata",
+}).format(new Date());
+
 // railbuzz.in is served by GitHub Pages, which serves files and runs no server.
 // So there is no server build: every page is rendered to HTML at build time
 // (dist/client/<page>/index.html), the shape Pages serves at /<page>/.
 export default defineConfig({
+  vite: { define: { __BUILD_YEAR__: JSON.stringify(buildYear) } },
   nitro: false,
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
