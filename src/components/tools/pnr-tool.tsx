@@ -291,7 +291,7 @@ export function PnrTool() {
         <p id="pnr-hint" className="mt-3 flex items-start gap-2 text-sm text-muted-foreground">
           <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
           RailBuzz doesn&rsquo;t store your PNR or its status. Your recent PNRs stay in this browser
-          only. Up to 5 checks a day on the website.
+          only.
         </p>
         <div aria-live="polite">
           {error && <p className="mt-4 rounded-2xl border border-destructive/50 bg-destructive/10 p-4 text-sm">{error}</p>}

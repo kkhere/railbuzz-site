@@ -45,10 +45,6 @@ const faqs: { q: string; a: string }[] = [
     q: "Is it safe to check my PNR here?",
     a: "Yes. A PNR status shows the journey and each passenger's status, not names or contact details. RailBuzz does not store the PNR you enter or its answer. To keep the service fair, the website counts checks per internet address, kept only as a one-way code for two days.",
   },
-  {
-    q: "How many PNRs can I check?",
-    a: "Up to 5 a day on the website. The RailBuzz app checks more, keeps your journey's running status in view and lets you subscribe to the train for travel updates.",
-  },
 ];
 
 const structuredData = {
