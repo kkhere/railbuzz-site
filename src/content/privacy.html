@@ -1,5 +1,5 @@
 <p class="updated">
-    Last updated 19 November 2026 · App: <code>com.railbuzz.app</code>
+    Last updated 25 November 2026 · App: <code>com.railbuzz.app</code>
   </p>
 
   <p>
@@ -164,8 +164,10 @@
     <tr>
       <td><strong>Usage events</strong> (screens opened, messages sent, whether a
       sign-in code was filled in from the SMS or typed)</td>
-      <td>Understanding which features are used, so we know what to improve.</td>
-      <td>Unlinked from you on deletion</td>
+      <td>Understanding which features are used, so we know what to improve. A copy
+      goes to <a href="#google-analytics">Google Analytics</a>.</td>
+      <td>Unlinked from you on deletion. Google Analytics&rsquo; copy is never linked
+      to your account; Google keeps it for 2 months, and after that only totals</td>
     </tr>
     <tr>
       <td><strong>Crash reports</strong></td>
@@ -375,6 +377,7 @@
     <tr><td><strong>Google Firebase</strong> (Cloud Messaging)</td><td>Your phone&rsquo;s notification token, and the text of each notification: in chat, the sender&rsquo;s alias and the start of the message, with long numbers hidden; for a train you follow, its running status; for an account alert, what happened and when</td></tr>
     <tr><td><strong>Google Play</strong> (Integrity API)</td><td>When a code is checked, Google Play checks that the app came from Google Play and runs on a genuine Android device, and tells our server the result. The request is tied to that one check; it carries no name, number or message</td></tr>
     <tr><td><strong>Google Firebase</strong> (Crashlytics)</td><td>Crash diagnostics and your account identifier, a random code that is not your number or name</td></tr>
+    <tr id="google-analytics"><td><strong>Google Analytics for Firebase</strong></td><td>The usage events above, such as which screens you open and the train numbers on them, with long numbers and email addresses removed on your phone first; your phone&rsquo;s model, Android version and language, and the app&rsquo;s version; and a random identifier Google creates for this installation of the app. Google works out your approximate area, such as your city, from your internet address and does not keep the address. It receives no name, mobile number, email address, account identifier, message, coordinates or advertising ID, and none of it is used for advertising. It tells us how many people use the app, how often, and which parts</td></tr>
     <tr><td><strong>Vercel</strong></td><td>Hosts the server that answers PNR checks and train lookups on railbuzz.in. It receives what you enter and your internet address, as any web server does; we do not keep either</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Hosts the database and the server functions that hold your account and everything listed above</td></tr>
     <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
