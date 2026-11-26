@@ -1,5 +1,5 @@
 <p class="updated">
-    Last updated 25 November 2026 · App: <code>com.railbuzz.app</code>
+    Last updated 26 November 2026 · App: <code>com.railbuzz.app</code>
   </p>
 
   <p>
@@ -308,6 +308,21 @@
     continues to work; you will just need to pick your station yourself.
   </p>
 
+  <h2 id="voice">Speaking to RailBuzz AI</h2>
+  <p>
+    When you tap the mic in RailBuzz AI, the app asks for the microphone the first
+    time, then listens through your phone&rsquo;s own speech service, on most phones
+    Google&rsquo;s, until you tap stop. That service turns what you say into words.
+    RailBuzz receives only the words, which fill the box for you to read, change and
+    send like a typed question. The sound never reaches RailBuzz, and we keep no
+    recording. The microphone is on only while the red stop button shows, for at
+    most two minutes at a time.
+  </p>
+  <p>
+    Voice input is optional. You can always type, and you can turn off the
+    microphone for RailBuzz in Android settings.
+  </p>
+
   <h2>What other passengers can see</h2>
   <p>
     Only your <strong>passenger alias</strong>, the <strong>messages and help
@@ -381,6 +396,7 @@
     <tr><td><strong>Vercel</strong></td><td>Hosts the server that answers PNR checks and train lookups on railbuzz.in. It receives what you enter and your internet address, as any web server does; we do not keep either</td></tr>
     <tr><td><strong>Supabase</strong></td><td>Hosts the database and the server functions that hold your account and everything listed above</td></tr>
     <tr><td><strong>RailRadar</strong></td><td>Train numbers, station codes and dates, and a PNR number when you check one. The requests come from our servers, with nothing that identifies you</td></tr>
+    <tr><td><strong>Your phone&rsquo;s speech service</strong> (usually Google&rsquo;s)</td><td>What you say after tapping the mic in RailBuzz AI, while it listens. It is part of your phone, not a service RailBuzz runs: it turns speech into words and gives the app only the words &mdash; see <a href="#voice">above</a></td></tr>
     <tr><td><strong>Google Gemini</strong></td><td>What you type to the RailBuzz AI assistant. Also, recent messages from a chat room when our automated safety checks flag that room for review &mdash; see below</td></tr>
     <tr><td><strong>OpenAI</strong></td><td>Messages other passengers liked, disliked, reported or blocked over, with the messages around them, when we check whether that reaction was fair &mdash; see <a href="#contribution-scores">below</a>. OpenAI does not train its models on what it is sent through its API, and keeps it for up to 30 days to detect abuse of its service</td></tr>
     <tr><td><strong>Resend</strong></td><td>Sends the verification code and the welcome email to the address you give us, and the email telling your Google address that your mobile number changed. Also delivers safety alert emails to our support address; these name the account identifier of a reported passenger and say why the alert was raised. They never contain your messages, your mobile number or your alias</td></tr>
@@ -453,6 +469,8 @@
     <li><strong>Delete your account and data</strong> at any time, from the app menu.
       See <a href="/delete-account/">Deleting your RailBuzz account</a>.</li>
     <li><strong>Turn off location</strong> in Android settings. The app keeps working.</li>
+    <li><strong>Type instead of speaking</strong>, or turn off the microphone for
+      RailBuzz in Android settings. Voice input is optional.</li>
     <li><strong>Turn off notifications</strong> in Android settings, or mute a chat
       room from its menu.</li>
     <li><strong>Stop following a train</strong> at any time.</li>
